@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tona_mvp/presentation/widgets/waiting_screen_shell.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
@@ -11,11 +12,13 @@ import '../providers/meal_plan_provider.dart';
 class MealPlanReviewScreen extends StatefulWidget {
   final MealPlan mealPlan;
   final VoidCallback onAccept;
+  final VoidCallback onCancel;
 
   const MealPlanReviewScreen({
     super.key,
     required this.mealPlan,
     required this.onAccept,
+    required this.onCancel,
   });
 
   @override
@@ -89,95 +92,67 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SlideTransition(
-            position: _slideAnimation,
-            child: Column(
-              children: [
-                _HeaderSection(
-                  mealPlanName: widget.mealPlan.name,
-                ),
-                _DaySelectorSection(
-                  dayNames: _dayNames,
-                  selectedDayIndex: _selectedDayIndex,
-                  onDaySelected: (index) {
-                    setState(() {
-                      _selectedDayIndex = index;
-                    });
-                  },
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Expanded(
-                  child: _mealsForSelectedDay.isEmpty
-                      ? const _EmptyMealsView()
-                      : ListView.builder(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: AppSpacing.md,
-                          ),
-                          itemCount: _mealsForSelectedDay.length,
-                          itemBuilder: (context, index) {
-                            final meal = _mealsForSelectedDay[index];
-                            return _MealItem(meal: meal);
-                          },
-                        ),
-                ),
-                _BottomActionBar(
-                  onAccept: _acceptMealPlan,
-                ),
-              ],
-            ),
+    return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (didPop) {
+            return;
+          }
+          widget.onCancel();
+        },
+        child: WaitingScreenShell(
+          title: 'Review Meal Plan',
+          subtitle: _DaySelectorSection(
+            dayNames: _dayNames,
+            selectedDayIndex: _selectedDayIndex,
+            onDaySelected: (index) {
+              setState(() {
+                _selectedDayIndex = index;
+              });
+            },
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _HeaderSection extends StatelessWidget {
-  const _HeaderSection({
-    required this.mealPlanName,
-  });
-
-  final String mealPlanName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      child: Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-            color: AppColors.textPrimary,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Review Meal Plan',
-                  style: AppTypography.titleLarge.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+          body: Column(children: [
+            Expanded(
+              child: _mealsForSelectedDay.isEmpty
+                  ? const _EmptyMealsView()
+                  : ListView.builder(
+                      itemCount: _mealsForSelectedDay.length,
+                      itemBuilder: (context, index) {
+                        final meal = _mealsForSelectedDay[index];
+                        return _MealItem(meal: meal);
+                      },
+                    ),
+            )
+          ]),
+          footer: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: widget.onCancel,
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.md,
+                    ),
                   ),
+                  child: const Text('Change File'),
                 ),
-                Text(
-                  mealPlanName,
-                  style: AppTypography.bodyMedium.copyWith(
-                    color: AppColors.textSecondary,
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                flex: 2,
+                child: ElevatedButton(
+                  onPressed: widget.onAccept,
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: AppSpacing.md,
+                    ),
                   ),
+                  child: const Text('Confirm Plan'),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
 
@@ -196,7 +171,6 @@ class _DaySelectorSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
@@ -207,7 +181,6 @@ class _DaySelectorSection extends StatelessWidget {
       ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
         itemCount: dayNames.length,
         itemBuilder: (context, index) {
           final isSelected = selectedDayIndex == index;
@@ -222,21 +195,17 @@ class _DaySelectorSection extends StatelessWidget {
                 horizontal: AppSpacing.md,
               ),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.buttonPrimary
-                    : Colors.transparent,
+                color:
+                    isSelected ? AppColors.buttonPrimary : Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Center(
                 child: Text(
                   dayNames[index].substring(0, 3),
                   style: AppTypography.labelMedium.copyWith(
-                    color: isSelected
-                        ? Colors.black
-                        : AppColors.textSecondary,
-                    fontWeight: isSelected
-                        ? FontWeight.w600
-                        : FontWeight.normal,
+                    color: isSelected ? Colors.black : AppColors.textSecondary,
+                    fontWeight:
+                        isSelected ? FontWeight.w600 : FontWeight.normal,
                   ),
                 ),
               ),
@@ -367,58 +336,3 @@ class _MealItem extends StatelessWidget {
     }
   }
 }
-
-class _BottomActionBar extends StatelessWidget {
-  const _BottomActionBar({
-    required this.onAccept,
-  });
-
-  final VoidCallback onAccept;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        border: Border(
-          top: BorderSide(
-            color: AppColors.divider,
-            width: 1,
-          ),
-        ),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: OutlinedButton(
-              onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppSpacing.md,
-                ),
-              ),
-              child: const Text('Change File'),
-            ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            flex: 2,
-            child: ElevatedButton(
-              onPressed: onAccept,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppSpacing.md,
-                ),
-              ),
-              child: const Text('Accept Plan'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:tona_mvp/presentation/widgets/waiting_screen_shell.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
@@ -106,35 +107,12 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SlideTransition(
-            position: _slideAnimation,
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.xl),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Upload Your Meal Plan',
-                    style: AppTypography.displayMedium.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                  Text(
+    return WaitingScreenShell(title: 'Upload Your Meal Plan', subtitle: Text(
                     'Select your meal plan file to get started',
                     style: AppTypography.bodyLarge.copyWith(
                       color: AppColors.textSecondary,
                     ),
-                  ),
-                  const SizedBox(height: AppSpacing.xxl),
-                  Expanded(
-                    child: Center(
+                  ), body: Center(
                       child: GestureDetector(
                         onTap: _pickFile,
                         child: AnimatedContainer(
@@ -210,11 +188,7 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
+                    footer: ElevatedButton(
                       onPressed: _selectedFileName != null ? _continue : null,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
@@ -231,15 +205,7 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
                               ),
                             )
                           : const Text('Continue'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+                    ),);
   }
 }
 

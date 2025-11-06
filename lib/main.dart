@@ -19,6 +19,7 @@ import 'presentation/screens/daily_view_screen.dart';
 import 'presentation/screens/weekly_progress_screen.dart';
 import 'presentation/screens/report_generation_screen.dart';
 import 'core/theme/app_colors.dart';
+import 'presentation/screens/meal_plan_processing_screen.dart';
 import 'core/theme/app_typography.dart';
 
 void main() {
@@ -74,7 +75,7 @@ class OnboardingFlow extends StatefulWidget {
 }
 
 class _OnboardingFlowState extends State<OnboardingFlow> {
-  int _currentStep = 0; // 0: splash, 1: upload, 2: review, 3: home
+  int _currentStep = 0; // 0 splash, 1 upload, 2 processing, 3 review, 4 home
   MealPlan? _selectedMealPlan;
 
   void _onSplashComplete() {
@@ -86,10 +87,33 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
 
   void _onFileSelected() {
     debugPrint('_onFileSelected called in main.dart');
-    debugPrint('Creating mock meal plan and moving to review...');
+    debugPrint('Moving to processing screen...');
+    setState(() {
+      _currentStep = 2;
+    });
+  }
+
+  void _onProcessingComplete() {
+    debugPrint('Processing complete, preparing review screen...');
     setState(() {
       _selectedMealPlan = MockData.getMockMealPlan();
-      _currentStep = 2;
+      _currentStep = 3;
+    });
+  }
+
+  void _onProcessingCancelled() {
+    debugPrint('Processing cancelled, returning to upload screen');
+    setState(() {
+      _selectedMealPlan = null;
+      _currentStep = 1;
+    });
+  }
+
+  void _onReviewCancelled() {
+    debugPrint('Review cancelled, returning to upload screen');
+    setState(() {
+      _selectedMealPlan = null;
+      _currentStep = 1;
     });
   }
 
@@ -100,14 +124,14 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
       mealPlanProvider.loadMealPlan(_selectedMealPlan!);
     }
     setState(() {
-      _currentStep = 3;
+      _currentStep = 4;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final mealPlanProvider = context.watch<MealPlanProvider>();
-    if (mealPlanProvider.currentMealPlan != null || _currentStep == 3) {
+    if (mealPlanProvider.currentMealPlan != null || _currentStep >= 4) {
       return const HomeScreen();
     }
 
@@ -117,9 +141,18 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
       case 1:
         return MealPlanUploadScreen(onFileSelected: _onFileSelected);
       case 2:
+        return MealPlanProcessingScreen(
+          onComplete: _onProcessingComplete,
+          onCancel: _onProcessingCancelled,
+        );
+      case 3:
+        if (_selectedMealPlan == null) {
+          return MealPlanUploadScreen(onFileSelected: _onFileSelected);
+        }
         return MealPlanReviewScreen(
           mealPlan: _selectedMealPlan!,
           onAccept: _onMealPlanAccepted,
+          onCancel: _onReviewCancelled,
         );
       default:
         return const HomeScreen();
@@ -166,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           AnimatedSwitcher(
-            duration: const Duration(milliseconds: 350),
+            duration: const Duration(milliseconds: 2350),
             transitionBuilder: (child, animation) {
               final curved = CurvedAnimation(
                 parent: animation,
