@@ -1,3 +1,4 @@
+import 'meal_ingredient.dart';
 import 'meal_type.dart';
 
 class Meal {
@@ -7,7 +8,8 @@ class Meal {
   final MealType mealType;
   final String name;
   final String description;
-  final List<String> ingredients;
+  final List<MealIngredient> ingredients;
+  final List<String> preparationInstructions;
   final String timeScheduled;
 
   const Meal({
@@ -18,6 +20,7 @@ class Meal {
     required this.name,
     required this.description,
     required this.ingredients,
+    required this.preparationInstructions,
     required this.timeScheduled,
   });
 
@@ -29,7 +32,9 @@ class Meal {
       'meal_type': mealType.name,
       'name': name,
       'description': description,
-      'ingredients': ingredients,
+      'ingredients':
+          ingredients.map((ingredient) => ingredient.toJson()).toList(),
+      'preparation_instructions': preparationInstructions,
       'scheduled_time': timeScheduled,
     };
   }
@@ -44,7 +49,14 @@ class Meal {
       ),
       name: json['name'] as String,
       description: json['description'] as String,
-      ingredients: (json['ingredients'] as List).cast<String>(),
+      ingredients: (json['ingredients'] as List)
+          .map(
+            (ingredient) =>
+                MealIngredient.fromJson(ingredient as Map<String, dynamic>),
+          )
+          .toList(),
+      preparationInstructions:
+          (json['preparation_instructions'] as List).cast<String>(),
       timeScheduled: json['scheduled_time'] as String,
     );
   }

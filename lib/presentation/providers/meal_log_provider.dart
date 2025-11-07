@@ -36,6 +36,8 @@ class MealLogProvider extends ChangeNotifier {
     required DateTime loggedDate,
     required String alternativeMeal,
     String? notes,
+    bool? containsSugar,
+    bool? hasHighGlycemicIndex,
   }) async {
     final now = TimeProvider.now();
     final log = MealLog(
@@ -47,6 +49,8 @@ class MealLogProvider extends ChangeNotifier {
       status: MealLogStatus.alternative,
       alternativeMeal: alternativeMeal,
       notes: notes,
+      containsSugar: containsSugar,
+      hasHighGlycemicIndex: hasHighGlycemicIndex,
       createdAt: now,
     );
 

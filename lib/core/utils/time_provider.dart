@@ -1,5 +1,5 @@
 class TimeProvider {
-  static DateTime? _overrideNow;
+  static DateTime? _overrideNow = DateTime(2022, 1, 1, 7);
 
   TimeProvider._();
 

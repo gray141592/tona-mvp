@@ -40,13 +40,20 @@ class DashboardPendingMealsSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(28),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.mealBreakfast,
+            Colors.white,
+          ],
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 18,
-            offset: const Offset(0, 12),
+            color: AppColors.primary.withValues(alpha: 0.18),
+            blurRadius: 24,
+            offset: const Offset(0, 16),
           ),
         ],
       ),
@@ -58,17 +65,39 @@ class DashboardPendingMealsSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(AppSpacing.sm),
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.18),
-                  borderRadius: BorderRadius.circular(14),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.08),
+                      blurRadius: 12,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
                 ),
                 child:
-                    const Icon(Icons.timer_outlined, color: AppColors.warning),
+                    const Icon(Icons.timer_outlined, color: AppColors.primary),
               ),
               const SizedBox(width: AppSpacing.md),
-              Text(
-                'Needs attention',
-                style: AppTypography.titleLarge.copyWith(
-                  fontWeight: FontWeight.w700,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Needs attention',
+                      style: AppTypography.titleLarge.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    Text(
+                      'Swipe overdue and due meals to keep your log current.',
+                      style: AppTypography.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -85,19 +114,21 @@ class DashboardPendingMealsSection extends StatelessWidget {
                 ),
               ),
             ),
-          ...entries.map(
-            (entry) => Padding(
-              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-              child: DashboardPendingMealRow(
-                entry: entry,
-                isLogging: isLogging,
-                onFollowed: onFollowed,
-                onSkipped: onSkipped,
-                onAlternative: onAlternative,
-                onViewDetails: onViewDetails,
+          ...entries.asMap().entries.map(
+                (entry) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                  child: DashboardPendingMealRow(
+                    key: ValueKey('pending-${entry.value.meal.id}'),
+                    entry: entry.value,
+                    isLogging: isLogging,
+                    onFollowed: onFollowed,
+                    onSkipped: onSkipped,
+                    onAlternative: onAlternative,
+                    onViewDetails: onViewDetails,
+                    showSwipeCoach: entry.key == 0,
+                  ),
+                ),
               ),
-            ),
-          ),
         ],
       ),
     );

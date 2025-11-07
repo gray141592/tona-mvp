@@ -7,6 +7,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/meal.dart';
 import '../../providers/meal_log_provider.dart';
+import '../../screens/dashboard_glycemic_info_screen.dart';
 
 class DashboardAlternativeMealSheet extends StatefulWidget {
   final Meal meal;
@@ -29,6 +30,8 @@ class _DashboardAlternativeMealSheetState
   final _notesController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isSaving = false;
+  bool _containsSugar = false;
+  bool _hasHighGlycemicIndex = false;
 
   @override
   void dispose() {
@@ -51,10 +54,18 @@ class _DashboardAlternativeMealSheetState
       notes: _notesController.text.trim().isEmpty
           ? null
           : _notesController.text.trim(),
+      containsSugar: _containsSugar,
+      hasHighGlycemicIndex: _hasHighGlycemicIndex,
     );
 
     if (!mounted) return;
     Navigator.of(context).pop(true);
+  }
+
+  Future<void> _openGlycemicInfoScreen() async {
+    await Navigator.of(context).push<void>(
+      DashboardGlycemicInfoScreen.route(),
+    );
   }
 
   @override
@@ -127,6 +138,46 @@ class _DashboardAlternativeMealSheetState
                     labelText: 'Notes (optional)',
                   ),
                   maxLines: 3,
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                Text(
+                  'Blood sugar impact',
+                  style: AppTypography.titleMedium.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SwitchListTile.adaptive(
+                  contentPadding: EdgeInsets.zero,
+                  value: _containsSugar,
+                  onChanged: (value) => setState(() {
+                    _containsSugar = value;
+                  }),
+                  title: const Text('Contains added sugar'),
+                  subtitle: const Text(
+                    'Mark if the alternative meal includes refined sugar or sweet syrups.',
+                  ),
+                ),
+                SwitchListTile.adaptive(
+                  contentPadding: EdgeInsets.zero,
+                  value: _hasHighGlycemicIndex,
+                  onChanged: (value) => setState(() {
+                    _hasHighGlycemicIndex = value;
+                  }),
+                  title: Row(
+                    children: [
+                      const Expanded(
+                        child: Text('High glycemic index'),
+                      ),
+                      IconButton(
+                        onPressed: _openGlycemicInfoScreen,
+                        icon: const Icon(Icons.info_outline),
+                        tooltip: 'Glycemic index guide',
+                      ),
+                    ],
+                  ),
+                  subtitle: const Text(
+                    'Select when the meal is likely to cause a sharp blood sugar spike.',
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 ElevatedButton.icon(

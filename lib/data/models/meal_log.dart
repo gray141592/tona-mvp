@@ -9,6 +9,8 @@ class MealLog {
   final MealLogStatus status;
   final String? alternativeMeal;
   final String? notes;
+  final bool? containsSugar;
+  final bool? hasHighGlycemicIndex;
   final DateTime createdAt;
 
   const MealLog({
@@ -20,6 +22,8 @@ class MealLog {
     required this.status,
     this.alternativeMeal,
     this.notes,
+    this.containsSugar,
+    this.hasHighGlycemicIndex,
     required this.createdAt,
   });
 
@@ -33,6 +37,8 @@ class MealLog {
       'status': status.name,
       'alternative_meal': alternativeMeal,
       'notes': notes,
+      'contains_sugar': containsSugar,
+      'has_high_glycemic_index': hasHighGlycemicIndex,
       'created_at': createdAt.toIso8601String(),
     };
   }
@@ -44,11 +50,11 @@ class MealLog {
       mealId: json['meal_id'] as String,
       loggedDate: DateTime.parse(json['logged_date'] as String),
       loggedTime: DateTime.parse(json['logged_time'] as String),
-      status: MealLogStatus.values.firstWhere(
-        (e) => e.name == json['status'],
-      ),
+      status: MealLogStatus.values.firstWhere((e) => e.name == json['status']),
       alternativeMeal: json['alternative_meal'] as String?,
       notes: json['notes'] as String?,
+      containsSugar: json['contains_sugar'] as bool?,
+      hasHighGlycemicIndex: json['has_high_glycemic_index'] as bool?,
       createdAt: DateTime.parse(json['created_at'] as String),
     );
   }

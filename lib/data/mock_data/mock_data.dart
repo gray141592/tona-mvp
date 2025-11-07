@@ -1,6 +1,7 @@
 import '../models/client.dart';
-import '../models/meal_plan.dart';
 import '../models/meal.dart';
+import '../models/meal_ingredient.dart';
+import '../models/meal_plan.dart';
 import '../models/meal_type.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/utils/time_provider.dart';
@@ -52,11 +53,15 @@ class MockData {
             name: 'Oatmeal with Berries',
             description:
                 '1 cup cooked oatmeal, 1/2 cup mixed berries, 1 tbsp almond butter, honey drizzle',
-            ingredients: [
-              '1 cup cooked oatmeal',
-              '1/2 cup mixed berries',
-              '1 tbsp almond butter',
-              '1 tsp honey',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'cooked oatmeal'),
+              MealIngredient(quantity: '1/2 cup', name: 'mixed berries'),
+              MealIngredient(quantity: '1 tbsp', name: 'almond butter'),
+              MealIngredient(quantity: '1 tsp', name: 'honey'),
+            ],
+            preparationInstructions: const [
+              'Cook the oatmeal with water or milk until creamy.',
+              'Top with mixed berries, almond butter, and a drizzle of honey.',
             ],
             timeScheduled: '08:00',
           ),
@@ -67,9 +72,13 @@ class MockData {
             mealType: MealType.snack1,
             name: 'Apple with Almond Butter',
             description: '1 medium apple, 1 tbsp almond butter',
-            ingredients: [
-              '1 medium apple',
-              '1 tbsp almond butter',
+            ingredients: const [
+              MealIngredient(quantity: '1', name: 'medium apple'),
+              MealIngredient(quantity: '1 tbsp', name: 'almond butter'),
+            ],
+            preparationInstructions: const [
+              'Slice the apple into wedges or rounds.',
+              'Serve with almond butter for dipping or spreading.',
             ],
             timeScheduled: '10:30',
           ),
@@ -81,12 +90,16 @@ class MockData {
             name: 'Grilled Chicken Salad',
             description:
                 '4oz grilled chicken breast, mixed greens, cherry tomatoes, cucumber, olive oil dressing',
-            ingredients: [
-              '4oz grilled chicken breast',
-              '2 cups mixed greens',
-              '1/2 cup cherry tomatoes',
-              '1/2 cucumber',
-              '2 tbsp olive oil dressing',
+            ingredients: const [
+              MealIngredient(quantity: '4 oz', name: 'grilled chicken breast'),
+              MealIngredient(quantity: '2 cups', name: 'mixed greens'),
+              MealIngredient(quantity: '1/2 cup', name: 'cherry tomatoes'),
+              MealIngredient(quantity: '1/2', name: 'cucumber'),
+              MealIngredient(quantity: '2 tbsp', name: 'olive oil dressing'),
+            ],
+            preparationInstructions: const [
+              'Slice the grilled chicken and vegetables.',
+              'Combine everything in a bowl and drizzle with olive oil dressing.',
             ],
             timeScheduled: '13:00',
           ),
@@ -97,9 +110,13 @@ class MockData {
             mealType: MealType.snack2,
             name: 'Greek Yogurt with Berries',
             description: '1 cup plain Greek yogurt, 1/4 cup mixed berries',
-            ingredients: [
-              '1 cup plain Greek yogurt',
-              '1/4 cup mixed berries',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'plain Greek yogurt'),
+              MealIngredient(quantity: '1/4 cup', name: 'mixed berries'),
+            ],
+            preparationInstructions: const [
+              'Spoon the yogurt into a bowl.',
+              'Top with mixed berries just before serving.',
             ],
             timeScheduled: '16:00',
           ),
@@ -110,11 +127,15 @@ class MockData {
             mealType: MealType.dinner,
             name: 'Baked Salmon with Vegetables',
             description: '5oz salmon fillet, roasted broccoli and sweet potato',
-            ingredients: [
-              '5oz salmon fillet',
-              '1 cup roasted broccoli',
-              '1 medium sweet potato',
-              'lemon wedge',
+            ingredients: const [
+              MealIngredient(quantity: '5 oz', name: 'salmon fillet'),
+              MealIngredient(quantity: '1 cup', name: 'roasted broccoli'),
+              MealIngredient(quantity: '1', name: 'medium sweet potato'),
+              MealIngredient(quantity: '1', name: 'lemon wedge'),
+            ],
+            preparationInstructions: const [
+              'Bake the seasoned salmon and vegetables until tender.',
+              'Serve with a squeeze of lemon over the top.',
             ],
             timeScheduled: '19:00',
           ),
@@ -130,11 +151,15 @@ class MockData {
             name: 'Scrambled Eggs with Avocado Toast',
             description:
                 '2 eggs scrambled, 1 slice whole grain toast, 1/2 avocado, cherry tomatoes',
-            ingredients: [
-              '2 large eggs',
-              '1 slice whole grain bread',
-              '1/2 avocado',
-              '4 cherry tomatoes',
+            ingredients: const [
+              MealIngredient(quantity: '2', name: 'large eggs'),
+              MealIngredient(quantity: '1 slice', name: 'whole grain bread'),
+              MealIngredient(quantity: '1/2', name: 'avocado'),
+              MealIngredient(quantity: '4', name: 'cherry tomatoes'),
+            ],
+            preparationInstructions: const [
+              'Scramble the eggs in a non-stick pan until softly set.',
+              'Toast the bread, top with mashed avocado, and serve with tomatoes.',
             ],
             timeScheduled: '08:00',
           ),
@@ -145,11 +170,15 @@ class MockData {
             mealType: MealType.snack1,
             name: 'Protein Smoothie',
             description: 'Banana, protein powder, almond milk, spinach',
-            ingredients: [
-              '1 banana',
-              '1 scoop protein powder',
-              '1 cup almond milk',
-              '1 cup spinach',
+            ingredients: const [
+              MealIngredient(quantity: '1', name: 'banana'),
+              MealIngredient(quantity: '1 scoop', name: 'protein powder'),
+              MealIngredient(quantity: '1 cup', name: 'almond milk'),
+              MealIngredient(quantity: '1 cup', name: 'spinach'),
+            ],
+            preparationInstructions: const [
+              'Add all ingredients to a blender.',
+              'Blend until smooth and creamy, then serve immediately.',
             ],
             timeScheduled: '10:30',
           ),
@@ -161,12 +190,16 @@ class MockData {
             name: 'Turkey Wrap with Hummus',
             description:
                 'Whole wheat tortilla, 4oz turkey breast, hummus, lettuce, peppers',
-            ingredients: [
-              '1 whole wheat tortilla',
-              '4oz sliced turkey breast',
-              '2 tbsp hummus',
-              'lettuce',
-              '1/4 cup sliced bell peppers',
+            ingredients: const [
+              MealIngredient(quantity: '1', name: 'whole wheat tortilla'),
+              MealIngredient(quantity: '4 oz', name: 'sliced turkey breast'),
+              MealIngredient(quantity: '2 tbsp', name: 'hummus'),
+              MealIngredient(quantity: '1 cup', name: 'lettuce'),
+              MealIngredient(quantity: '1/4 cup', name: 'sliced bell peppers'),
+            ],
+            preparationInstructions: const [
+              'Spread hummus over the tortilla.',
+              'Layer turkey, lettuce, and peppers, then roll tightly and slice.',
             ],
             timeScheduled: '13:00',
           ),
@@ -177,9 +210,13 @@ class MockData {
             mealType: MealType.snack2,
             name: 'Carrot Sticks with Hummus',
             description: '1 cup carrot sticks, 1/4 cup hummus',
-            ingredients: [
-              '1 cup carrot sticks',
-              '1/4 cup hummus',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'carrot sticks'),
+              MealIngredient(quantity: '1/4 cup', name: 'hummus'),
+            ],
+            preparationInstructions: const [
+              'Peel and slice the carrots into sticks if needed.',
+              'Serve with hummus for dipping.',
             ],
             timeScheduled: '16:00',
           ),
@@ -191,11 +228,15 @@ class MockData {
             name: 'Chicken Stir-Fry',
             description:
                 '5oz chicken breast, mixed vegetables, brown rice, teriyaki sauce',
-            ingredients: [
-              '5oz chicken breast',
-              '2 cups mixed vegetables',
-              '1 cup brown rice',
-              '2 tbsp teriyaki sauce',
+            ingredients: const [
+              MealIngredient(quantity: '5 oz', name: 'chicken breast'),
+              MealIngredient(quantity: '2 cups', name: 'mixed vegetables'),
+              MealIngredient(quantity: '1 cup', name: 'brown rice'),
+              MealIngredient(quantity: '2 tbsp', name: 'teriyaki sauce'),
+            ],
+            preparationInstructions: const [
+              'Stir-fry the chicken until nearly cooked through.',
+              'Add vegetables and sauce, cook until crisp-tender, and serve over rice.',
             ],
             timeScheduled: '19:00',
           ),
@@ -211,11 +252,15 @@ class MockData {
             name: 'Greek Yogurt Parfait',
             description:
                 'Greek yogurt layered with granola, berries, and honey',
-            ingredients: [
-              '1 cup Greek yogurt',
-              '1/2 cup granola',
-              '1/2 cup mixed berries',
-              '1 tsp honey',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'Greek yogurt'),
+              MealIngredient(quantity: '1/2 cup', name: 'granola'),
+              MealIngredient(quantity: '1/2 cup', name: 'mixed berries'),
+              MealIngredient(quantity: '1 tsp', name: 'honey'),
+            ],
+            preparationInstructions: const [
+              'Layer yogurt, granola, and berries in a glass or bowl.',
+              'Drizzle honey over the top before serving.',
             ],
             timeScheduled: '08:00',
           ),
@@ -226,8 +271,12 @@ class MockData {
             mealType: MealType.snack1,
             name: 'Mixed Nuts',
             description: '1/4 cup mixed almonds, cashews, and walnuts',
-            ingredients: [
-              '1/4 cup mixed nuts',
+            ingredients: const [
+              MealIngredient(quantity: '1/4 cup', name: 'mixed nuts'),
+            ],
+            preparationInstructions: const [
+              'Portion the mixed nuts into a small bowl or container.',
+              'Enjoy immediately or pack to-go for later.',
             ],
             timeScheduled: '10:30',
           ),
@@ -239,12 +288,16 @@ class MockData {
             name: 'Quinoa Buddha Bowl',
             description:
                 'Quinoa, roasted chickpeas, avocado, vegetables, tahini dressing',
-            ingredients: [
-              '1 cup cooked quinoa',
-              '1/2 cup roasted chickpeas',
-              '1/2 avocado',
-              '1 cup mixed vegetables',
-              '2 tbsp tahini dressing',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'cooked quinoa'),
+              MealIngredient(quantity: '1/2 cup', name: 'roasted chickpeas'),
+              MealIngredient(quantity: '1/2', name: 'avocado'),
+              MealIngredient(quantity: '1 cup', name: 'mixed vegetables'),
+              MealIngredient(quantity: '2 tbsp', name: 'tahini dressing'),
+            ],
+            preparationInstructions: const [
+              'Warm the quinoa and arrange it in a bowl.',
+              'Top with chickpeas, vegetables, avocado, and drizzle with tahini dressing.',
             ],
             timeScheduled: '13:00',
           ),
@@ -256,9 +309,13 @@ class MockData {
             name: 'Cottage Cheese with Pineapple',
             description:
                 '1 cup low-fat cottage cheese, 1/2 cup pineapple chunks',
-            ingredients: [
-              '1 cup low-fat cottage cheese',
-              '1/2 cup pineapple chunks',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'low-fat cottage cheese'),
+              MealIngredient(quantity: '1/2 cup', name: 'pineapple chunks'),
+            ],
+            preparationInstructions: const [
+              'Scoop cottage cheese into a serving bowl.',
+              'Top with pineapple chunks and enjoy.',
             ],
             timeScheduled: '16:00',
           ),
@@ -270,12 +327,16 @@ class MockData {
             name: 'Lean Beef Tacos',
             description:
                 'Lean ground beef, corn tortillas, lettuce, tomato, salsa',
-            ingredients: [
-              '5oz lean ground beef',
-              '2 corn tortillas',
-              'shredded lettuce',
-              '1 diced tomato',
-              '2 tbsp salsa',
+            ingredients: const [
+              MealIngredient(quantity: '5 oz', name: 'lean ground beef'),
+              MealIngredient(quantity: '2', name: 'corn tortillas'),
+              MealIngredient(quantity: '1 cup', name: 'shredded lettuce'),
+              MealIngredient(quantity: '1', name: 'diced tomato'),
+              MealIngredient(quantity: '2 tbsp', name: 'salsa'),
+            ],
+            preparationInstructions: const [
+              'Cook the ground beef with seasonings until browned.',
+              'Warm the tortillas, then assemble with lettuce, tomato, and salsa.',
             ],
             timeScheduled: '19:00',
           ),
@@ -290,10 +351,14 @@ class MockData {
             mealType: MealType.breakfast,
             name: 'Whole Grain Pancakes',
             description: '2 whole grain pancakes, fresh berries, maple syrup',
-            ingredients: [
-              '2 whole grain pancakes',
-              '1/2 cup fresh berries',
-              '1 tbsp maple syrup',
+            ingredients: const [
+              MealIngredient(quantity: '2', name: 'whole grain pancakes'),
+              MealIngredient(quantity: '1/2 cup', name: 'fresh berries'),
+              MealIngredient(quantity: '1 tbsp', name: 'maple syrup'),
+            ],
+            preparationInstructions: const [
+              'Warm the pancakes in a skillet or toaster if needed.',
+              'Serve with berries on top and drizzle with maple syrup.',
             ],
             timeScheduled: '08:00',
           ),
@@ -304,9 +369,13 @@ class MockData {
             mealType: MealType.snack1,
             name: 'Pear with String Cheese',
             description: '1 medium pear, 1 string cheese',
-            ingredients: [
-              '1 medium pear',
-              '1 string cheese',
+            ingredients: const [
+              MealIngredient(quantity: '1', name: 'medium pear'),
+              MealIngredient(quantity: '1', name: 'string cheese'),
+            ],
+            preparationInstructions: const [
+              'Wash the pear and slice if desired.',
+              'Pair with string cheese for a quick snack.',
             ],
             timeScheduled: '10:30',
           ),
@@ -318,12 +387,16 @@ class MockData {
             name: 'Tuna Salad',
             description:
                 'Tuna, mixed greens, hard-boiled egg, olives, olive oil',
-            ingredients: [
-              '1 can tuna in water',
-              '2 cups mixed greens',
-              '1 hard-boiled egg',
-              '5 olives',
-              '2 tbsp olive oil',
+            ingredients: const [
+              MealIngredient(quantity: '1 can', name: 'tuna in water'),
+              MealIngredient(quantity: '2 cups', name: 'mixed greens'),
+              MealIngredient(quantity: '1', name: 'hard-boiled egg'),
+              MealIngredient(quantity: '5', name: 'olives'),
+              MealIngredient(quantity: '2 tbsp', name: 'olive oil'),
+            ],
+            preparationInstructions: const [
+              'Drain the tuna and slice the egg and olives.',
+              'Combine ingredients with greens and drizzle with olive oil.',
             ],
             timeScheduled: '13:00',
           ),
@@ -334,8 +407,11 @@ class MockData {
             mealType: MealType.snack2,
             name: 'Protein Bar',
             description: '1 protein bar (aim for 10g+ protein)',
-            ingredients: [
-              '1 protein bar',
+            ingredients: const [
+              MealIngredient(quantity: '1', name: 'protein bar'),
+            ],
+            preparationInstructions: const [
+              'Unwrap the protein bar and enjoy as a quick snack.',
             ],
             timeScheduled: '16:00',
           ),
@@ -347,11 +423,15 @@ class MockData {
             name: 'Baked Chicken with Quinoa',
             description:
                 'Herb-crusted chicken breast, quinoa, roasted asparagus',
-            ingredients: [
-              '5oz chicken breast',
-              '1 cup cooked quinoa',
-              '1 cup roasted asparagus',
-              'herbs and spices',
+            ingredients: const [
+              MealIngredient(quantity: '5 oz', name: 'chicken breast'),
+              MealIngredient(quantity: '1 cup', name: 'cooked quinoa'),
+              MealIngredient(quantity: '1 cup', name: 'roasted asparagus'),
+              MealIngredient(quantity: 'to taste', name: 'herbs and spices'),
+            ],
+            preparationInstructions: const [
+              'Bake the seasoned chicken until cooked through.',
+              'Serve alongside quinoa and roasted asparagus.',
             ],
             timeScheduled: '19:00',
           ),
@@ -367,11 +447,15 @@ class MockData {
             name: 'Veggie Omelet',
             description:
                 '3-egg omelet with spinach, mushrooms, and feta cheese',
-            ingredients: [
-              '3 large eggs',
-              '1 cup spinach',
-              '1/2 cup mushrooms',
-              '2 tbsp feta cheese',
+            ingredients: const [
+              MealIngredient(quantity: '3', name: 'large eggs'),
+              MealIngredient(quantity: '1 cup', name: 'spinach'),
+              MealIngredient(quantity: '1/2 cup', name: 'mushrooms'),
+              MealIngredient(quantity: '2 tbsp', name: 'feta cheese'),
+            ],
+            preparationInstructions: const [
+              'Sauté mushrooms and spinach until tender.',
+              'Add beaten eggs, cook until set, and sprinkle with feta before folding.',
             ],
             timeScheduled: '08:00',
           ),
@@ -382,9 +466,13 @@ class MockData {
             mealType: MealType.snack1,
             name: 'Banana with Peanut Butter',
             description: '1 medium banana, 1 tbsp peanut butter',
-            ingredients: [
-              '1 medium banana',
-              '1 tbsp peanut butter',
+            ingredients: const [
+              MealIngredient(quantity: '1', name: 'medium banana'),
+              MealIngredient(quantity: '1 tbsp', name: 'peanut butter'),
+            ],
+            preparationInstructions: const [
+              'Peel the banana and slice if desired.',
+              'Serve with peanut butter for dipping or spreading.',
             ],
             timeScheduled: '10:30',
           ),
@@ -396,13 +484,17 @@ class MockData {
             name: 'Mediterranean Chicken Bowl',
             description:
                 'Grilled chicken, brown rice, hummus, cucumber, tomatoes, olives',
-            ingredients: [
-              '4oz grilled chicken',
-              '1 cup brown rice',
-              '2 tbsp hummus',
-              '1/2 cucumber',
-              '1/2 cup tomatoes',
-              '5 olives',
+            ingredients: const [
+              MealIngredient(quantity: '4 oz', name: 'grilled chicken'),
+              MealIngredient(quantity: '1 cup', name: 'brown rice'),
+              MealIngredient(quantity: '2 tbsp', name: 'hummus'),
+              MealIngredient(quantity: '1/2', name: 'cucumber'),
+              MealIngredient(quantity: '1/2 cup', name: 'tomatoes'),
+              MealIngredient(quantity: '5', name: 'olives'),
+            ],
+            preparationInstructions: const [
+              'Layer rice in a bowl and top with sliced chicken.',
+              'Add hummus, cucumber, tomatoes, and olives before serving.',
             ],
             timeScheduled: '13:00',
           ),
@@ -413,9 +505,13 @@ class MockData {
             mealType: MealType.snack2,
             name: 'Rice Cakes with Avocado',
             description: '2 rice cakes topped with mashed avocado',
-            ingredients: [
-              '2 rice cakes',
-              '1/2 avocado',
+            ingredients: const [
+              MealIngredient(quantity: '2', name: 'rice cakes'),
+              MealIngredient(quantity: '1/2', name: 'avocado'),
+            ],
+            preparationInstructions: const [
+              'Mash the avocado with a fork and season if desired.',
+              'Spread over rice cakes and serve immediately.',
             ],
             timeScheduled: '16:00',
           ),
@@ -427,11 +523,15 @@ class MockData {
             name: 'Shrimp Pasta Primavera',
             description:
                 'Whole wheat pasta, shrimp, mixed vegetables, garlic olive oil',
-            ingredients: [
-              '2oz whole wheat pasta',
-              '5oz shrimp',
-              '2 cups mixed vegetables',
-              '2 tbsp garlic olive oil',
+            ingredients: const [
+              MealIngredient(quantity: '2 oz', name: 'whole wheat pasta'),
+              MealIngredient(quantity: '5 oz', name: 'shrimp'),
+              MealIngredient(quantity: '2 cups', name: 'mixed vegetables'),
+              MealIngredient(quantity: '2 tbsp', name: 'garlic olive oil'),
+            ],
+            preparationInstructions: const [
+              'Cook the pasta until al dente and reserve a little cooking water.',
+              'Sauté shrimp and vegetables in garlic oil, then toss with pasta.',
             ],
             timeScheduled: '19:00',
           ),
@@ -447,12 +547,16 @@ class MockData {
             name: 'Breakfast Burrito',
             description:
                 'Scrambled eggs, black beans, cheese, salsa in whole wheat tortilla',
-            ingredients: [
-              '2 scrambled eggs',
-              '1/4 cup black beans',
-              '2 tbsp shredded cheese',
-              '2 tbsp salsa',
-              '1 whole wheat tortilla',
+            ingredients: const [
+              MealIngredient(quantity: '2', name: 'scrambled eggs'),
+              MealIngredient(quantity: '1/4 cup', name: 'black beans'),
+              MealIngredient(quantity: '2 tbsp', name: 'shredded cheese'),
+              MealIngredient(quantity: '2 tbsp', name: 'salsa'),
+              MealIngredient(quantity: '1', name: 'whole wheat tortilla'),
+            ],
+            preparationInstructions: const [
+              'Warm the tortilla and scramble the eggs with beans.',
+              'Fill the tortilla, top with cheese and salsa, then roll tightly.',
             ],
             timeScheduled: '09:00',
           ),
@@ -463,10 +567,14 @@ class MockData {
             mealType: MealType.snack1,
             name: 'Trail Mix',
             description: 'Mixed nuts, dried cranberries, dark chocolate chips',
-            ingredients: [
-              '1/4 cup mixed nuts',
-              '2 tbsp dried cranberries',
-              '1 tbsp dark chocolate chips',
+            ingredients: const [
+              MealIngredient(quantity: '1/4 cup', name: 'mixed nuts'),
+              MealIngredient(quantity: '2 tbsp', name: 'dried cranberries'),
+              MealIngredient(quantity: '1 tbsp', name: 'dark chocolate chips'),
+            ],
+            preparationInstructions: const [
+              'Combine nuts, cranberries, and chocolate chips in a small bowl.',
+              'Portion into a to-go container if needed.',
             ],
             timeScheduled: '11:00',
           ),
@@ -478,12 +586,16 @@ class MockData {
             name: 'Grilled Veggie Sandwich',
             description:
                 'Grilled zucchini, peppers, mozzarella on whole grain bread',
-            ingredients: [
-              '2 slices whole grain bread',
-              '1/2 grilled zucchini',
-              '1/4 cup grilled peppers',
-              '2 slices fresh mozzarella',
-              'balsamic glaze',
+            ingredients: const [
+              MealIngredient(quantity: '2 slices', name: 'whole grain bread'),
+              MealIngredient(quantity: '1/2', name: 'grilled zucchini'),
+              MealIngredient(quantity: '1/4 cup', name: 'grilled peppers'),
+              MealIngredient(quantity: '2 slices', name: 'fresh mozzarella'),
+              MealIngredient(quantity: '1 tbsp', name: 'balsamic glaze'),
+            ],
+            preparationInstructions: const [
+              'Layer grilled vegetables and mozzarella on the bread.',
+              'Drizzle with balsamic glaze and toast until cheese melts if desired.',
             ],
             timeScheduled: '13:30',
           ),
@@ -494,9 +606,13 @@ class MockData {
             mealType: MealType.snack2,
             name: 'Edamame',
             description: '1 cup steamed edamame with sea salt',
-            ingredients: [
-              '1 cup edamame',
-              'sea salt to taste',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'edamame'),
+              MealIngredient(quantity: 'to taste', name: 'sea salt'),
+            ],
+            preparationInstructions: const [
+              'Steam or microwave the edamame until heated through.',
+              'Sprinkle with sea salt before serving.',
             ],
             timeScheduled: '16:00',
           ),
@@ -508,10 +624,15 @@ class MockData {
             name: 'Grilled Steak with Vegetables',
             description:
                 'Lean sirloin steak, roasted Brussels sprouts and carrots',
-            ingredients: [
-              '5oz lean sirloin steak',
-              '1 cup roasted Brussels sprouts',
-              '1 cup roasted carrots',
+            ingredients: const [
+              MealIngredient(quantity: '5 oz', name: 'lean sirloin steak'),
+              MealIngredient(
+                  quantity: '1 cup', name: 'roasted Brussels sprouts'),
+              MealIngredient(quantity: '1 cup', name: 'roasted carrots'),
+            ],
+            preparationInstructions: const [
+              'Grill or sear the steak to your preferred doneness.',
+              'Serve with roasted Brussels sprouts and carrots on the side.',
             ],
             timeScheduled: '19:30',
           ),
@@ -527,12 +648,16 @@ class MockData {
             name: 'French Toast with Fruit',
             description:
                 'Whole grain French toast, fresh berries, yogurt drizzle',
-            ingredients: [
-              '2 slices whole grain bread',
-              '1 egg',
-              '1/2 cup mixed berries',
-              '2 tbsp Greek yogurt',
-              'cinnamon',
+            ingredients: const [
+              MealIngredient(quantity: '2 slices', name: 'whole grain bread'),
+              MealIngredient(quantity: '1', name: 'egg'),
+              MealIngredient(quantity: '1/2 cup', name: 'mixed berries'),
+              MealIngredient(quantity: '2 tbsp', name: 'Greek yogurt'),
+              MealIngredient(quantity: '1 tsp', name: 'cinnamon'),
+            ],
+            preparationInstructions: const [
+              'Whisk the egg with cinnamon and soak the bread slices.',
+              'Cook on a griddle until golden, then top with berries and yogurt.',
             ],
             timeScheduled: '09:00',
           ),
@@ -543,9 +668,13 @@ class MockData {
             mealType: MealType.snack1,
             name: 'Celery with Peanut Butter',
             description: '4 celery sticks with 2 tbsp peanut butter',
-            ingredients: [
-              '4 celery sticks',
-              '2 tbsp peanut butter',
+            ingredients: const [
+              MealIngredient(quantity: '4', name: 'celery sticks'),
+              MealIngredient(quantity: '2 tbsp', name: 'peanut butter'),
+            ],
+            preparationInstructions: const [
+              'Wash and trim the celery sticks.',
+              'Fill the celery grooves with peanut butter.',
             ],
             timeScheduled: '11:00',
           ),
@@ -557,12 +686,16 @@ class MockData {
             name: 'Chicken Caesar Salad',
             description:
                 'Grilled chicken, romaine lettuce, parmesan, light Caesar dressing',
-            ingredients: [
-              '4oz grilled chicken breast',
-              '2 cups romaine lettuce',
-              '2 tbsp parmesan cheese',
-              '2 tbsp light Caesar dressing',
-              'whole grain croutons',
+            ingredients: const [
+              MealIngredient(quantity: '4 oz', name: 'grilled chicken breast'),
+              MealIngredient(quantity: '2 cups', name: 'romaine lettuce'),
+              MealIngredient(quantity: '2 tbsp', name: 'parmesan cheese'),
+              MealIngredient(quantity: '2 tbsp', name: 'light Caesar dressing'),
+              MealIngredient(quantity: '1/2 cup', name: 'whole grain croutons'),
+            ],
+            preparationInstructions: const [
+              'Chop the lettuce and slice the grilled chicken.',
+              'Toss with dressing, parmesan, and croutons before serving.',
             ],
             timeScheduled: '13:30',
           ),
@@ -574,11 +707,15 @@ class MockData {
             name: 'Smoothie Bowl',
             description:
                 'Blended berries, banana, topped with granola and chia seeds',
-            ingredients: [
-              '1 cup mixed berries',
-              '1/2 banana',
-              '1/4 cup granola',
-              '1 tbsp chia seeds',
+            ingredients: const [
+              MealIngredient(quantity: '1 cup', name: 'mixed berries'),
+              MealIngredient(quantity: '1/2', name: 'banana'),
+              MealIngredient(quantity: '1/4 cup', name: 'granola'),
+              MealIngredient(quantity: '1 tbsp', name: 'chia seeds'),
+            ],
+            preparationInstructions: const [
+              'Blend the berries and banana until smooth.',
+              'Pour into a bowl and top with granola and chia seeds.',
             ],
             timeScheduled: '16:00',
           ),
@@ -590,11 +727,15 @@ class MockData {
             name: 'Baked Cod with Sweet Potato',
             description:
                 'Herb-baked cod, mashed sweet potato, steamed green beans',
-            ingredients: [
-              '5oz cod fillet',
-              '1 medium sweet potato',
-              '1 cup green beans',
-              'herbs and lemon',
+            ingredients: const [
+              MealIngredient(quantity: '5 oz', name: 'cod fillet'),
+              MealIngredient(quantity: '1', name: 'medium sweet potato'),
+              MealIngredient(quantity: '1 cup', name: 'green beans'),
+              MealIngredient(quantity: 'to taste', name: 'herbs and lemon'),
+            ],
+            preparationInstructions: const [
+              'Season the cod with herbs and lemon, then bake until flaky.',
+              'Serve with mashed sweet potato and steamed green beans.',
             ],
             timeScheduled: '19:30',
           ),

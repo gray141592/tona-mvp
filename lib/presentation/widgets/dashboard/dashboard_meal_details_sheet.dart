@@ -82,9 +82,61 @@ class DashboardMealDetailsSheet extends StatelessWidget {
                     children: [
                       const Text('• '),
                       Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            style: AppTypography.bodyMedium.copyWith(
+                              color: AppColors.textPrimary,
+                            ),
+                            children: [
+                              if (ingredient.quantity.isNotEmpty)
+                                TextSpan(
+                                  text: '${ingredient.quantity} ',
+                                  style: AppTypography.bodyMedium.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              TextSpan(text: ingredient.name, style: TextStyle(color: AppColors.textPrimary)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            const SizedBox(height: AppSpacing.lg),
+            Text(
+              'Preparation',
+              style: AppTypography.titleMedium.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            if (meal.preparationInstructions.isEmpty)
+              Text(
+                'No preparation instructions provided for this meal.',
+                style: AppTypography.bodySmall.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              )
+            else
+              ...List.generate(
+                meal.preparationInstructions.length,
+                (index) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${index + 1}. ',
+                        style: AppTypography.bodyMedium.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Expanded(
                         child: Text(
-                          ingredient,
-                          style: AppTypography.bodyMedium,
+                          meal.preparationInstructions[index],
+                          style: AppTypography.bodyMedium.copyWith(height: 1.5),
                         ),
                       ),
                     ],

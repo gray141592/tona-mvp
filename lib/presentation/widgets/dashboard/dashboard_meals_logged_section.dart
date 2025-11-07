@@ -130,6 +130,28 @@ class DashboardMealsLoggedSection extends StatelessWidget {
                       color: AppColors.textSecondary,
                     ),
                   ),
+                if (entry.log.containsSugar == true ||
+                    entry.log.hasHighGlycemicIndex == true) ...[
+                  const SizedBox(height: AppSpacing.xs),
+                  Wrap(
+                    spacing: AppSpacing.sm,
+                    runSpacing: AppSpacing.xs,
+                    children: [
+                      if (entry.log.containsSugar == true)
+                        _ImpactPill(
+                          icon: Icons.cake_outlined,
+                          label: 'Contains sugar',
+                          color: AppColors.error,
+                        ),
+                      if (entry.log.hasHighGlycemicIndex == true)
+                        _ImpactPill(
+                          icon: Icons.trending_up_outlined,
+                          label: 'High GI',
+                          color: AppColors.warning,
+                        ),
+                    ],
+                  ),
+                ],
                 if (entry.log.notes != null)
                   Text(
                     entry.log.notes!,
@@ -154,27 +176,64 @@ class DashboardMealsLoggedSection extends StatelessWidget {
   }
 
   _StatusVisuals _statusVisuals(MealLogStatus status) => switch (status) {
-        MealLogStatus.followed => const _StatusVisuals(
-            color: AppColors.success,
-            icon: Icons.check_circle,
-          ),
-        MealLogStatus.alternative => const _StatusVisuals(
-            color: AppColors.warning,
-            icon: Icons.restaurant,
-          ),
-        MealLogStatus.skipped => const _StatusVisuals(
-            color: AppColors.error,
-            icon: Icons.remove_circle_outline,
-          ),
-      };
+    MealLogStatus.followed => const _StatusVisuals(
+      color: AppColors.success,
+      icon: Icons.check_circle,
+    ),
+    MealLogStatus.alternative => const _StatusVisuals(
+      color: AppColors.warning,
+      icon: Icons.restaurant,
+    ),
+    MealLogStatus.skipped => const _StatusVisuals(
+      color: AppColors.error,
+      icon: Icons.remove_circle_outline,
+    ),
+  };
 }
 
 class _StatusVisuals {
   final Color color;
   final IconData icon;
 
-  const _StatusVisuals({
-    required this.color,
+  const _StatusVisuals({required this.color, required this.icon});
+}
+
+class _ImpactPill extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+
+  const _ImpactPill({
     required this.icon,
+    required this.label,
+    required this.color,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.md,
+        vertical: AppSpacing.xs,
+      ),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: color),
+          const SizedBox(width: AppSpacing.xs),
+          Text(
+            label,
+            style: AppTypography.bodySmall.copyWith(
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

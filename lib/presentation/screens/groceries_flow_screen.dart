@@ -7,6 +7,7 @@ import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/utils/date_utils.dart' as date_utils;
 import '../../core/utils/time_provider.dart';
+import '../../core/utils/quantity_utils.dart';
 import '../../data/models/meal_plan.dart';
 import '../providers/meal_plan_provider.dart';
 import '../widgets/dashboard_page_shell.dart';
@@ -37,13 +38,17 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     if (mealPlan == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('You need a meal plan to build a groceries list.',),),
+          content: Text(
+            'You need a meal plan to build a groceries list.',
+          ),
+        ),
       );
       return;
     }
 
     final mealPlanProvider = context.read<MealPlanProvider>();
-    final counts = <String, int>{};
+    final aggregatedItems = <String, _GroceryItem>{};
+    final unconverted = <String>{};
 
     for (var offset = 0; offset < _selectedDays; offset++) {
       final date = TimeProvider.now().add(Duration(days: offset));
@@ -51,9 +56,55 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
 
       for (final meal in meals) {
         for (final ingredient in meal.ingredients) {
-          final key = ingredient.trim();
-          if (key.isEmpty) continue;
-          counts[key] = (counts[key] ?? 0) + 1;
+          final measurement = QuantityParser.parse(ingredient.quantity);
+
+          if (measurement.normalizedUnit == 'count' &&
+              measurement.amount != null) {
+            final key = ingredient.name.trim().toLowerCase();
+            final existing = aggregatedItems[key];
+
+            if (existing == null) {
+              aggregatedItems[key] = _GroceryItem(
+                name: ingredient.name.trim(),
+                count: measurement.amount,
+              );
+            } else if (existing.count != null) {
+              aggregatedItems[key] = existing.copyWith(
+                count: existing.count! + measurement.amount!,
+              );
+            } else {
+              unconverted.add(ingredient.displayLabel.trim());
+            }
+            continue;
+          }
+
+          final conversion = IngredientQuantityConverter.toGrams(
+            ingredientName: ingredient.name,
+            measurement: measurement,
+          );
+
+          if (conversion == null) {
+            unconverted.add(ingredient.displayLabel.trim());
+            continue;
+          }
+
+          final key = ingredient.name.trim().toLowerCase();
+          final existing = aggregatedItems[key];
+
+          if (existing == null) {
+            aggregatedItems[key] = _GroceryItem(
+              name: ingredient.name.trim(),
+              grams: conversion.grams,
+              isEstimate: conversion.isEstimate,
+            );
+          } else if (existing.grams != null) {
+            aggregatedItems[key] = existing.copyWith(
+              grams: (existing.grams ?? 0) + conversion.grams,
+              isEstimate: existing.isEstimate || conversion.isEstimate,
+            );
+          } else {
+            unconverted.add(ingredient.displayLabel.trim());
+          }
         }
       }
     }
@@ -62,14 +113,10 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       _items
         ..clear()
         ..addAll(
-          counts.entries
-              .map(
-                (entry) => _GroceryItem(
-                  label: _formatIngredient(entry.key, entry.value),
-                ),
-              )
-              .toList()
-            ..sort((a, b) => a.label.compareTo(b.label)),
+          aggregatedItems.values.toList()
+            ..sort(
+              (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+            ),
         );
       _listGenerated = true;
     });
@@ -77,23 +124,81 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     if (_items.isEmpty && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('No grocery items found for the selected days.',),),
+          content: Text(
+            'No grocery items found for the selected days.',
+          ),
+        ),
+      );
+    }
+
+    if (unconverted.isNotEmpty && mounted) {
+      final preview = unconverted.take(3).join(', ');
+      final suffix =
+          unconverted.length > 3 ? ' and ${unconverted.length - 3} more' : '';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Some items could not be converted to grams: $preview$suffix.',
+          ),
+        ),
       );
     }
   }
 
   Future<void> _addCustomItem() async {
-    final controller = TextEditingController();
-    final result = await showDialog<String>(
+    final nameController = TextEditingController();
+    final gramsController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
+
+    final result = await showDialog<_CustomItemResult>(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('Add custom item'),
-          content: TextField(
-            controller: controller,
-            autofocus: true,
-            decoration: const InputDecoration(
-              hintText: 'e.g., Olive oil (500ml)',
+          content: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: nameController,
+                    autofocus: true,
+                    textCapitalization: TextCapitalization.sentences,
+                    decoration: const InputDecoration(
+                      labelText: 'Ingredient name',
+                      hintText: 'e.g., Extra bananas',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter an ingredient name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  TextFormField(
+                    controller: gramsController,
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(
+                      labelText: 'Quantity (grams)',
+                      hintText: 'e.g., 250',
+                    ),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter a quantity in grams';
+                      }
+                      final sanitized = value.replaceAll(',', '.').trim();
+                      final parsed = double.tryParse(sanitized);
+                      if (parsed == null || parsed <= 0) {
+                        return 'Enter a positive number';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           actions: [
@@ -102,8 +207,21 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () =>
-                  Navigator.of(context).pop(controller.text.trim()),
+              onPressed: () {
+                if (!(formKey.currentState?.validate() ?? false)) {
+                  return;
+                }
+
+                final gramsText = gramsController.text.replaceAll(',', '.');
+                final grams = double.parse(gramsText.trim());
+
+                Navigator.of(context).pop(
+                  _CustomItemResult(
+                    name: nameController.text.trim(),
+                    grams: grams,
+                  ),
+                );
+              },
               child: const Text('Add'),
             ),
           ],
@@ -111,10 +229,19 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       },
     );
 
-    if (result == null || result.isEmpty) return;
+    nameController.dispose();
+    gramsController.dispose();
+
+    if (result == null) return;
 
     setState(() {
-      _items.add(_GroceryItem(label: result));
+      _items.add(
+        _GroceryItem(
+          name: result.name,
+          grams: result.grams,
+          isCustom: true,
+        ),
+      );
       _listGenerated = true;
     });
   }
@@ -144,10 +271,11 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     final buffer = StringBuffer();
     buffer.writeln('Groceries list for the next $_selectedDays day(s)');
     buffer.writeln(
-        'Generated on ${date_utils.DateUtils.formatDate(TimeProvider.now())}\n',);
+      'Generated on ${date_utils.DateUtils.formatDate(TimeProvider.now())}\n',
+    );
 
     for (final item in includedItems) {
-      buffer.writeln('• ${item.label}');
+      buffer.writeln('• ${item.name} — ${item.formattedQuantity}');
     }
 
     try {
@@ -265,28 +393,91 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     );
   }
 
-  String _formatIngredient(String ingredient, int occurrences) {
-    final sanitized = ingredient.trim();
-    if (occurrences <= 1) return sanitized;
-    return '$occurrences × $sanitized';
-  }
 }
 
 class _GroceryItem {
-  final String label;
+  final String name;
+  final double? grams;
+  final double? count;
   final bool included;
+  final bool isEstimate;
+  final bool isCustom;
 
   const _GroceryItem({
-    required this.label,
+    required this.name,
+    this.grams,
+    this.count,
     this.included = true,
-  });
+    this.isEstimate = false,
+    this.isCustom = false,
+  }) : assert(grams != null || count != null,
+            'Either grams or count must be provided');
 
-  _GroceryItem copyWith({String? label, bool? included}) {
+  _GroceryItem copyWith({
+    String? name,
+    double? grams,
+    double? count,
+    bool? included,
+    bool? isEstimate,
+    bool? isCustom,
+  }) {
     return _GroceryItem(
-      label: label ?? this.label,
+      name: name ?? this.name,
+      grams: grams ?? this.grams,
+      count: count ?? this.count,
       included: included ?? this.included,
+      isEstimate: isEstimate ?? this.isEstimate,
+      isCustom: isCustom ?? this.isCustom,
     );
   }
+
+  String get formattedQuantity {
+    if (count != null) {
+      return _formatCount(count!);
+    }
+
+    final prefix = isEstimate ? '~' : '';
+    return '$prefix${_formatGrams(grams ?? 0)} g';
+  }
+}
+
+String _formatGrams(double grams) {
+  if (grams.isNaN || grams.isInfinite) {
+    return '0';
+  }
+
+  if (grams >= 100) {
+    return grams.round().toString();
+  }
+
+  if (grams >= 10) {
+    return grams.toStringAsFixed(1).replaceAll(RegExp(r'\.?0$'), '');
+  }
+
+  final formatted = grams.toStringAsFixed(2);
+  return formatted
+      .replaceAll(RegExp(r'0+$'), '')
+      .replaceAll(RegExp(r'\.$'), '');
+}
+
+String _formatCount(double count) {
+  if (count.isNaN || count.isInfinite) return '0';
+  if ((count % 1).abs() < 1e-6) {
+    return count.round().toString();
+  }
+  return count.toStringAsFixed(2)
+      .replaceAll(RegExp(r'0+$'), '')
+      .replaceAll(RegExp(r'\.$'), '');
+}
+
+class _CustomItemResult {
+  final String name;
+  final double grams;
+
+  const _CustomItemResult({
+    required this.name,
+    required this.grams,
+  });
 }
 
 class _GroceryListTile extends StatelessWidget {
@@ -318,9 +509,15 @@ class _GroceryListTile extends StatelessWidget {
         value: item.included,
         onChanged: (_) => onToggle(),
         title: Text(
-          item.label,
+          item.name,
           style: AppTypography.bodyLarge.copyWith(
             fontWeight: FontWeight.w600,
+          ),
+        ),
+        subtitle: Text(
+          _buildSubtitle(item),
+          style: AppTypography.bodySmall.copyWith(
+            color: AppColors.textSecondary,
           ),
         ),
         secondary: IconButton(
@@ -330,6 +527,16 @@ class _GroceryListTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _buildSubtitle(_GroceryItem item) {
+    final details = <String>[item.formattedQuantity];
+    if (item.isCustom) {
+      details.add('custom');
+    } else if (item.isEstimate) {
+      details.add('estimated');
+    }
+    return details.join(' · ');
   }
 }
 

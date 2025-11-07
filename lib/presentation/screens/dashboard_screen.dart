@@ -228,7 +228,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> _acknowledgeSwipeCoach() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(AppConstants.hasSeenNextMealSwipeHintKey, true);
+    await prefs.setBool(AppConstants.hasSeenNextMealSwipeHintKey, false);
   }
 
   void _openMealDetails(Meal meal) {
@@ -343,7 +343,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     final unloggedEntries =
         timelineEntries.where((entry) => entry.log == null).toList();
-    final focusEntry = _selectFocusEntry(unloggedEntries);
+    final focusCandidate = _selectFocusEntry(unloggedEntries);
 
     final catchUpEntries = unloggedEntries
         .where(
@@ -351,10 +351,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               entry.state == MealTimelineState.overdue ||
               entry.state == MealTimelineState.dueNow,
         )
-        .where(
-          (entry) => focusEntry == null || entry.meal.id != focusEntry.meal.id,
-        )
         .toList();
+
+    final bool shouldShowFocusCard =
+        catchUpEntries.isEmpty && focusCandidate != null;
+
+    final focusEntry = shouldShowFocusCard ? focusCandidate : null;
+
+    final attentionEntries = shouldShowFocusCard && focusEntry != null
+        ? catchUpEntries
+            .where((entry) => entry.meal.id != focusEntry.meal.id)
+            .toList()
+        : catchUpEntries;
 
     final upcomingEntries = unloggedEntries
         .where(
@@ -410,12 +418,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   onAlternative: _logMealAsAlternative,
                                   onViewDetails: _openMealDetails,
                                 )
-                              : const DashboardAllMealsLoggedCard(),
+                              : attentionEntries.isEmpty
+                                  ? const DashboardAllMealsLoggedCard()
+                                  : const SizedBox.shrink(),
                         ),
-                        const SizedBox(height: AppSpacing.lg),
-                        if (catchUpEntries.isNotEmpty) ...[
+                        if (attentionEntries.isNotEmpty) ...[
                           DashboardPendingMealsSection(
-                            entries: catchUpEntries,
+                            entries: attentionEntries,
                             isLogging: _isLoggingAction,
                             onFollowed: _logMealAsFollowed,
                             onSkipped: _logMealAsSkipped,
@@ -424,6 +433,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           const SizedBox(height: AppSpacing.lg),
                         ],
+                        const SizedBox(height: AppSpacing.lg),
                         DashboardQuickActionsRow(
                           onOpenGroceries: _navigateToGroceriesFlow,
                           onOpenMealPlan: _navigateToMealPlanOverview,

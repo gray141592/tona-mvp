@@ -34,10 +34,7 @@ class ReportPreviewMealLogEntry extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(
-                  _statusIcon(log.status),
-                  color: statusColor,
-                ),
+                child: Icon(_statusIcon(log.status), color: statusColor),
               ),
               const SizedBox(width: 12),
               Column(
@@ -46,9 +43,9 @@ class ReportPreviewMealLogEntry extends StatelessWidget {
                   Text(
                     log.status.displayName,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: statusColor,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      color: statusColor,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Text(
                     date_utils.DateUtils.formatTime(log.loggedTime),
@@ -75,20 +72,34 @@ class ReportPreviewMealLogEntry extends StatelessWidget {
               text: log.alternativeMeal!,
             ),
           ],
+          if (log.containsSugar == true) ...[
+            const SizedBox(height: 8),
+            ReportPreviewMealLogNote(
+              icon: Icons.cake_outlined,
+              text: 'Alternative meal contained added sugar.',
+            ),
+          ],
+          if (log.hasHighGlycemicIndex == true) ...[
+            const SizedBox(height: 8),
+            ReportPreviewMealLogNote(
+              icon: Icons.trending_up_outlined,
+              text: 'Alternative meal was marked as high glycemic index.',
+            ),
+          ],
         ],
       ),
     );
   }
 
   Color _statusColor(MealLogStatus status) => switch (status) {
-        MealLogStatus.followed => AppColors.success,
-        MealLogStatus.alternative => AppColors.warning,
-        MealLogStatus.skipped => AppColors.error,
-      };
+    MealLogStatus.followed => AppColors.success,
+    MealLogStatus.alternative => AppColors.warning,
+    MealLogStatus.skipped => AppColors.error,
+  };
 
   IconData _statusIcon(MealLogStatus status) => switch (status) {
-        MealLogStatus.followed => Icons.check_circle,
-        MealLogStatus.alternative => Icons.restaurant,
-        MealLogStatus.skipped => Icons.remove_circle_outline,
-      };
+    MealLogStatus.followed => Icons.check_circle,
+    MealLogStatus.alternative => Icons.restaurant,
+    MealLogStatus.skipped => Icons.remove_circle_outline,
+  };
 }
