@@ -11,6 +11,11 @@ import '../../data/models/client.dart';
 import '../../data/models/meal_log.dart';
 import '../providers/meal_log_provider.dart';
 import '../providers/meal_plan_provider.dart';
+import '../widgets/report_preview/report_preview_client_info_card.dart';
+import '../widgets/report_preview/report_preview_daily_breakdown_header.dart';
+import '../widgets/report_preview/report_preview_daily_breakdown_list.dart';
+import '../widgets/report_preview/report_preview_models.dart';
+import '../widgets/report_preview/report_preview_summary_card.dart';
 
 class ReportPreviewScreen extends StatelessWidget {
   final Client client;
@@ -49,13 +54,16 @@ class ReportPreviewScreen extends StatelessWidget {
     }
   }
 
-  String _generateReportText(List<MealLog> logs, _ReportMetrics metrics) {
+  String _generateReportText(
+    List<MealLog> logs,
+    ReportPreviewMetrics metrics,
+  ) {
     final buffer = StringBuffer();
     buffer.writeln('Progress Report');
     buffer.writeln('Client: ${client.name}');
     buffer.writeln('Email: ${client.email}');
     buffer.writeln(
-        'Period: ${date_utils.DateUtils.formatDate(startDate)} - ${date_utils.DateUtils.formatDate(endDate)}');
+        'Period: ${date_utils.DateUtils.formatDate(startDate)} - ${date_utils.DateUtils.formatDate(endDate)}',);
     buffer.writeln('');
     buffer.writeln('Summary:');
     buffer.writeln('Total Meals: ${metrics.totalMeals}');
@@ -65,7 +73,7 @@ class ReportPreviewScreen extends StatelessWidget {
     buffer.writeln('Meals due so far: ${metrics.dueMeals}');
     buffer.writeln('Unlogged meals due: ${metrics.unloggedDueMeals}');
     buffer.writeln(
-        'Adherence: ${metrics.adherencePercentage.toStringAsFixed(1)}%');
+        'Adherence: ${metrics.adherencePercentage.toStringAsFixed(1)}%',);
     buffer.writeln('');
     buffer.writeln('Daily Breakdown:');
 
@@ -83,7 +91,7 @@ class ReportPreviewScreen extends StatelessWidget {
       buffer.writeln('\n${date_utils.DateUtils.formatDate(date)}:');
       for (final log in dayLogs) {
         buffer.writeln(
-            '  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}');
+            '  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}',);
         if (log.notes != null) {
           buffer.writeln('    Notes: ${log.notes}');
         }
@@ -116,13 +124,13 @@ class ReportPreviewScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(AppSpacing.md),
           children: [
-            _ClientInfoCard(
+            ReportPreviewClientInfoCard(
               client: client,
               startDate: startDate,
               endDate: endDate,
             ),
             const SizedBox(height: AppSpacing.md),
-            _SummaryCard(
+            ReportPreviewSummaryCard(
               totalMeals: metrics.totalMeals,
               mealsFollowed: metrics.mealsFollowed,
               mealsWithAlternatives: metrics.mealsWithAlternatives,
@@ -132,9 +140,9 @@ class ReportPreviewScreen extends StatelessWidget {
               adherencePercentage: metrics.adherencePercentage,
             ),
             const SizedBox(height: AppSpacing.lg),
-            const _DailyBreakdownHeader(),
+            const ReportPreviewDailyBreakdownHeader(),
             const SizedBox(height: AppSpacing.md),
-            _DailyBreakdownList(
+            ReportPreviewDailyBreakdownList(
               logs: logs,
               startDate: startDate,
               endDate: endDate,
@@ -146,7 +154,7 @@ class ReportPreviewScreen extends StatelessWidget {
     );
   }
 
-  _ReportMetrics _calculateRangeMetrics(
+  ReportPreviewMetrics _calculateRangeMetrics(
     MealPlanProvider mealPlanProvider,
     List<MealLog> logs,
   ) {
@@ -192,7 +200,7 @@ class ReportPreviewScreen extends StatelessWidget {
         ? 100.0
         : ((dueMeals - unloggedDueMeals) / dueMeals) * 100;
 
-    return _ReportMetrics(
+    return ReportPreviewMetrics(
       totalMeals: totalMeals,
       mealsFollowed: mealsFollowed,
       mealsWithAlternatives: mealsWithAlternatives,
@@ -202,545 +210,4 @@ class ReportPreviewScreen extends StatelessWidget {
       adherencePercentage: adherencePercentage,
     );
   }
-}
-
-class _ClientInfoCard extends StatelessWidget {
-  final Client client;
-  final DateTime startDate;
-  final DateTime endDate;
-
-  const _ClientInfoCard({
-    required this.client,
-    required this.startDate,
-    required this.endDate,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.xl),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(32),
-        gradient: LinearGradient(
-          colors: [
-            AppColors.primary.withValues(alpha: 0.18),
-            AppColors.accent.withValues(alpha: 0.12),
-            Colors.white,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.12),
-            blurRadius: 30,
-            offset: const Offset(0, 20),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: const Icon(
-                  Icons.person_outline_rounded,
-                  color: AppColors.primary,
-                  size: 30,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    client.name,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                  ),
-                  Text(
-                    client.email,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.7),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.event_available_rounded,
-                    color: AppColors.primary),
-                const SizedBox(width: AppSpacing.sm),
-                Expanded(
-                  child: Text(
-                    'Reporting on ${date_utils.DateUtils.formatDate(startDate)} → ${date_utils.DateUtils.formatDate(endDate)}',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _SummaryCard extends StatelessWidget {
-  final int totalMeals;
-  final int mealsFollowed;
-  final int mealsWithAlternatives;
-  final int mealsSkipped;
-  final int dueMeals;
-  final int unloggedDueMeals;
-  final double adherencePercentage;
-
-  const _SummaryCard({
-    required this.totalMeals,
-    required this.mealsFollowed,
-    required this.mealsWithAlternatives,
-    required this.mealsSkipped,
-    required this.dueMeals,
-    required this.unloggedDueMeals,
-    required this.adherencePercentage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final adherenceLabel = '${adherencePercentage.toStringAsFixed(1)}%';
-    final adherenceFooter =
-        'As of ${date_utils.DateUtils.formatDate(TimeProvider.now())}';
-
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 28,
-            offset: const Offset(0, 16),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Snapshot summary',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: _SummaryPill(
-                  icon: Icons.restaurant_menu,
-                  label: 'Total meals',
-                  value: totalMeals.toString(),
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: _SummaryPill(
-                  icon: Icons.check_circle,
-                  label: 'Followed',
-                  value: '$mealsFollowed',
-                  footer:
-                      '${adherencePercentage.toStringAsFixed(1)}% adherence',
-                  accent: AppColors.success,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: _SummaryPill(
-                  icon: Icons.restaurant,
-                  label: 'Alternatives',
-                  value: mealsWithAlternatives.toString(),
-                  accent: AppColors.warning,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: _SummaryPill(
-                  icon: Icons.remove_circle_outline,
-                  label: 'Skipped',
-                  value: mealsSkipped.toString(),
-                  accent: AppColors.error,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: _SummaryPill(
-                  icon: Icons.timeline_rounded,
-                  label: 'Due so far',
-                  value: '$dueMeals',
-                  accent: AppColors.accent,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: _SummaryPill(
-                  icon: Icons.pending_actions_outlined,
-                  label: 'Needs log',
-                  value: '$unloggedDueMeals',
-                  accent: AppColors.primaryDark,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: _SummaryPill(
-                  icon: Icons.speed_rounded,
-                  label: 'Adherence',
-                  value: adherenceLabel,
-                  footer: adherenceFooter,
-                  accent: AppColors.primary,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DailyBreakdownHeader extends StatelessWidget {
-  const _DailyBreakdownHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(AppSpacing.sm),
-          decoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child:
-              const Icon(Icons.view_agenda_outlined, color: AppColors.primary),
-        ),
-        const SizedBox(width: AppSpacing.md),
-        Text(
-          'Daily breakdown',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-        ),
-      ],
-    );
-  }
-}
-
-class _DailyBreakdownList extends StatelessWidget {
-  final List<MealLog> logs;
-  final DateTime startDate;
-  final DateTime endDate;
-
-  const _DailyBreakdownList({
-    required this.logs,
-    required this.startDate,
-    required this.endDate,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: _buildDayCards(),
-    );
-  }
-
-  List<Widget> _buildDayCards() {
-    final widgets = <Widget>[];
-
-    for (var date = startDate;
-        date.isBefore(endDate.add(const Duration(days: 1)));
-        date = date.add(const Duration(days: 1))) {
-      final dayLogs = logs
-          .where(
-            (log) => date_utils.DateUtils.isSameDay(log.loggedDate, date),
-          )
-          .toList();
-
-      if (dayLogs.isEmpty) continue;
-
-      widgets.add(
-        _DayCard(
-          date: date,
-          dayLogs: dayLogs,
-        ),
-      );
-    }
-
-    return widgets;
-  }
-}
-
-class _DayCard extends StatelessWidget {
-  final DateTime date;
-  final List<MealLog> dayLogs;
-
-  const _DayCard({
-    required this.date,
-    required this.dayLogs,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.md),
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 20,
-            offset: const Offset(0, 12),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.xs),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.calendar_today,
-                  size: 16,
-                  color: AppColors.primary,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              Text(
-                date_utils.DateUtils.formatDate(date),
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          ...dayLogs.map((log) => _MealLogEntry(log: log)),
-          if (dayLogs.any((log) => log.notes != null))
-            Padding(
-              padding: const EdgeInsets.only(top: AppSpacing.sm),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: dayLogs
-                    .where((log) => log.notes != null)
-                    .map((log) => _MealLogNote(notes: log.notes!))
-                    .toList(),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MealLogEntry extends StatelessWidget {
-  final MealLog log;
-
-  const _MealLogEntry({required this.log});
-
-  @override
-  Widget build(BuildContext context) {
-    final isFollowed = log.status.name == 'followed';
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.xs),
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
-        vertical: AppSpacing.xs,
-      ),
-      decoration: BoxDecoration(
-        color: isFollowed
-            ? AppColors.success.withValues(alpha: 0.12)
-            : AppColors.warning.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            isFollowed ? Icons.check_circle : Icons.restaurant,
-            size: 18,
-            color: isFollowed ? AppColors.success : AppColors.warning,
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Text(
-            date_utils.DateUtils.formatTime(log.loggedTime),
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: AppColors.textSecondary,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Text(
-              log.status.displayName,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MealLogNote extends StatelessWidget {
-  final String notes;
-
-  const _MealLogNote({required this.notes});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: AppSpacing.md,
-        top: AppSpacing.xs,
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(AppSpacing.sm),
-        decoration: BoxDecoration(
-          color: AppColors.surfaceVariant.withValues(alpha: 0.6),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          notes,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontStyle: FontStyle.italic,
-              ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SummaryPill extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-  final String? footer;
-  final Color accent;
-
-  const _SummaryPill({
-    required this.icon,
-    required this.label,
-    required this.value,
-    this.footer,
-    this.accent = AppColors.primary,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        color: accent.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.xs),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.7),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: accent, size: 20),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.textSecondary,
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-          ),
-          if (footer != null) ...[
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              footer!,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: accent,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _ReportMetrics {
-  final int totalMeals;
-  final int mealsFollowed;
-  final int mealsWithAlternatives;
-  final int mealsSkipped;
-  final int dueMeals;
-  final int unloggedDueMeals;
-  final double adherencePercentage;
-
-  const _ReportMetrics({
-    required this.totalMeals,
-    required this.mealsFollowed,
-    required this.mealsWithAlternatives,
-    required this.mealsSkipped,
-    required this.dueMeals,
-    required this.unloggedDueMeals,
-    required this.adherencePercentage,
-  });
 }

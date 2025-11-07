@@ -34,4 +34,3 @@ class DashboardMealLogEntry {
     required this.log,
   });
 }
-

@@ -31,7 +31,6 @@ class _WaitingScreenShellState extends State<WaitingScreenShell>
     with SingleTickerProviderStateMixin {
   late Animation<double> _fadeAnimation;
 
-  late Animation<Offset> _slideAnimation;
   late AnimationController _controller;
 
   @override
@@ -46,16 +45,6 @@ class _WaitingScreenShellState extends State<WaitingScreenShell>
       CurvedAnimation(
         parent: _controller,
         curve: Curves.easeOut,
-      ),
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeIn,
       ),
     );
 

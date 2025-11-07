@@ -22,7 +22,7 @@ class MessageGenerator {
   }
 
   static String getProgressMessage(
-      int completed, int total, double percentage) {
+      int completed, int total, double percentage,) {
     if (percentage >= 100) {
       return 'Perfect day! All meals logged! 🏆';
     }

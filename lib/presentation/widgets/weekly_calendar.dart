@@ -74,7 +74,7 @@ class WeeklyCalendar extends StatelessWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       )
-                    : LinearGradient(
+                    : const LinearGradient(
                         colors: [
                           AppColors.surfaceVariant,
                           AppColors.surface,
@@ -163,14 +163,14 @@ class WeeklyCalendar extends StatelessWidget {
   Widget _buildProgressIndicators(DailyProgress dailyProgress) {
     final statusGradients = <Gradient>[
       for (var i = 0; i < dailyProgress.mealsFollowed; i++)
-        LinearGradient(
+        const LinearGradient(
           colors: [AppColors.success, AppColors.secondary],
         ),
       for (var i = 0; i < dailyProgress.mealsWithAlternatives; i++)
         LinearGradient(
           colors: [
             AppColors.warning,
-            AppColors.secondary.withValues(alpha: 0.7)
+            AppColors.secondary.withValues(alpha: 0.7),
           ],
         ),
       for (var i = 0; i < dailyProgress.mealsSkipped; i++)

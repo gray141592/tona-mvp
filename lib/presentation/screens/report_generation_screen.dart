@@ -164,7 +164,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                             title: 'From',
                             value: _customStartDate != null
                                 ? date_utils.DateUtils.formatDate(
-                                    _customStartDate!)
+                                    _customStartDate!,)
                                 : 'Select date',
                             onTap: _selectStartDate,
                           ),
@@ -175,7 +175,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                             title: 'To',
                             value: _customEndDate != null
                                 ? date_utils.DateUtils.formatDate(
-                                    _customEndDate!)
+                                    _customEndDate!,)
                                 : 'Select date',
                             onTap: _selectEndDate,
                           ),
@@ -211,7 +211,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: const Icon(Icons.description_outlined,
-                          color: AppColors.primary),
+                          color: AppColors.primary,),
                     ),
                     const SizedBox(width: AppSpacing.md),
                     Expanded(
@@ -256,7 +256,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
               shape: BoxShape.circle,
             ),
             child: const Icon(Icons.check_rounded,
-                color: AppColors.success, size: 18),
+                color: AppColors.success, size: 18,),
           ),
           const SizedBox(width: AppSpacing.sm),
           Expanded(

@@ -10,7 +10,6 @@ class DashboardMenu extends StatelessWidget {
   final VoidCallback onWeeklyProgress;
   final VoidCallback onReportGeneration;
   final VoidCallback onMealPlanOverview;
-  final VoidCallback onDailySchedule;
   final VoidCallback onGroceries;
   final double width;
 
@@ -21,7 +20,6 @@ class DashboardMenu extends StatelessWidget {
     required this.onWeeklyProgress,
     required this.onReportGeneration,
     required this.onMealPlanOverview,
-    required this.onDailySchedule,
     required this.onGroceries,
     required this.width,
   });
@@ -67,7 +65,7 @@ class DashboardMenu extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: const Icon(Icons.restaurant_menu,
-                              color: AppColors.primary),
+                              color: AppColors.primary,),
                         ),
                         const SizedBox(width: AppSpacing.sm),
                         Text(
@@ -79,15 +77,7 @@ class DashboardMenu extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    _DashboardMenuTile(
-                      icon: Icons.today_outlined,
-                      label: 'Daily schedule',
-                      onTap: () {
-                        onClose();
-                        onDailySchedule();
-                      },
-                    ),
-                    _DashboardMenuTile(
+                    _buildTile(
                       icon: Icons.show_chart_outlined,
                       label: 'Weekly progress',
                       onTap: () {
@@ -95,7 +85,7 @@ class DashboardMenu extends StatelessWidget {
                         onWeeklyProgress();
                       },
                     ),
-                    _DashboardMenuTile(
+                    _buildTile(
                       icon: Icons.description_outlined,
                       label: 'Generate report',
                       onTap: () {
@@ -103,7 +93,7 @@ class DashboardMenu extends StatelessWidget {
                         onReportGeneration();
                       },
                     ),
-                    _DashboardMenuTile(
+                    _buildTile(
                       icon: Icons.shopping_cart_outlined,
                       label: 'Groceries list',
                       onTap: () {
@@ -111,7 +101,7 @@ class DashboardMenu extends StatelessWidget {
                         onGroceries();
                       },
                     ),
-                    _DashboardMenuTile(
+                    _buildTile(
                       icon: Icons.restaurant_menu,
                       label: 'Meal plan overview',
                       onTap: () {
@@ -134,21 +124,12 @@ class DashboardMenu extends StatelessWidget {
       ),
     );
   }
-}
 
-class _DashboardMenuTile extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _DashboardMenuTile({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildTile({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Container(
@@ -169,4 +150,3 @@ class _DashboardMenuTile extends StatelessWidget {
     );
   }
 }
-

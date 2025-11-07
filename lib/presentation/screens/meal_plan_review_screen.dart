@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tona_mvp/presentation/widgets/waiting_screen_shell.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
@@ -7,7 +6,6 @@ import '../../core/theme/app_typography.dart';
 import '../../data/models/meal_plan.dart';
 import '../../data/models/meal.dart';
 import '../../data/models/meal_type.dart';
-import '../providers/meal_plan_provider.dart';
 
 class MealPlanReviewScreen extends StatefulWidget {
   final MealPlan mealPlan;
@@ -28,8 +26,6 @@ class MealPlanReviewScreen extends StatefulWidget {
 class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
   int _selectedDayIndex = 0; // 0 = Monday, 6 = Sunday
 
   final List<String> _dayNames = [
@@ -50,23 +46,6 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
       vsync: this,
     );
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOut,
-      ),
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.2),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOutCubic,
-      ),
-    );
-
     _controller.forward();
   }
 
@@ -82,12 +61,6 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
         .where((meal) => meal.dayOfWeek == dayOfWeek)
         .toList()
       ..sort((a, b) => a.timeScheduled.compareTo(b.timeScheduled));
-  }
-
-  void _acceptMealPlan() {
-    final mealPlanProvider = context.read<MealPlanProvider>();
-    mealPlanProvider.loadMealPlan(widget.mealPlan);
-    widget.onAccept();
   }
 
   @override
@@ -122,8 +95,8 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
                         return _MealItem(meal: meal);
                       },
                     ),
-            )
-          ]),
+            ),
+          ],),
           footer: Row(
             children: [
               Expanded(
@@ -152,7 +125,7 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
               ),
             ],
           ),
-        ));
+        ),);
   }
 }
 

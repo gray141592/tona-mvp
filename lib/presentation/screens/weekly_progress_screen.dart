@@ -8,7 +8,6 @@ import '../providers/progress_provider.dart';
 import '../widgets/dashboard_page_shell.dart';
 import '../widgets/weekly_calendar.dart';
 import '../../data/models/weekly_progress.dart';
-import 'daily_view_screen.dart';
 
 class WeeklyProgressScreen extends StatelessWidget {
   const WeeklyProgressScreen({super.key});
@@ -35,23 +34,13 @@ class WeeklyProgressScreen extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           _WeeklySummaryCard(weeklyProgress: weeklyProgress),
           const SizedBox(height: AppSpacing.lg),
-          _SectionHeader(
+          const _SectionHeader(
             icon: Icons.calendar_view_week,
             title: 'Daily breakdown',
-            subtitle: 'Tap any day to review the full plan',
+            subtitle: 'See daily adherence at a glance',
           ),
           const SizedBox(height: AppSpacing.md),
-          WeeklyCalendar(
-            weeklyProgress: weeklyProgress,
-            onDayTap: (date) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const DailyViewScreen(),
-                ),
-              );
-            },
-          ),
+          WeeklyCalendar(weeklyProgress: weeklyProgress),
           const SizedBox(height: AppSpacing.xl),
         ],
       ),
@@ -172,7 +161,7 @@ class _WeeklySummaryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _SectionHeader(
+          const _SectionHeader(
             icon: Icons.summarize_rounded,
             title: 'Summary',
             subtitle: 'A quick snapshot of your week',
@@ -366,7 +355,8 @@ String _adherenceMessage(double percentage) {
   if (percentage >= 90) return 'Outstanding! Keep it up! 🎉';
   if (percentage >= 80) return 'Great work — you\'re in the groove! 💪';
   if (percentage >= 70) return 'Solid progress, keep the streak alive! 👍';
-  if (percentage >= 50)
+  if (percentage >= 50) {
     return 'You\'re on track — let\'s push a little more! 📈';
+  }
   return 'Fresh week, fresh opportunity to shine! 🌟';
 }

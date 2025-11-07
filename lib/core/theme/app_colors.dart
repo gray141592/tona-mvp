@@ -11,8 +11,8 @@ class AppColors {
 
   // Feedback colors
   static const Color success = Color(0xFF22C55E);
-  static const Color warning = Color(0xFFF59E0B);
-  static const Color error = Color(0xFFEF4444);
+  static const Color warning = Color.fromARGB(255, 245, 198, 11);
+  static const Color error = Color.fromARGB(255, 249, 176, 81);
   static const Color info = Color(0xFF0EA5E9);
 
   // Surfaces & backgrounds

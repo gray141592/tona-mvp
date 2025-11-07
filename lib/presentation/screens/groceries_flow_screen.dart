@@ -37,7 +37,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     if (mealPlan == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('You need a meal plan to build a groceries list.')),
+            content: Text('You need a meal plan to build a groceries list.',),),
       );
       return;
     }
@@ -77,7 +77,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     if (_items.isEmpty && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('No grocery items found for the selected days.')),
+            content: Text('No grocery items found for the selected days.',),),
       );
     }
   }
@@ -144,7 +144,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     final buffer = StringBuffer();
     buffer.writeln('Groceries list for the next $_selectedDays day(s)');
     buffer.writeln(
-        'Generated on ${date_utils.DateUtils.formatDate(TimeProvider.now())}\n');
+        'Generated on ${date_utils.DateUtils.formatDate(TimeProvider.now())}\n',);
 
     for (final item in includedItems) {
       buffer.writeln('• ${item.label}');
@@ -173,7 +173,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       child: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
-          _StepHeader(
+          const _StepHeader(
             stepNumber: 1,
             title: 'Choose planning window',
             subtitle: 'How many days of meals are you shopping for?',
@@ -190,7 +190,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
             label: const Text('Generate groceries list'),
           ),
           const SizedBox(height: AppSpacing.xl),
-          _StepHeader(
+          const _StepHeader(
             stepNumber: 2,
             title: 'Review and adjust',
             subtitle: 'Remove anything you already have and add extra items.',
@@ -247,7 +247,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
               ],
             ),
           const SizedBox(height: AppSpacing.xl),
-          _StepHeader(
+          const _StepHeader(
             stepNumber: 3,
             title: 'Share your list',
             subtitle:
