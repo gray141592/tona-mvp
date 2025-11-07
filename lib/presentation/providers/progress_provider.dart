@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import '../../data/models/weekly_progress.dart';
 import '../../data/models/daily_progress.dart';
-import '../../domain/services/progress_service.dart';
 import '../../core/utils/date_utils.dart';
+import '../../core/utils/time_provider.dart';
+import '../../domain/services/progress_service.dart';
 
 class ProgressProvider extends ChangeNotifier {
   final ProgressService _service;
@@ -18,7 +19,7 @@ class ProgressProvider extends ChangeNotifier {
   }
 
   WeeklyProgress getCurrentWeekProgress() {
-    final weekStart = DateUtils.getWeekStart(DateTime.now());
+    final weekStart = DateUtils.getWeekStart(TimeProvider.now());
     return getWeeklyProgress(weekStart);
   }
 
@@ -26,4 +27,3 @@ class ProgressProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-

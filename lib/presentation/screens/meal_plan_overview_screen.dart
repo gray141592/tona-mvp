@@ -7,6 +7,7 @@ import '../../data/models/meal_plan.dart';
 import '../../data/models/meal.dart';
 import '../../data/models/meal_type.dart';
 import '../providers/meal_plan_provider.dart';
+import '../widgets/dashboard_page_shell.dart';
 
 class MealPlanOverviewScreen extends StatefulWidget {
   const MealPlanOverviewScreen({super.key});
@@ -67,9 +68,7 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
   }
 
   List<Meal> _getMealsForDay(MealPlan mealPlan, int dayOfWeek) {
-    return mealPlan.meals
-        .where((meal) => meal.dayOfWeek == dayOfWeek)
-        .toList()
+    return mealPlan.meals.where((meal) => meal.dayOfWeek == dayOfWeek).toList()
       ..sort((a, b) => a.timeScheduled.compareTo(b.timeScheduled));
   }
 
@@ -79,12 +78,10 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
     final mealPlan = mealPlanProvider.currentMealPlan;
 
     if (mealPlan == null) {
-      return Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          title: const Text('Meal Plan Overview'),
-        ),
-        body: Center(
+      return DashboardPageShell(
+        title: 'Meal plan overview',
+        subtitle: 'No meal plan available',
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -106,91 +103,47 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
       );
     }
 
-    final mealsForSelectedDay = _getMealsForDay(mealPlan, _selectedDayIndex + 1);
+    final mealsForSelectedDay =
+        _getMealsForDay(mealPlan, _selectedDayIndex + 1);
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SlideTransition(
-            position: _slideAnimation,
-            child: Column(
-              children: [
-                _OverviewHeader(mealPlanName: mealPlan.name),
-                _DaySelector(
-                  dayNames: _dayNames,
-                  selectedDayIndex: _selectedDayIndex,
-                  onDaySelected: (index) {
-                    setState(() {
-                      _selectedDayIndex = index;
-                    });
-                  },
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Expanded(
-                  child: mealsForSelectedDay.isEmpty
-                      ? const _EmptyMealsView()
-                      : ListView.builder(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: AppSpacing.md,
-                          ),
-                          itemCount: mealsForSelectedDay.length,
-                          itemBuilder: (context, index) {
-                            final meal = mealsForSelectedDay[index];
-                            return _MealItemWidget(meal: meal);
-                          },
+    return DashboardPageShell(
+      title: 'Meal plan overview',
+      subtitle: mealPlan.name,
+      bodyPadding: EdgeInsets.zero,
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: SlideTransition(
+          position: _slideAnimation,
+          child: Column(
+            children: [
+              const SizedBox(height: AppSpacing.md),
+              _DaySelector(
+                dayNames: _dayNames,
+                selectedDayIndex: _selectedDayIndex,
+                onDaySelected: (index) {
+                  setState(() {
+                    _selectedDayIndex = index;
+                  });
+                },
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Expanded(
+                child: mealsForSelectedDay.isEmpty
+                    ? const _EmptyMealsView()
+                    : ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.md,
                         ),
-                ),
-              ],
-            ),
+                        itemCount: mealsForSelectedDay.length,
+                        itemBuilder: (context, index) {
+                          final meal = mealsForSelectedDay[index];
+                          return _MealItemWidget(meal: meal);
+                        },
+                      ),
+              ),
+            ],
           ),
         ),
-      ),
-    );
-  }
-
-}
-
-class _OverviewHeader extends StatelessWidget {
-  final String mealPlanName;
-
-  const _OverviewHeader({
-    required this.mealPlanName,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      child: Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-            color: AppColors.textPrimary,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Meal Plan Overview',
-                  style: AppTypography.titleLarge.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                Text(
-                  mealPlanName,
-                  style: AppTypography.bodyMedium.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -237,21 +190,17 @@ class _DaySelector extends StatelessWidget {
                 horizontal: AppSpacing.md,
               ),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.buttonPrimary
-                    : Colors.transparent,
+                color:
+                    isSelected ? AppColors.buttonPrimary : Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Center(
                 child: Text(
                   dayNames[index].substring(0, 3),
                   style: AppTypography.labelMedium.copyWith(
-                    color: isSelected
-                        ? Colors.black
-                        : AppColors.textSecondary,
-                    fontWeight: isSelected
-                        ? FontWeight.w600
-                        : FontWeight.normal,
+                    color: isSelected ? Colors.black : AppColors.textSecondary,
+                    fontWeight:
+                        isSelected ? FontWeight.w600 : FontWeight.normal,
                   ),
                 ),
               ),
@@ -382,4 +331,3 @@ class _MealItemWidget extends StatelessWidget {
     }
   }
 }
-

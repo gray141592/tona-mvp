@@ -92,13 +92,13 @@ class _SplashScreenState extends State<SplashScreen>
   void _startAnimations() async {
     await Future.delayed(const Duration(milliseconds: 300));
     _logoController.forward();
-    
+
     await Future.delayed(const Duration(milliseconds: 600));
     _textController.forward();
-    
+
     await Future.delayed(const Duration(milliseconds: 1500));
     _fadeController.forward();
-    
+
     await Future.delayed(const Duration(milliseconds: 500));
     if (mounted) {
       widget.onComplete();
@@ -152,7 +152,8 @@ class _SplashScreenState extends State<SplashScreen>
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.buttonPrimary.withValues(alpha: 0.3),
+                                color: AppColors.buttonPrimary
+                                    .withValues(alpha: 0.3),
                                 blurRadius: 24,
                                 spreadRadius: 8,
                               ),
@@ -203,4 +204,3 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
-

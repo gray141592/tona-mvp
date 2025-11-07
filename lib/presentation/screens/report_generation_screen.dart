@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/date_utils.dart' as date_utils;
+import '../../core/utils/time_provider.dart';
 import '../../data/mock_data/mock_data.dart';
+import '../widgets/dashboard_page_shell.dart';
 import 'report_preview_screen.dart';
 
 enum DateRange {
@@ -24,7 +26,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
   DateTime? _customEndDate;
 
   DateTime get _startDate {
-    final now = DateTime.now();
+    final now = TimeProvider.now();
     switch (_selectedRange) {
       case DateRange.lastWeek:
         return now.subtract(const Duration(days: 7));
@@ -36,7 +38,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
   }
 
   DateTime get _endDate {
-    final now = DateTime.now();
+    final now = TimeProvider.now();
     switch (_selectedRange) {
       case DateRange.lastWeek:
       case DateRange.lastMonth:
@@ -49,11 +51,12 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
   Future<void> _selectStartDate() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: _customStartDate ?? DateTime.now().subtract(const Duration(days: 7)),
-      firstDate: DateTime.now().subtract(const Duration(days: 365)),
-      lastDate: DateTime.now(),
+      initialDate: _customStartDate ??
+          TimeProvider.now().subtract(const Duration(days: 7)),
+      firstDate: TimeProvider.now().subtract(const Duration(days: 365)),
+      lastDate: TimeProvider.now(),
     );
-    
+
     if (picked != null) {
       setState(() {
         _customStartDate = picked;
@@ -64,11 +67,12 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
   Future<void> _selectEndDate() async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: _customEndDate ?? DateTime.now(),
-      firstDate: _customStartDate ?? DateTime.now().subtract(const Duration(days: 365)),
-      lastDate: DateTime.now(),
+      initialDate: _customEndDate ?? TimeProvider.now(),
+      firstDate: _customStartDate ??
+          TimeProvider.now().subtract(const Duration(days: 365)),
+      lastDate: TimeProvider.now(),
     );
-    
+
     if (picked != null) {
       setState(() {
         _customEndDate = picked;
@@ -92,150 +96,150 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Generate report'),
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          children: [
-            Text(
-              'Choose a period',
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              'We’ll summarise all activity within the selected range.',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Wrap(
-              spacing: AppSpacing.sm,
-              runSpacing: AppSpacing.sm,
-              children: [
-                _RangeChip(
-                  label: 'Last 7 days',
-                  icon: Icons.calendar_view_day,
-                  selected: _selectedRange == DateRange.lastWeek,
-                  onSelected: () {
-                    setState(() {
-                      _selectedRange = DateRange.lastWeek;
-                    });
-                  },
+    return DashboardPageShell(
+      title: 'Generate report',
+      subtitle: 'Summaries ready to share',
+      bodyPadding: EdgeInsets.zero,
+      child: ListView(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        children: [
+          Text(
+            'Choose a period',
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
-                _RangeChip(
-                  label: 'Last 30 days',
-                  icon: Icons.calendar_month,
-                  selected: _selectedRange == DateRange.lastMonth,
-                  onSelected: () {
-                    setState(() {
-                      _selectedRange = DateRange.lastMonth;
-                    });
-                  },
-                ),
-                _RangeChip(
-                  label: 'Custom range',
-                  icon: Icons.edit_calendar_rounded,
-                  selected: _selectedRange == DateRange.custom,
-                  onSelected: () {
-                    setState(() {
-                      _selectedRange = DateRange.custom;
-                    });
-                  },
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            'We’ll summarise all activity within the selected range.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          Wrap(
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
+            children: [
+              _RangeChip(
+                label: 'Last 7 days',
+                icon: Icons.calendar_view_day,
+                selected: _selectedRange == DateRange.lastWeek,
+                onSelected: () {
+                  setState(() {
+                    _selectedRange = DateRange.lastWeek;
+                  });
+                },
+              ),
+              _RangeChip(
+                label: 'Last 30 days',
+                icon: Icons.calendar_month,
+                selected: _selectedRange == DateRange.lastMonth,
+                onSelected: () {
+                  setState(() {
+                    _selectedRange = DateRange.lastMonth;
+                  });
+                },
+              ),
+              _RangeChip(
+                label: 'Custom range',
+                icon: Icons.edit_calendar_rounded,
+                selected: _selectedRange == DateRange.custom,
+                onSelected: () {
+                  setState(() {
+                    _selectedRange = DateRange.custom;
+                  });
+                },
+              ),
+            ],
+          ),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 250),
+            child: _selectedRange == DateRange.custom
+                ? Padding(
+                    key: const ValueKey('custom-range'),
+                    padding: const EdgeInsets.only(top: AppSpacing.lg),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: _DateCard(
+                            title: 'From',
+                            value: _customStartDate != null
+                                ? date_utils.DateUtils.formatDate(
+                                    _customStartDate!)
+                                : 'Select date',
+                            onTap: _selectStartDate,
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: _DateCard(
+                            title: 'To',
+                            value: _customEndDate != null
+                                ? date_utils.DateUtils.formatDate(
+                                    _customEndDate!)
+                                : 'Select date',
+                            onTap: _selectEndDate,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox(key: ValueKey('preset-range')),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 24,
+                  offset: const Offset(0, 14),
                 ),
               ],
             ),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
-              child: _selectedRange == DateRange.custom
-                  ? Padding(
-                      key: const ValueKey('custom-range'),
-                      padding: const EdgeInsets.only(top: AppSpacing.lg),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: _DateCard(
-                              title: 'From',
-                              value: _customStartDate != null
-                                  ? date_utils.DateUtils.formatDate(_customStartDate!)
-                                  : 'Select date',
-                              onTap: _selectStartDate,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(AppSpacing.sm),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Icon(Icons.description_outlined,
+                          color: AppColors.primary),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
+                    Expanded(
+                      child: Text(
+                        'Your report will include',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
                             ),
-                          ),
-                          const SizedBox(width: AppSpacing.md),
-                          Expanded(
-                            child: _DateCard(
-                              title: 'To',
-                              value: _customEndDate != null
-                                  ? date_utils.DateUtils.formatDate(_customEndDate!)
-                                  : 'Select date',
-                              onTap: _selectEndDate,
-                            ),
-                          ),
-                        ],
                       ),
-                    )
-                  : const SizedBox(key: ValueKey('preset-range')),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                _buildCheckItem('Full meal log history for the period'),
+                _buildCheckItem('Adherence and consistency insights'),
+                _buildCheckItem('Client notes and alternative selections'),
+                _buildCheckItem('Weekly summaries ready to share'),
+              ],
             ),
-            const SizedBox(height: AppSpacing.xl),
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(28),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 24,
-                    offset: const Offset(0, 14),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(AppSpacing.sm),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: const Icon(Icons.description_outlined, color: AppColors.primary),
-                      ),
-                      const SizedBox(width: AppSpacing.md),
-                      Expanded(
-                        child: Text(
-                          'Your report will include',
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.w700,
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppSpacing.lg),
-                  _buildCheckItem('Full meal log history for the period'),
-                  _buildCheckItem('Adherence and consistency insights'),
-                  _buildCheckItem('Client notes and alternative selections'),
-                  _buildCheckItem('Weekly summaries ready to share'),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppSpacing.xl),
-            ElevatedButton.icon(
-              onPressed: _generateReport,
-              icon: const Icon(Icons.play_arrow_rounded),
-              label: const Text('Generate report'),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-          ],
-        ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          ElevatedButton.icon(
+            onPressed: _generateReport,
+            icon: const Icon(Icons.play_arrow_rounded),
+            label: const Text('Generate report'),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+        ],
       ),
     );
   }
@@ -251,7 +255,8 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
               color: AppColors.success.withValues(alpha: 0.16),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.check_rounded, color: AppColors.success, size: 18),
+            child: const Icon(Icons.check_rounded,
+                color: AppColors.success, size: 18),
           ),
           const SizedBox(width: AppSpacing.sm),
           Expanded(
@@ -372,4 +377,3 @@ class _DateCard extends StatelessWidget {
     );
   }
 }
-

@@ -23,4 +23,3 @@ class MealPlanProvider extends ChangeNotifier {
     return _repository.getMealById(mealId);
   }
 }
-

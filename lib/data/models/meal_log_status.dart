@@ -1,6 +1,7 @@
 enum MealLogStatus {
   followed,
-  alternative;
+  alternative,
+  skipped;
 
   String get displayName {
     switch (this) {
@@ -8,7 +9,8 @@ enum MealLogStatus {
         return 'Followed Plan';
       case MealLogStatus.alternative:
         return 'Alternative Meal';
+      case MealLogStatus.skipped:
+        return 'Skipped Meal';
     }
   }
 }
-

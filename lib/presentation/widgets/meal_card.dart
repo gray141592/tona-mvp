@@ -30,7 +30,8 @@ class MealCard extends StatefulWidget {
   State<MealCard> createState() => _MealCardState();
 }
 
-class _MealCardState extends State<MealCard> with SingleTickerProviderStateMixin {
+class _MealCardState extends State<MealCard>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
@@ -63,6 +64,28 @@ class _MealCardState extends State<MealCard> with SingleTickerProviderStateMixin
       case MealType.snack1:
       case MealType.snack2:
         return AppColors.mealSnack;
+    }
+  }
+
+  Color _statusColor(MealLogStatus status) {
+    switch (status) {
+      case MealLogStatus.followed:
+        return AppColors.success;
+      case MealLogStatus.alternative:
+        return AppColors.warning;
+      case MealLogStatus.skipped:
+        return AppColors.error;
+    }
+  }
+
+  IconData _statusIcon(MealLogStatus status) {
+    switch (status) {
+      case MealLogStatus.followed:
+        return Icons.check_rounded;
+      case MealLogStatus.alternative:
+        return Icons.restaurant;
+      case MealLogStatus.skipped:
+        return Icons.remove_circle_outline;
     }
   }
 
@@ -223,15 +246,11 @@ class _MealCardState extends State<MealCard> with SingleTickerProviderStateMixin
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: widget.mealLog!.status == MealLogStatus.followed
-                                    ? AppColors.success
-                                    : AppColors.warning,
+                                color: _statusColor(widget.mealLog!.status),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
-                                widget.mealLog!.status == MealLogStatus.followed
-                                    ? Icons.check_rounded
-                                    : Icons.restaurant,
+                                _statusIcon(widget.mealLog!.status),
                                 color: Colors.white,
                                 size: 18,
                               ),
@@ -250,7 +269,8 @@ class _MealCardState extends State<MealCard> with SingleTickerProviderStateMixin
                                   ),
                                   if (widget.mealLog!.alternativeMeal != null)
                                     Padding(
-                                      padding: const EdgeInsets.only(top: AppSpacing.xs),
+                                      padding: const EdgeInsets.only(
+                                          top: AppSpacing.xs),
                                       child: Text(
                                         widget.mealLog!.alternativeMeal!,
                                         style: AppTypography.bodySmall.copyWith(
@@ -262,7 +282,8 @@ class _MealCardState extends State<MealCard> with SingleTickerProviderStateMixin
                                     ),
                                   if (widget.mealLog!.notes != null)
                                     Padding(
-                                      padding: const EdgeInsets.only(top: AppSpacing.xs),
+                                      padding: const EdgeInsets.only(
+                                          top: AppSpacing.xs),
                                       child: Text(
                                         widget.mealLog!.notes!,
                                         style: AppTypography.bodySmall.copyWith(
@@ -276,7 +297,8 @@ class _MealCardState extends State<MealCard> with SingleTickerProviderStateMixin
                               ),
                             ),
                             Text(
-                              date_utils.DateUtils.formatTime(widget.mealLog!.loggedTime),
+                              date_utils.DateUtils.formatTime(
+                                  widget.mealLog!.loggedTime),
                               style: AppTypography.bodySmall.copyWith(
                                 color: AppColors.textSecondary,
                               ),
@@ -512,4 +534,3 @@ class _AlternativeButtonState extends State<_AlternativeButton>
     );
   }
 }
-

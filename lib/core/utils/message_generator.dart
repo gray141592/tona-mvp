@@ -1,3 +1,5 @@
+import 'time_provider.dart';
+
 class MessageGenerator {
   static String getMealLoggedMessage(String mealName) {
     final messages = [
@@ -7,7 +9,7 @@ class MessageGenerator {
       'Great job logging $mealName! Keep it up! 🌟',
       '$mealName logged! You\'re on fire! 🔥',
     ];
-    return messages[DateTime.now().millisecond % messages.length];
+    return messages[TimeProvider.now().millisecond % messages.length];
   }
 
   static String getAlternativeLoggedMessage(String mealName) {
@@ -16,10 +18,11 @@ class MessageGenerator {
       'Got it! $mealName alternative saved! ✅',
       'Perfect! Alternative logged for $mealName! 📝',
     ];
-    return messages[DateTime.now().millisecond % messages.length];
+    return messages[TimeProvider.now().millisecond % messages.length];
   }
 
-  static String getProgressMessage(int completed, int total, double percentage) {
+  static String getProgressMessage(
+      int completed, int total, double percentage) {
     if (percentage >= 100) {
       return 'Perfect day! All meals logged! 🏆';
     }
@@ -54,7 +57,6 @@ class MessageGenerator {
       'You\'re doing great! 🎯',
       'Keep the momentum going! 🚀',
     ];
-    return messages[DateTime.now().millisecond % messages.length];
+    return messages[TimeProvider.now().millisecond % messages.length];
   }
 }
-

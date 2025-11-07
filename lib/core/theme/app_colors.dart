@@ -37,4 +37,3 @@ class AppColors {
   static const Color buttonPrimary = primary;
   static const Color buttonSuccess = success;
 }
-

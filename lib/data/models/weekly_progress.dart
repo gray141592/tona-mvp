@@ -6,7 +6,11 @@ class WeeklyProgress {
   final int totalMeals;
   final int mealsFollowed;
   final int mealsWithAlternatives;
+  final int mealsSkipped;
+  final int mealsLogged;
   final double adherencePercentage;
+  final int dueMeals;
+  final int unloggedDueMeals;
   final Map<int, DailyProgress> dailyProgress;
 
   const WeeklyProgress({
@@ -15,8 +19,11 @@ class WeeklyProgress {
     required this.totalMeals,
     required this.mealsFollowed,
     required this.mealsWithAlternatives,
+    required this.mealsSkipped,
+    required this.mealsLogged,
     required this.adherencePercentage,
+    required this.dueMeals,
+    required this.unloggedDueMeals,
     required this.dailyProgress,
   });
 }
-

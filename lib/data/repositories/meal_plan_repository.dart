@@ -14,7 +14,7 @@ class MealPlanRepository {
 
   List<Meal> getMealsForDate(DateTime date) {
     if (_currentMealPlan == null) return [];
-    
+
     final dayOfWeek = date.weekday;
     return _currentMealPlan!.meals
         .where((meal) => meal.dayOfWeek == dayOfWeek)
@@ -24,10 +24,10 @@ class MealPlanRepository {
 
   List<Meal> getMealsForWeek(DateTime weekStart, DateTime weekEnd) {
     if (_currentMealPlan == null) return [];
-    
+
     final meals = <Meal>[];
-    for (var date = weekStart; 
-        date.isBefore(weekEnd.add(const Duration(days: 1))); 
+    for (var date = weekStart;
+        date.isBefore(weekEnd.add(const Duration(days: 1)));
         date = date.add(const Duration(days: 1))) {
       meals.addAll(getMealsForDate(date));
     }
@@ -45,4 +45,3 @@ class MealPlanRepository {
     }
   }
 }
-

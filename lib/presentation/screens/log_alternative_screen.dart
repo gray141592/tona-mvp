@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../data/models/meal.dart';
-import '../../core/theme/app_spacing.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/theme/app_spacing.dart';
+import '../../core/utils/time_provider.dart';
 import '../providers/meal_log_provider.dart';
 
 class LogAlternativeScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _LogAlternativeScreenState extends State<LogAlternativeScreen> {
     await mealLogProvider.logMealAsAlternative(
       clientId: AppConstants.mockClientId,
       mealId: widget.meal.id,
-      loggedDate: DateTime.now(),
+      loggedDate: TimeProvider.now(),
       alternativeMeal: _alternativeMealController.text.trim(),
       notes: _notesController.text.trim().isEmpty
           ? null
@@ -146,4 +147,3 @@ class _LogAlternativeScreenState extends State<LogAlternativeScreen> {
     );
   }
 }
-

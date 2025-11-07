@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
+import '../../core/utils/date_utils.dart' as date_utils;
 import '../providers/progress_provider.dart';
+import '../widgets/dashboard_page_shell.dart';
 import '../widgets/weekly_calendar.dart';
 import '../../data/models/weekly_progress.dart';
 import 'daily_view_screen.dart';
@@ -16,44 +18,45 @@ class WeeklyProgressScreen extends StatelessWidget {
     final progressProvider = context.watch<ProgressProvider>();
     final weeklyProgress = progressProvider.getCurrentWeekProgress();
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          children: [
-            const SizedBox(height: AppSpacing.md),
-            _WeeklyAdherenceCard(
-              weeklyProgress: weeklyProgress,
-              message: _adherenceMessage(weeklyProgress.adherencePercentage),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            _WeeklySummaryCard(weeklyProgress: weeklyProgress),
-            const SizedBox(height: AppSpacing.lg),
-            _SectionHeader(
-              icon: Icons.calendar_view_week,
-              title: 'Daily breakdown',
-              subtitle: 'Tap any day to review the full plan',
-            ),
-            const SizedBox(height: AppSpacing.md),
-            WeeklyCalendar(
-              weeklyProgress: weeklyProgress,
-              onDayTap: (date) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DailyViewScreen(),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: AppSpacing.xl),
-          ],
-        ),
+    final subtitle =
+        '${date_utils.DateUtils.formatDate(weeklyProgress.weekStartDate)} → ${date_utils.DateUtils.formatDate(weeklyProgress.weekEndDate)}';
+
+    return DashboardPageShell(
+      title: 'Weekly progress',
+      subtitle: subtitle,
+      bodyPadding: const EdgeInsets.all(AppSpacing.md),
+      child: ListView(
+        children: [
+          const SizedBox(height: AppSpacing.md),
+          _WeeklyAdherenceCard(
+            weeklyProgress: weeklyProgress,
+            message: _adherenceMessage(weeklyProgress.adherencePercentage),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          _WeeklySummaryCard(weeklyProgress: weeklyProgress),
+          const SizedBox(height: AppSpacing.lg),
+          _SectionHeader(
+            icon: Icons.calendar_view_week,
+            title: 'Daily breakdown',
+            subtitle: 'Tap any day to review the full plan',
+          ),
+          const SizedBox(height: AppSpacing.md),
+          WeeklyCalendar(
+            weeklyProgress: weeklyProgress,
+            onDayTap: (date) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DailyViewScreen(),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: AppSpacing.xl),
+        ],
       ),
     );
   }
-
 }
 
 class _WeeklyAdherenceCard extends StatelessWidget {
@@ -210,10 +213,33 @@ class _WeeklySummaryCard extends StatelessWidget {
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: _SummaryTile(
+                  icon: Icons.remove_circle_outline,
+                  label: 'Skipped',
+                  value: weeklyProgress.mealsSkipped.toString(),
+                  accent: AppColors.error,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Row(
+            children: [
+              Expanded(
+                child: _SummaryTile(
                   icon: Icons.timeline,
                   label: 'Consistency',
                   value: _consistencyLabel(weeklyProgress.adherencePercentage),
                   accent: AppColors.accent,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: _SummaryTile(
+                  icon: Icons.task_alt_rounded,
+                  label: 'Meals logged',
+                  value:
+                      '${weeklyProgress.mealsLogged}/${weeklyProgress.totalMeals}',
+                  accent: AppColors.primary,
                 ),
               ),
             ],
@@ -340,7 +366,7 @@ String _adherenceMessage(double percentage) {
   if (percentage >= 90) return 'Outstanding! Keep it up! 🎉';
   if (percentage >= 80) return 'Great work — you\'re in the groove! 💪';
   if (percentage >= 70) return 'Solid progress, keep the streak alive! 👍';
-  if (percentage >= 50) return 'You\'re on track — let\'s push a little more! 📈';
+  if (percentage >= 50)
+    return 'You\'re on track — let\'s push a little more! 📈';
   return 'Fresh week, fresh opportunity to shine! 🌟';
 }
-

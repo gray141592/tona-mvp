@@ -15,7 +15,8 @@ class MealPlanProcessingScreen extends StatefulWidget {
   });
 
   @override
-  State<MealPlanProcessingScreen> createState() => _MealPlanProcessingScreenState();
+  State<MealPlanProcessingScreen> createState() =>
+      _MealPlanProcessingScreenState();
 }
 
 class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
@@ -109,9 +110,9 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
       child: WaitingScreenShell(
         title: 'Preparing your plan',
         subtitle: _StageStepper(
-              stages: _stages,
-              activeIndex: _currentStageIndex,
-            ),
+          stages: _stages,
+          activeIndex: _currentStageIndex,
+        ),
         onClose: _handleCancel,
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
@@ -171,8 +172,10 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
               child: LinearProgressIndicator(
                 value: _controller.value,
                 minHeight: 8,
-                backgroundColor: AppColors.surfaceVariant.withValues(alpha: 0.3),
-                valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                backgroundColor:
+                    AppColors.surfaceVariant.withValues(alpha: 0.3),
+                valueColor:
+                    const AlwaysStoppedAnimation<Color>(AppColors.primary),
               ),
             ),
             const SizedBox(height: AppSpacing.md),
@@ -345,4 +348,3 @@ class _ProcessingStage {
     required this.icon,
   });
 }
-

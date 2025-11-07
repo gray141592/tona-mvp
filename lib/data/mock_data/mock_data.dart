@@ -3,6 +3,7 @@ import '../models/meal_plan.dart';
 import '../models/meal.dart';
 import '../models/meal_type.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/utils/time_provider.dart';
 
 class MockData {
   static Client getMockClient() {
@@ -13,20 +14,20 @@ class MockData {
       nutritionistId: 'nutr_001',
       mealPlanId: AppConstants.mockMealPlanId,
       createdAt: DateTime(2024, 1, 8),
-      lastActiveAt: DateTime.now(),
+      lastActiveAt: TimeProvider.now(),
     );
   }
 
   static MealPlan getMockMealPlan() {
-    final startDate = DateTime.now().subtract(const Duration(days: 7));
+    final startDate = TimeProvider.now().subtract(const Duration(days: 7));
     final endDate = startDate.add(const Duration(days: 6));
-    
+
     final meals = <Meal>[];
-    
+
     for (var day = 1; day <= 7; day++) {
       meals.addAll(_getDayMeals(day));
     }
-    
+
     return MealPlan(
       id: AppConstants.mockMealPlanId,
       clientId: AppConstants.mockClientId,
@@ -49,7 +50,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.breakfast,
             name: 'Oatmeal with Berries',
-            description: '1 cup cooked oatmeal, 1/2 cup mixed berries, 1 tbsp almond butter, honey drizzle',
+            description:
+                '1 cup cooked oatmeal, 1/2 cup mixed berries, 1 tbsp almond butter, honey drizzle',
             ingredients: [
               '1 cup cooked oatmeal',
               '1/2 cup mixed berries',
@@ -77,7 +79,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.lunch,
             name: 'Grilled Chicken Salad',
-            description: '4oz grilled chicken breast, mixed greens, cherry tomatoes, cucumber, olive oil dressing',
+            description:
+                '4oz grilled chicken breast, mixed greens, cherry tomatoes, cucumber, olive oil dressing',
             ingredients: [
               '4oz grilled chicken breast',
               '2 cups mixed greens',
@@ -125,7 +128,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.breakfast,
             name: 'Scrambled Eggs with Avocado Toast',
-            description: '2 eggs scrambled, 1 slice whole grain toast, 1/2 avocado, cherry tomatoes',
+            description:
+                '2 eggs scrambled, 1 slice whole grain toast, 1/2 avocado, cherry tomatoes',
             ingredients: [
               '2 large eggs',
               '1 slice whole grain bread',
@@ -155,7 +159,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.lunch,
             name: 'Turkey Wrap with Hummus',
-            description: 'Whole wheat tortilla, 4oz turkey breast, hummus, lettuce, peppers',
+            description:
+                'Whole wheat tortilla, 4oz turkey breast, hummus, lettuce, peppers',
             ingredients: [
               '1 whole wheat tortilla',
               '4oz sliced turkey breast',
@@ -184,7 +189,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.dinner,
             name: 'Chicken Stir-Fry',
-            description: '5oz chicken breast, mixed vegetables, brown rice, teriyaki sauce',
+            description:
+                '5oz chicken breast, mixed vegetables, brown rice, teriyaki sauce',
             ingredients: [
               '5oz chicken breast',
               '2 cups mixed vegetables',
@@ -203,7 +209,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.breakfast,
             name: 'Greek Yogurt Parfait',
-            description: 'Greek yogurt layered with granola, berries, and honey',
+            description:
+                'Greek yogurt layered with granola, berries, and honey',
             ingredients: [
               '1 cup Greek yogurt',
               '1/2 cup granola',
@@ -230,7 +237,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.lunch,
             name: 'Quinoa Buddha Bowl',
-            description: 'Quinoa, roasted chickpeas, avocado, vegetables, tahini dressing',
+            description:
+                'Quinoa, roasted chickpeas, avocado, vegetables, tahini dressing',
             ingredients: [
               '1 cup cooked quinoa',
               '1/2 cup roasted chickpeas',
@@ -246,7 +254,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.snack2,
             name: 'Cottage Cheese with Pineapple',
-            description: '1 cup low-fat cottage cheese, 1/2 cup pineapple chunks',
+            description:
+                '1 cup low-fat cottage cheese, 1/2 cup pineapple chunks',
             ingredients: [
               '1 cup low-fat cottage cheese',
               '1/2 cup pineapple chunks',
@@ -259,7 +268,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.dinner,
             name: 'Lean Beef Tacos',
-            description: 'Lean ground beef, corn tortillas, lettuce, tomato, salsa',
+            description:
+                'Lean ground beef, corn tortillas, lettuce, tomato, salsa',
             ingredients: [
               '5oz lean ground beef',
               '2 corn tortillas',
@@ -306,7 +316,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.lunch,
             name: 'Tuna Salad',
-            description: 'Tuna, mixed greens, hard-boiled egg, olives, olive oil',
+            description:
+                'Tuna, mixed greens, hard-boiled egg, olives, olive oil',
             ingredients: [
               '1 can tuna in water',
               '2 cups mixed greens',
@@ -334,7 +345,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.dinner,
             name: 'Baked Chicken with Quinoa',
-            description: 'Herb-crusted chicken breast, quinoa, roasted asparagus',
+            description:
+                'Herb-crusted chicken breast, quinoa, roasted asparagus',
             ingredients: [
               '5oz chicken breast',
               '1 cup cooked quinoa',
@@ -353,7 +365,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.breakfast,
             name: 'Veggie Omelet',
-            description: '3-egg omelet with spinach, mushrooms, and feta cheese',
+            description:
+                '3-egg omelet with spinach, mushrooms, and feta cheese',
             ingredients: [
               '3 large eggs',
               '1 cup spinach',
@@ -381,7 +394,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.lunch,
             name: 'Mediterranean Chicken Bowl',
-            description: 'Grilled chicken, brown rice, hummus, cucumber, tomatoes, olives',
+            description:
+                'Grilled chicken, brown rice, hummus, cucumber, tomatoes, olives',
             ingredients: [
               '4oz grilled chicken',
               '1 cup brown rice',
@@ -411,7 +425,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.dinner,
             name: 'Shrimp Pasta Primavera',
-            description: 'Whole wheat pasta, shrimp, mixed vegetables, garlic olive oil',
+            description:
+                'Whole wheat pasta, shrimp, mixed vegetables, garlic olive oil',
             ingredients: [
               '2oz whole wheat pasta',
               '5oz shrimp',
@@ -430,7 +445,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.breakfast,
             name: 'Breakfast Burrito',
-            description: 'Scrambled eggs, black beans, cheese, salsa in whole wheat tortilla',
+            description:
+                'Scrambled eggs, black beans, cheese, salsa in whole wheat tortilla',
             ingredients: [
               '2 scrambled eggs',
               '1/4 cup black beans',
@@ -460,7 +476,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.lunch,
             name: 'Grilled Veggie Sandwich',
-            description: 'Grilled zucchini, peppers, mozzarella on whole grain bread',
+            description:
+                'Grilled zucchini, peppers, mozzarella on whole grain bread',
             ingredients: [
               '2 slices whole grain bread',
               '1/2 grilled zucchini',
@@ -489,7 +506,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.dinner,
             name: 'Grilled Steak with Vegetables',
-            description: 'Lean sirloin steak, roasted Brussels sprouts and carrots',
+            description:
+                'Lean sirloin steak, roasted Brussels sprouts and carrots',
             ingredients: [
               '5oz lean sirloin steak',
               '1 cup roasted Brussels sprouts',
@@ -507,7 +525,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.breakfast,
             name: 'French Toast with Fruit',
-            description: 'Whole grain French toast, fresh berries, yogurt drizzle',
+            description:
+                'Whole grain French toast, fresh berries, yogurt drizzle',
             ingredients: [
               '2 slices whole grain bread',
               '1 egg',
@@ -536,7 +555,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.lunch,
             name: 'Chicken Caesar Salad',
-            description: 'Grilled chicken, romaine lettuce, parmesan, light Caesar dressing',
+            description:
+                'Grilled chicken, romaine lettuce, parmesan, light Caesar dressing',
             ingredients: [
               '4oz grilled chicken breast',
               '2 cups romaine lettuce',
@@ -552,7 +572,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.snack2,
             name: 'Smoothie Bowl',
-            description: 'Blended berries, banana, topped with granola and chia seeds',
+            description:
+                'Blended berries, banana, topped with granola and chia seeds',
             ingredients: [
               '1 cup mixed berries',
               '1/2 banana',
@@ -567,7 +588,8 @@ class MockData {
             dayOfWeek: dayOfWeek,
             mealType: MealType.dinner,
             name: 'Baked Cod with Sweet Potato',
-            description: 'Herb-baked cod, mashed sweet potato, steamed green beans',
+            description:
+                'Herb-baked cod, mashed sweet potato, steamed green beans',
             ingredients: [
               '5oz cod fillet',
               '1 medium sweet potato',
@@ -583,4 +605,3 @@ class MockData {
     }
   }
 }
-

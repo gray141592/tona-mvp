@@ -93,7 +93,8 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
           _containerKey.currentContext?.findRenderObject() as RenderBox?;
       if (box != null && box.hasSize && box.size.width > 0) {
         final width = box.size.width;
-        final calculated = width - 56; // Just subtract button width to reach the end
+        final calculated =
+            width - 56; // Just subtract button width to reach the end
         if (calculated != _maxDragDistance && calculated > 0) {
           setState(() {
             _maxDragDistance = calculated;
@@ -128,15 +129,15 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
 
   void _handleDragUpdate(DragUpdateDetails details) {
     if (_isCompleted || _maxDragDistance <= 0) return;
-    
+
     final newPosition = (_dragPosition + details.primaryDelta!).clamp(
       0.0,
       _maxDragDistance,
     );
-    
+
     final progress = (newPosition / _maxDragDistance).clamp(0.0, 1.0);
     final previousProgress = _controller.value;
-    
+
     setState(() {
       _dragPosition = newPosition;
       _controller.value = progress;
@@ -171,7 +172,8 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
 
     HapticFeedback.mediumImpact();
 
-    _controller.animateTo(1.0, duration: const Duration(milliseconds: 200))
+    _controller
+        .animateTo(1.0, duration: const Duration(milliseconds: 200))
         .then((_) {
       _completionController.forward().then((_) {
         widget.onComplete();
@@ -212,7 +214,8 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
           animation: Listenable.merge([_controller, _completionController]),
           builder: (context, child) {
             final progress = _controller.value;
-            final isCompleted = _isCompleted && _completionController.value > 0.5;
+            final isCompleted =
+                _isCompleted && _completionController.value > 0.5;
 
             return Transform.scale(
               scale: _isCompleted ? _scaleAnimation.value : 1.0,
@@ -220,7 +223,8 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
                 opacity: _isCompleted ? _fadeAnimation.value : 1.0,
                 child: GestureDetector(
                   onHorizontalDragStart: _isCompleted ? null : _handleDragStart,
-                  onHorizontalDragUpdate: _isCompleted ? null : _handleDragUpdate,
+                  onHorizontalDragUpdate:
+                      _isCompleted ? null : _handleDragUpdate,
                   onHorizontalDragEnd: _isCompleted ? null : _handleDragEnd,
                   behavior: HitTestBehavior.opaque,
                   child: Container(
@@ -244,7 +248,8 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(56),
-                              color: AppColors.surfaceVariant.withValues(alpha: 0.4),
+                              color: AppColors.surfaceVariant
+                                  .withValues(alpha: 0.4),
                             ),
                           ),
                         ),
@@ -346,7 +351,8 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.primary.withValues(alpha: 0.4),
+                                    color: AppColors.primary
+                                        .withValues(alpha: 0.4),
                                     blurRadius: 12,
                                     offset: const Offset(0, 6),
                                   ),
@@ -393,5 +399,3 @@ class _SwipeToCompleteState extends State<SwipeToComplete>
     );
   }
 }
-
-

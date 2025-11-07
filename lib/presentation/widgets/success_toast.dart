@@ -28,7 +28,7 @@ class SuccessToast extends StatelessWidget {
     Duration duration = const Duration(seconds: 3),
   }) {
     HapticFeedback.mediumImpact();
-    
+
     final overlay = Overlay.of(context);
     final overlayEntry = OverlayEntry(
       builder: (context) => _ToastOverlay(
@@ -223,4 +223,3 @@ class _ToastOverlayState extends State<_ToastOverlay>
     );
   }
 }
-

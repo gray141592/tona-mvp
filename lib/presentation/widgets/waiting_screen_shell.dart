@@ -27,7 +27,8 @@ class WaitingScreenShell extends StatefulWidget {
   State<WaitingScreenShell> createState() => _WaitingScreenShellState();
 }
 
-class _WaitingScreenShellState extends State<WaitingScreenShell> with SingleTickerProviderStateMixin {
+class _WaitingScreenShellState extends State<WaitingScreenShell>
+    with SingleTickerProviderStateMixin {
   late Animation<double> _fadeAnimation;
 
   late Animation<Offset> _slideAnimation;
@@ -89,10 +90,7 @@ class _WaitingScreenShellState extends State<WaitingScreenShell> with SingleTick
                     child: widget.body,
                   ),
                   const SizedBox(height: AppSpacing.lg),
-                  SizedBox(
-                    width: double.infinity,
-                    child: widget.footer
-                  ),
+                  SizedBox(width: double.infinity, child: widget.footer),
                 ],
               ),
             ),
@@ -102,4 +100,3 @@ class _WaitingScreenShellState extends State<WaitingScreenShell> with SingleTick
     );
   }
 }
-

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../../data/models/weekly_progress.dart';
 import '../../data/models/daily_progress.dart';
 import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_spacing.dart';
+import '../../core/theme/app_typography.dart';
 import '../../core/utils/date_utils.dart' as date_utils;
+import '../../core/utils/time_provider.dart';
 
 class WeeklyCalendar extends StatelessWidget {
   final WeeklyProgress weeklyProgress;
@@ -32,7 +33,7 @@ class WeeklyCalendar extends StatelessWidget {
   Widget _buildDayRow(DateTime date, DailyProgress dailyProgress) {
     final dayName = date_utils.DateUtils.formatDayOfWeek(date).substring(0, 3);
     final dateStr = date_utils.DateUtils.formatShortDate(date);
-    final isToday = date_utils.DateUtils.isSameDay(date, DateTime.now());
+    final isToday = date_utils.DateUtils.isSameDay(date, TimeProvider.now());
     final percentage = dailyProgress.adherencePercentage;
 
     return InkWell(
@@ -93,7 +94,9 @@ class WeeklyCalendar extends StatelessWidget {
                   Text(
                     dayName.toUpperCase(),
                     style: AppTypography.labelMedium.copyWith(
-                      color: isToday ? AppColors.primaryDark : AppColors.textSecondary,
+                      color: isToday
+                          ? AppColors.primaryDark
+                          : AppColors.textSecondary,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -158,10 +161,36 @@ class WeeklyCalendar extends StatelessWidget {
   }
 
   Widget _buildProgressIndicators(DailyProgress dailyProgress) {
+    final statusGradients = <Gradient>[
+      for (var i = 0; i < dailyProgress.mealsFollowed; i++)
+        LinearGradient(
+          colors: [AppColors.success, AppColors.secondary],
+        ),
+      for (var i = 0; i < dailyProgress.mealsWithAlternatives; i++)
+        LinearGradient(
+          colors: [
+            AppColors.warning,
+            AppColors.secondary.withValues(alpha: 0.7)
+          ],
+        ),
+      for (var i = 0; i < dailyProgress.mealsSkipped; i++)
+        LinearGradient(
+          colors: [AppColors.error, AppColors.error.withValues(alpha: 0.7)],
+        ),
+    ];
+
     final indicators = <Widget>[];
 
     for (var i = 0; i < dailyProgress.totalMeals; i++) {
-      final isLogged = i < dailyProgress.mealsFollowed;
+      final gradient = i < statusGradients.length
+          ? statusGradients[i]
+          : LinearGradient(
+              colors: [
+                AppColors.surfaceVariant,
+                AppColors.surfaceVariant.withValues(alpha: 0.6),
+              ],
+            );
+
       indicators.add(
         AnimatedContainer(
           duration: const Duration(milliseconds: 250),
@@ -171,16 +200,7 @@ class WeeklyCalendar extends StatelessWidget {
           margin: const EdgeInsets.only(right: AppSpacing.xs),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(999),
-            gradient: isLogged
-                ? LinearGradient(
-                    colors: [AppColors.success, AppColors.secondary],
-                  )
-                : LinearGradient(
-                    colors: [
-                      AppColors.surfaceVariant,
-                      AppColors.surfaceVariant.withValues(alpha: 0.6),
-                    ],
-                  ),
+            gradient: gradient,
           ),
         ),
       );
@@ -196,4 +216,3 @@ class WeeklyCalendar extends StatelessWidget {
     return 'new chance';
   }
 }
-

@@ -3,6 +3,7 @@ import '../../data/models/meal_log.dart';
 import '../../data/models/meal_log_status.dart';
 import '../../data/repositories/meal_log_repository.dart';
 import '../../core/utils/date_utils.dart';
+import '../../core/utils/time_provider.dart';
 
 class MealLogProvider extends ChangeNotifier {
   final MealLogRepository _repository;
@@ -14,7 +15,7 @@ class MealLogProvider extends ChangeNotifier {
     required String mealId,
     required DateTime loggedDate,
   }) async {
-    final now = DateTime.now();
+    final now = TimeProvider.now();
     final log = MealLog(
       id: 'log_${now.millisecondsSinceEpoch}',
       clientId: clientId,
@@ -24,7 +25,7 @@ class MealLogProvider extends ChangeNotifier {
       status: MealLogStatus.followed,
       createdAt: now,
     );
-    
+
     await _repository.saveMealLog(log);
     notifyListeners();
   }
@@ -36,7 +37,7 @@ class MealLogProvider extends ChangeNotifier {
     required String alternativeMeal,
     String? notes,
   }) async {
-    final now = DateTime.now();
+    final now = TimeProvider.now();
     final log = MealLog(
       id: 'log_${now.millisecondsSinceEpoch}',
       clientId: clientId,
@@ -48,7 +49,29 @@ class MealLogProvider extends ChangeNotifier {
       notes: notes,
       createdAt: now,
     );
-    
+
+    await _repository.saveMealLog(log);
+    notifyListeners();
+  }
+
+  Future<void> logMealAsSkipped({
+    required String clientId,
+    required String mealId,
+    required DateTime loggedDate,
+    String? notes,
+  }) async {
+    final now = TimeProvider.now();
+    final log = MealLog(
+      id: 'log_${now.millisecondsSinceEpoch}',
+      clientId: clientId,
+      mealId: mealId,
+      loggedDate: DateUtils.getDateOnly(loggedDate),
+      loggedTime: now,
+      status: MealLogStatus.skipped,
+      notes: notes,
+      createdAt: now,
+    );
+
     await _repository.saveMealLog(log);
     notifyListeners();
   }
@@ -69,4 +92,3 @@ class MealLogProvider extends ChangeNotifier {
     return _repository.getLogsForDateRange(startDate, endDate);
   }
 }
-

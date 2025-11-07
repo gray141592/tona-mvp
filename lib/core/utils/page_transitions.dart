@@ -39,7 +39,7 @@ class ScalePageTransition extends PageTransitionsBuilder {
     Widget child,
   ) {
     const curve = Curves.easeOutCubic;
-    
+
     return ScaleTransition(
       scale: animation.drive(
         Tween(begin: 0.8, end: 1.0).chain(
@@ -73,4 +73,3 @@ class FadePageTransition extends PageTransitionsBuilder {
     );
   }
 }
-

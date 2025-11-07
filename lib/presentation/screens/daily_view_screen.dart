@@ -7,9 +7,11 @@ import '../../core/theme/app_typography.dart';
 import '../../core/utils/date_utils.dart' as date_utils;
 import '../../core/utils/message_generator.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/utils/time_provider.dart';
 import '../providers/meal_plan_provider.dart';
 import '../providers/meal_log_provider.dart';
 import '../providers/progress_provider.dart';
+import '../widgets/dashboard_page_shell.dart';
 import '../widgets/meal_card.dart';
 import '../widgets/progress_indicator.dart' as app_progress;
 import '../widgets/success_toast.dart';
@@ -23,17 +25,17 @@ class DailyViewScreen extends StatefulWidget {
 }
 
 class _DailyViewScreenState extends State<DailyViewScreen> {
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate = TimeProvider.now();
   bool _showDateNavigation = false;
 
   void _selectDate() async {
     final picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate,
-      firstDate: DateTime.now().subtract(const Duration(days: 30)),
-      lastDate: DateTime.now(),
+      firstDate: TimeProvider.now().subtract(const Duration(days: 30)),
+      lastDate: TimeProvider.now(),
     );
-    
+
     if (picked != null) {
       setState(() {
         _selectedDate = picked;
@@ -48,7 +50,7 @@ class _DailyViewScreenState extends State<DailyViewScreen> {
   }
 
   void _navigateToNextDay() {
-    if (_selectedDate.isBefore(DateTime.now())) {
+    if (_selectedDate.isBefore(TimeProvider.now())) {
       setState(() {
         _selectedDate = _selectedDate.add(const Duration(days: 1));
       });
@@ -62,10 +64,10 @@ class _DailyViewScreenState extends State<DailyViewScreen> {
       mealId: meal.id,
       loggedDate: _selectedDate,
     );
-    
+
     if (!mounted) return;
     context.read<ProgressProvider>().refresh();
-    
+
     if (mounted) {
       SuccessToast.show(
         context,
@@ -82,7 +84,7 @@ class _DailyViewScreenState extends State<DailyViewScreen> {
         builder: (context) => LogAlternativeScreen(meal: meal),
       ),
     );
-    
+
     if (result == true && mounted) {
       context.read<ProgressProvider>().refresh();
       SuccessToast.show(
@@ -102,8 +104,9 @@ class _DailyViewScreenState extends State<DailyViewScreen> {
     final meals = mealPlanProvider.getMealsForDate(_selectedDate);
     final dailyProgress = progressProvider.getDailyProgress(_selectedDate);
 
-    final isToday = date_utils.DateUtils.isSameDay(_selectedDate, DateTime.now());
-    final canNavigateNext = _selectedDate.isBefore(DateTime.now());
+    final isToday =
+        date_utils.DateUtils.isSameDay(_selectedDate, TimeProvider.now());
+    final canNavigateNext = _selectedDate.isBefore(TimeProvider.now());
 
     Meal? nextMeal;
     for (final meal in meals) {
@@ -124,69 +127,70 @@ class _DailyViewScreenState extends State<DailyViewScreen> {
       return mealLog != null;
     }).toList();
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            _DateHeaderSection(
-              selectedDate: _selectedDate,
-              isToday: isToday,
-              showDateNavigation: _showDateNavigation,
-              canNavigateNext: canNavigateNext,
-              onToggleNavigation: () {
-                setState(() {
-                  _showDateNavigation = !_showDateNavigation;
-                });
-              },
-              onSelectDate: _selectDate,
-              onNavigatePrevious: _navigateToPreviousDay,
-              onNavigateNext: _navigateToNextDay,
-            ),
-            Expanded(
-              child: meals.isEmpty
-                  ? const _EmptyMealsView()
-                  : ListView(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppSpacing.md,
-                        vertical: AppSpacing.lg,
-                      ),
-                      children: [
-                        app_progress.ProgressIndicator(
-                          current: dailyProgress.mealsFollowed,
-                          total: dailyProgress.totalMeals,
-                          label: 'Meals logged',
-                        ),
-                        const SizedBox(height: AppSpacing.lg),
-                        if (nextMeal != null) ...[
-                          _NextMealCardSection(
-                            meal: nextMeal,
-                            onFollowed: () => _logMealAsFollowed(nextMeal!),
-                            onAlternative: () => _logMealAsAlternative(nextMeal!),
-                          ),
-                          if (unloggedMeals.length > 1 || loggedMeals.isNotEmpty)
-                            const SizedBox(height: AppSpacing.md),
-                        ],
-                        if (unloggedMeals.length > 1 || (unloggedMeals.length == 1 && nextMeal == null))
-                          _UnloggedMealsSection(
-                            meals: unloggedMeals,
-                            nextMeal: nextMeal,
-                            selectedDate: _selectedDate,
-                            onFollowed: _logMealAsFollowed,
-                            onAlternative: _logMealAsAlternative,
-                            hasLoggedMeals: loggedMeals.isNotEmpty,
-                          ),
-                        if (loggedMeals.isNotEmpty)
-                          _LoggedMealsSection(
-                            meals: loggedMeals,
-                            selectedDate: _selectedDate,
-                          ),
-                        const SizedBox(height: AppSpacing.xl),
-                      ],
+    return DashboardPageShell(
+      title: 'Daily schedule',
+      subtitle: date_utils.DateUtils.formatDate(_selectedDate),
+      bodyPadding: EdgeInsets.zero,
+      child: Column(
+        children: [
+          _DateHeaderSection(
+            selectedDate: _selectedDate,
+            isToday: isToday,
+            showDateNavigation: _showDateNavigation,
+            canNavigateNext: canNavigateNext,
+            onToggleNavigation: () {
+              setState(() {
+                _showDateNavigation = !_showDateNavigation;
+              });
+            },
+            onSelectDate: _selectDate,
+            onNavigatePrevious: _navigateToPreviousDay,
+            onNavigateNext: _navigateToNextDay,
+          ),
+          Expanded(
+            child: meals.isEmpty
+                ? const _EmptyMealsView()
+                : ListView(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                      vertical: AppSpacing.lg,
                     ),
-            ),
-          ],
-        ),
+                    children: [
+                      app_progress.ProgressIndicator(
+                        current: dailyProgress.mealsLogged,
+                        total: dailyProgress.totalMeals,
+                        label: 'Meals logged',
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      if (nextMeal != null) ...[
+                        _NextMealCardSection(
+                          meal: nextMeal,
+                          onFollowed: () => _logMealAsFollowed(nextMeal!),
+                          onAlternative: () => _logMealAsAlternative(nextMeal!),
+                        ),
+                        if (unloggedMeals.length > 1 || loggedMeals.isNotEmpty)
+                          const SizedBox(height: AppSpacing.md),
+                      ],
+                      if (unloggedMeals.length > 1 ||
+                          (unloggedMeals.length == 1 && nextMeal == null))
+                        _UnloggedMealsSection(
+                          meals: unloggedMeals,
+                          nextMeal: nextMeal,
+                          selectedDate: _selectedDate,
+                          onFollowed: _logMealAsFollowed,
+                          onAlternative: _logMealAsAlternative,
+                          hasLoggedMeals: loggedMeals.isNotEmpty,
+                        ),
+                      if (loggedMeals.isNotEmpty)
+                        _LoggedMealsSection(
+                          meals: loggedMeals,
+                          selectedDate: _selectedDate,
+                        ),
+                      const SizedBox(height: AppSpacing.xl),
+                    ],
+                  ),
+          ),
+        ],
       ),
     );
   }
@@ -216,7 +220,8 @@ class _DateHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, 0),
+      padding: const EdgeInsets.fromLTRB(
+          AppSpacing.md, AppSpacing.md, AppSpacing.md, 0),
       child: Column(
         children: [
           Container(
@@ -252,8 +257,12 @@ class _DateHeaderSection extends StatelessWidget {
                           Text(
                             isToday
                                 ? 'Today'
-                                : date_utils.DateUtils.formatDayOfWeek(selectedDate),
-                            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                : date_utils.DateUtils.formatDayOfWeek(
+                                    selectedDate),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall
+                                ?.copyWith(
                                   fontWeight: FontWeight.w700,
                                 ),
                           ),
@@ -510,9 +519,10 @@ class _NextMealCardSection extends StatelessWidget {
                     children: [
                       Text(
                         'Next meal to log',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
                       ),
                       Text(
                         'Stay consistent to keep your momentum going.',
@@ -672,4 +682,3 @@ class _LoggedMealsSection extends StatelessWidget {
     );
   }
 }
-

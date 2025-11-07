@@ -50,7 +50,8 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
     if (oldWidget.current != widget.current) {
       _controller.reset();
       _progressAnimation = Tween<double>(
-        begin: oldWidget.total > 0 ? (oldWidget.current / oldWidget.total) : 0.0,
+        begin:
+            oldWidget.total > 0 ? (oldWidget.current / oldWidget.total) : 0.0,
         end: widget.total > 0 ? (widget.current / widget.total) : 0.0,
       ).animate(
         CurvedAnimation(
@@ -59,7 +60,7 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
         ),
       );
       _controller.forward();
-      
+
       // Haptic feedback on progress
       if (widget.current > oldWidget.current) {
         HapticFeedback.lightImpact();
@@ -73,7 +74,8 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
     super.dispose();
   }
 
-  double get _percentage => widget.total > 0 ? (widget.current / widget.total) * 100 : 0.0;
+  double get _percentage =>
+      widget.total > 0 ? (widget.current / widget.total) * 100 : 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -236,4 +238,3 @@ class _ProgressIndicatorState extends State<ProgressIndicator>
     );
   }
 }
-

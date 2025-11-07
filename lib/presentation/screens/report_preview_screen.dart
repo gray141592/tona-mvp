@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_spacing.dart';
+import '../../core/utils/adherence_utils.dart';
+import '../../core/utils/date_utils.dart' as date_utils;
+import '../../core/utils/time_provider.dart';
 import '../../data/models/client.dart';
 import '../../data/models/meal_log.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/utils/date_utils.dart' as date_utils;
 import '../providers/meal_log_provider.dart';
+import '../providers/meal_plan_provider.dart';
 
 class ReportPreviewScreen extends StatelessWidget {
   final Client client;
@@ -23,15 +27,18 @@ class ReportPreviewScreen extends StatelessWidget {
   Future<void> _shareReport(BuildContext context) async {
     try {
       final mealLogProvider = context.read<MealLogProvider>();
+      final mealPlanProvider = context.read<MealPlanProvider>();
       final logs = mealLogProvider.getLogsForDateRange(startDate, endDate);
-      
-      final reportText = _generateReportText(logs);
-      
+      final metrics = _calculateRangeMetrics(mealPlanProvider, logs);
+
+      final reportText = _generateReportText(logs, metrics);
+
       // Using ignore comment for now as the share_plus package is transitioning APIs
       // ignore: deprecated_member_use, deprecated_member_use_from_same_package
       await Share.share(
         reportText,
-        subject: 'Progress Report - ${date_utils.DateUtils.formatDate(startDate)} to ${date_utils.DateUtils.formatDate(endDate)}',
+        subject:
+            'Progress Report - ${date_utils.DateUtils.formatDate(startDate)} to ${date_utils.DateUtils.formatDate(endDate)}',
       );
     } catch (e) {
       if (context.mounted) {
@@ -42,50 +49,56 @@ class ReportPreviewScreen extends StatelessWidget {
     }
   }
 
-  String _generateReportText(List<MealLog> logs) {
+  String _generateReportText(List<MealLog> logs, _ReportMetrics metrics) {
     final buffer = StringBuffer();
     buffer.writeln('Progress Report');
     buffer.writeln('Client: ${client.name}');
     buffer.writeln('Email: ${client.email}');
-    buffer.writeln('Period: ${date_utils.DateUtils.formatDate(startDate)} - ${date_utils.DateUtils.formatDate(endDate)}');
+    buffer.writeln(
+        'Period: ${date_utils.DateUtils.formatDate(startDate)} - ${date_utils.DateUtils.formatDate(endDate)}');
     buffer.writeln('');
     buffer.writeln('Summary:');
-    buffer.writeln('Total Meals: ${logs.length}');
-    buffer.writeln('Meals Followed: ${logs.where((l) => l.status.name == 'followed').length}');
-    buffer.writeln('Alternative Meals: ${logs.where((l) => l.status.name == 'alternative').length}');
+    buffer.writeln('Total Meals: ${metrics.totalMeals}');
+    buffer.writeln('Meals Followed: ${metrics.mealsFollowed}');
+    buffer.writeln('Alternative Meals: ${metrics.mealsWithAlternatives}');
+    buffer.writeln('Meals Skipped: ${metrics.mealsSkipped}');
+    buffer.writeln('Meals due so far: ${metrics.dueMeals}');
+    buffer.writeln('Unlogged meals due: ${metrics.unloggedDueMeals}');
+    buffer.writeln(
+        'Adherence: ${metrics.adherencePercentage.toStringAsFixed(1)}%');
     buffer.writeln('');
     buffer.writeln('Daily Breakdown:');
-    
+
     for (var date = startDate;
         date.isBefore(endDate.add(const Duration(days: 1)));
         date = date.add(const Duration(days: 1))) {
-      final dayLogs = logs.where(
-        (log) => date_utils.DateUtils.isSameDay(log.loggedDate, date),
-      ).toList();
+      final dayLogs = logs
+          .where(
+            (log) => date_utils.DateUtils.isSameDay(log.loggedDate, date),
+          )
+          .toList();
 
       if (dayLogs.isEmpty) continue;
 
       buffer.writeln('\n${date_utils.DateUtils.formatDate(date)}:');
       for (final log in dayLogs) {
-        buffer.writeln('  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}');
+        buffer.writeln(
+            '  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}');
         if (log.notes != null) {
           buffer.writeln('    Notes: ${log.notes}');
         }
       }
     }
-    
+
     return buffer.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     final mealLogProvider = context.watch<MealLogProvider>();
+    final mealPlanProvider = context.watch<MealPlanProvider>();
     final logs = mealLogProvider.getLogsForDateRange(startDate, endDate);
-
-    final totalMeals = 35;
-    final mealsFollowed = logs.where((log) => log.status.name == 'followed').length;
-    final mealsWithAlternatives = logs.where((log) => log.status.name == 'alternative').length;
-    final adherencePercentage = totalMeals > 0 ? (mealsFollowed / totalMeals) * 100 : 0.0;
+    final metrics = _calculateRangeMetrics(mealPlanProvider, logs);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -110,10 +123,13 @@ class ReportPreviewScreen extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.md),
             _SummaryCard(
-              totalMeals: totalMeals,
-              mealsFollowed: mealsFollowed,
-              mealsWithAlternatives: mealsWithAlternatives,
-              adherencePercentage: adherencePercentage,
+              totalMeals: metrics.totalMeals,
+              mealsFollowed: metrics.mealsFollowed,
+              mealsWithAlternatives: metrics.mealsWithAlternatives,
+              mealsSkipped: metrics.mealsSkipped,
+              dueMeals: metrics.dueMeals,
+              unloggedDueMeals: metrics.unloggedDueMeals,
+              adherencePercentage: metrics.adherencePercentage,
             ),
             const SizedBox(height: AppSpacing.lg),
             const _DailyBreakdownHeader(),
@@ -127,6 +143,63 @@ class ReportPreviewScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  _ReportMetrics _calculateRangeMetrics(
+    MealPlanProvider mealPlanProvider,
+    List<MealLog> logs,
+  ) {
+    var totalMeals = 0;
+    var mealsFollowed = 0;
+    var mealsWithAlternatives = 0;
+    var mealsSkipped = 0;
+    var dueMeals = 0;
+    var unloggedDueMeals = 0;
+
+    final now = TimeProvider.now();
+
+    for (var date = date_utils.DateUtils.getDateOnly(startDate);
+        !date.isAfter(endDate);
+        date = date.add(const Duration(days: 1))) {
+      final dayMeals = mealPlanProvider.getMealsForDate(date);
+      final dayLogs = logs
+          .where(
+            (log) => date_utils.DateUtils.isSameDay(log.loggedDate, date),
+          )
+          .toList();
+
+      totalMeals += dayMeals.length;
+      mealsFollowed +=
+          dayLogs.where((log) => log.status.name == 'followed').length;
+      mealsWithAlternatives +=
+          dayLogs.where((log) => log.status.name == 'alternative').length;
+      mealsSkipped +=
+          dayLogs.where((log) => log.status.name == 'skipped').length;
+
+      final dailyMetrics = AdherenceUtils.evaluate(
+        date: date,
+        meals: dayMeals,
+        logs: dayLogs,
+        now: now,
+      );
+
+      dueMeals += dailyMetrics.dueMeals;
+      unloggedDueMeals += dailyMetrics.unloggedDueMeals;
+    }
+
+    final adherencePercentage = dueMeals == 0
+        ? 100.0
+        : ((dueMeals - unloggedDueMeals) / dueMeals) * 100;
+
+    return _ReportMetrics(
+      totalMeals: totalMeals,
+      mealsFollowed: mealsFollowed,
+      mealsWithAlternatives: mealsWithAlternatives,
+      mealsSkipped: mealsSkipped,
+      dueMeals: dueMeals,
+      unloggedDueMeals: unloggedDueMeals,
+      adherencePercentage: adherencePercentage,
     );
   }
 }
@@ -211,7 +284,8 @@ class _ClientInfoCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(Icons.event_available_rounded, color: AppColors.primary),
+                const Icon(Icons.event_available_rounded,
+                    color: AppColors.primary),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                   child: Text(
@@ -234,17 +308,27 @@ class _SummaryCard extends StatelessWidget {
   final int totalMeals;
   final int mealsFollowed;
   final int mealsWithAlternatives;
+  final int mealsSkipped;
+  final int dueMeals;
+  final int unloggedDueMeals;
   final double adherencePercentage;
 
   const _SummaryCard({
     required this.totalMeals,
     required this.mealsFollowed,
     required this.mealsWithAlternatives,
+    required this.mealsSkipped,
+    required this.dueMeals,
+    required this.unloggedDueMeals,
     required this.adherencePercentage,
   });
 
   @override
   Widget build(BuildContext context) {
+    final adherenceLabel = '${adherencePercentage.toStringAsFixed(1)}%';
+    final adherenceFooter =
+        'As of ${date_utils.DateUtils.formatDate(TimeProvider.now())}';
+
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -283,7 +367,8 @@ class _SummaryCard extends StatelessWidget {
                   icon: Icons.check_circle,
                   label: 'Followed',
                   value: '$mealsFollowed',
-                  footer: '${adherencePercentage.toStringAsFixed(1)}% adherence',
+                  footer:
+                      '${adherencePercentage.toStringAsFixed(1)}% adherence',
                   accent: AppColors.success,
                 ),
               ),
@@ -303,10 +388,46 @@ class _SummaryCard extends StatelessWidget {
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: _SummaryPill(
+                  icon: Icons.remove_circle_outline,
+                  label: 'Skipped',
+                  value: mealsSkipped.toString(),
+                  accent: AppColors.error,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Row(
+            children: [
+              Expanded(
+                child: _SummaryPill(
                   icon: Icons.timeline_rounded,
-                  label: 'Daily avg',
-                  value: '${adherencePercentage.toStringAsFixed(1)}%',
+                  label: 'Due so far',
+                  value: '$dueMeals',
                   accent: AppColors.accent,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: _SummaryPill(
+                  icon: Icons.pending_actions_outlined,
+                  label: 'Needs log',
+                  value: '$unloggedDueMeals',
+                  accent: AppColors.primaryDark,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Row(
+            children: [
+              Expanded(
+                child: _SummaryPill(
+                  icon: Icons.speed_rounded,
+                  label: 'Adherence',
+                  value: adherenceLabel,
+                  footer: adherenceFooter,
+                  accent: AppColors.primary,
                 ),
               ),
             ],
@@ -330,7 +451,8 @@ class _DailyBreakdownHeader extends StatelessWidget {
             color: AppColors.primary.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: const Icon(Icons.view_agenda_outlined, color: AppColors.primary),
+          child:
+              const Icon(Icons.view_agenda_outlined, color: AppColors.primary),
         ),
         const SizedBox(width: AppSpacing.md),
         Text(
@@ -368,9 +490,11 @@ class _DailyBreakdownList extends StatelessWidget {
     for (var date = startDate;
         date.isBefore(endDate.add(const Duration(days: 1)));
         date = date.add(const Duration(days: 1))) {
-      final dayLogs = logs.where(
-        (log) => date_utils.DateUtils.isSameDay(log.loggedDate, date),
-      ).toList();
+      final dayLogs = logs
+          .where(
+            (log) => date_utils.DateUtils.isSameDay(log.loggedDate, date),
+          )
+          .toList();
 
       if (dayLogs.isEmpty) continue;
 
@@ -599,4 +723,24 @@ class _SummaryPill extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ReportMetrics {
+  final int totalMeals;
+  final int mealsFollowed;
+  final int mealsWithAlternatives;
+  final int mealsSkipped;
+  final int dueMeals;
+  final int unloggedDueMeals;
+  final double adherencePercentage;
+
+  const _ReportMetrics({
+    required this.totalMeals,
+    required this.mealsFollowed,
+    required this.mealsWithAlternatives,
+    required this.mealsSkipped,
+    required this.dueMeals,
+    required this.unloggedDueMeals,
+    required this.adherencePercentage,
+  });
 }
