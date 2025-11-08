@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -59,8 +58,8 @@ class DashboardMenu extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset(
-                          'lib/assets/IR.svg',
+                        Image.asset(
+                          'assets/IR-logo.png',
                           width: 30,
                           height: 30,
                         ),

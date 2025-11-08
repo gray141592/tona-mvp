@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
@@ -145,8 +144,8 @@ class _SplashScreenState extends State<SplashScreen>
                       scale: _logoScale.value,
                       child: Transform.rotate(
                         angle: _logoRotation.value * 0.1,
-                        child: SvgPicture.asset(
-                          'lib/assets/IR.svg',
+                        child: Image.asset(
+                          'assets/IR-logo.png',
                           width: 120,
                           height: 120,
                         ),

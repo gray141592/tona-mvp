@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -44,8 +43,8 @@ class DashboardHeader extends StatelessWidget {
                 ),
               ],
             ),
-            child: SvgPicture.asset(
-              'lib/assets/IR.svg',
+            child: Image.asset(
+              'assets/IR-logo.png',
               width: 20,
               height: 24,
             ),

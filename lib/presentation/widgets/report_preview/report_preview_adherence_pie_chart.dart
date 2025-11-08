@@ -173,7 +173,7 @@ class _LegendRow extends StatelessWidget {
               color: AppColors.textSecondary,
             ),
           ),
-        )
+        ),
       ],
     );
   }

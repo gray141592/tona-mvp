@@ -13,7 +13,7 @@ class AppConstants {
 
   /// Set to true to skip onboarding flow (splash, upload, processing, review)
   /// and go directly to the dashboard with mock data
-  static const bool skipOnboarding = true;
+  static const bool skipOnboarding = false;
 
   static const String hasSeenNextMealSwipeHintKey =
       'has_seen_next_meal_swipe_hint';
