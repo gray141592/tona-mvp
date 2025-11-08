@@ -86,8 +86,10 @@ class ReportPreviewClientInfoCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(Icons.event_available_rounded,
-                    color: AppColors.primary,),
+                const Icon(
+                  Icons.event_available_rounded,
+                  color: AppColors.primary,
+                ),
                 const SizedBox(width: AppSpacing.sm),
                 Expanded(
                   child: Text(

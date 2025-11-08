@@ -14,16 +14,46 @@ enum DateRange {
 }
 
 class ReportGenerationScreen extends StatefulWidget {
-  const ReportGenerationScreen({super.key});
+  const ReportGenerationScreen({
+    super.key,
+    this.initialStartDate,
+    this.initialEndDate,
+    this.contextLabel,
+  });
+
+  final DateTime? initialStartDate;
+  final DateTime? initialEndDate;
+  final String? contextLabel;
 
   @override
   State<ReportGenerationScreen> createState() => _ReportGenerationScreenState();
 }
 
 class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
-  DateRange _selectedRange = DateRange.lastWeek;
+  late DateRange _selectedRange;
   DateTime? _customStartDate;
   DateTime? _customEndDate;
+
+  @override
+  void initState() {
+    super.initState();
+    final hasCustomRange =
+        widget.initialStartDate != null || widget.initialEndDate != null;
+    _selectedRange = hasCustomRange ? DateRange.custom : DateRange.lastWeek;
+
+    if (hasCustomRange) {
+      final start = widget.initialStartDate;
+      final end = widget.initialEndDate ?? widget.initialStartDate;
+
+      if (start != null && end != null && start.isAfter(end)) {
+        _customStartDate = end;
+        _customEndDate = start;
+      } else {
+        _customStartDate = start ?? end?.subtract(const Duration(days: 7));
+        _customEndDate = end ?? start;
+      }
+    }
+  }
 
   DateTime get _startDate {
     final now = TimeProvider.now();
@@ -103,6 +133,34 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
       child: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
+          if (widget.contextLabel != null) ...[
+            Container(
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                color: AppColors.primaryLight,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.auto_awesome_rounded,
+                    color: AppColors.primaryDark,
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      widget.contextLabel!,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+          ],
           Text(
             'Choose a period',
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
@@ -164,7 +222,8 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                             title: 'From',
                             value: _customStartDate != null
                                 ? date_utils.DateUtils.formatDate(
-                                    _customStartDate!,)
+                                    _customStartDate!,
+                                  )
                                 : 'Select date',
                             onTap: _selectStartDate,
                           ),
@@ -175,7 +234,8 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                             title: 'To',
                             value: _customEndDate != null
                                 ? date_utils.DateUtils.formatDate(
-                                    _customEndDate!,)
+                                    _customEndDate!,
+                                  )
                                 : 'Select date',
                             onTap: _selectEndDate,
                           ),
@@ -210,8 +270,10 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                         color: AppColors.primary.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Icon(Icons.description_outlined,
-                          color: AppColors.primary,),
+                      child: const Icon(
+                        Icons.description_outlined,
+                        color: AppColors.primary,
+                      ),
                     ),
                     const SizedBox(width: AppSpacing.md),
                     Expanded(
@@ -255,8 +317,11 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
               color: AppColors.success.withValues(alpha: 0.16),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.check_rounded,
-                color: AppColors.success, size: 18,),
+            child: const Icon(
+              Icons.check_rounded,
+              color: AppColors.success,
+              size: 18,
+            ),
           ),
           const SizedBox(width: AppSpacing.sm),
           Expanded(

@@ -95,7 +95,10 @@ class DashboardMealDetailsSheet extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                              TextSpan(text: ingredient.name, style: TextStyle(color: AppColors.textPrimary)),
+                              TextSpan(
+                                  text: ingredient.name,
+                                  style:
+                                      TextStyle(color: AppColors.textPrimary)),
                             ],
                           ),
                         ),

@@ -43,9 +43,9 @@ class ReportPreviewMealLogEntry extends StatelessWidget {
                   Text(
                     log.status.displayName,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: statusColor,
-                      fontWeight: FontWeight.w700,
-                    ),
+                          color: statusColor,
+                          fontWeight: FontWeight.w700,
+                        ),
                   ),
                   Text(
                     date_utils.DateUtils.formatTime(log.loggedTime),
@@ -92,14 +92,14 @@ class ReportPreviewMealLogEntry extends StatelessWidget {
   }
 
   Color _statusColor(MealLogStatus status) => switch (status) {
-    MealLogStatus.followed => AppColors.success,
-    MealLogStatus.alternative => AppColors.warning,
-    MealLogStatus.skipped => AppColors.error,
-  };
+        MealLogStatus.followed => AppColors.success,
+        MealLogStatus.alternative => AppColors.warning,
+        MealLogStatus.skipped => AppColors.error,
+      };
 
   IconData _statusIcon(MealLogStatus status) => switch (status) {
-    MealLogStatus.followed => Icons.check_circle,
-    MealLogStatus.alternative => Icons.restaurant,
-    MealLogStatus.skipped => Icons.remove_circle_outline,
-  };
+        MealLogStatus.followed => Icons.check_circle,
+        MealLogStatus.alternative => Icons.restaurant,
+        MealLogStatus.skipped => Icons.remove_circle_outline,
+      };
 }

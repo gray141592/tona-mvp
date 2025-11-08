@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -8,7 +9,7 @@ class DashboardMenu extends StatelessWidget {
   final bool isVisible;
   final VoidCallback onClose;
   final VoidCallback onWeeklyProgress;
-  final VoidCallback onReportGeneration;
+  final VoidCallback onConsultations;
   final VoidCallback onMealPlanOverview;
   final VoidCallback onGroceries;
   final double width;
@@ -18,7 +19,7 @@ class DashboardMenu extends StatelessWidget {
     required this.isVisible,
     required this.onClose,
     required this.onWeeklyProgress,
-    required this.onReportGeneration,
+    required this.onConsultations,
     required this.onMealPlanOverview,
     required this.onGroceries,
     required this.width,
@@ -58,21 +59,10 @@ class DashboardMenu extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(AppSpacing.sm),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.12),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: const Icon(Icons.restaurant_menu,
-                              color: AppColors.primary,),
-                        ),
-                        const SizedBox(width: AppSpacing.sm),
-                        Text(
-                          'TONA',
-                          style: AppTypography.titleLarge.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                        SvgPicture.asset(
+                          'lib/assets/IR.svg',
+                          width: 30,
+                          height: 30,
                         ),
                       ],
                     ),
@@ -86,11 +76,11 @@ class DashboardMenu extends StatelessWidget {
                       },
                     ),
                     _buildTile(
-                      icon: Icons.description_outlined,
-                      label: 'Generate report',
+                      icon: Icons.calendar_today_outlined,
+                      label: 'Consultations',
                       onTap: () {
                         onClose();
-                        onReportGeneration();
+                        onConsultations();
                       },
                     ),
                     _buildTile(

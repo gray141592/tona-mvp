@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -43,9 +44,10 @@ class DashboardHeader extends StatelessWidget {
                 ),
               ],
             ),
-            child: Icon(
-              isMenuOpen ? Icons.close_rounded : Icons.restaurant_menu,
-              color: isMenuOpen ? Colors.white : AppColors.primary,
+            child: SvgPicture.asset(
+              'lib/assets/IR.svg',
+              width: 20,
+              height: 24,
             ),
           ),
         ),

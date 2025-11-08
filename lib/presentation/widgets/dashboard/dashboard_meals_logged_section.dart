@@ -110,7 +110,7 @@ class DashboardMealsLoggedSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  entry.meal.name,
+                  entry.mealName,
                   style: AppTypography.titleMedium.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -123,7 +123,7 @@ class DashboardMealsLoggedSection extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                if (entry.log.alternativeMeal != null)
+                if (entry.log.alternativeMeal != null && entry.meal != null)
                   Text(
                     entry.log.alternativeMeal!,
                     style: AppTypography.bodySmall.copyWith(
@@ -176,19 +176,19 @@ class DashboardMealsLoggedSection extends StatelessWidget {
   }
 
   _StatusVisuals _statusVisuals(MealLogStatus status) => switch (status) {
-    MealLogStatus.followed => const _StatusVisuals(
-      color: AppColors.success,
-      icon: Icons.check_circle,
-    ),
-    MealLogStatus.alternative => const _StatusVisuals(
-      color: AppColors.warning,
-      icon: Icons.restaurant,
-    ),
-    MealLogStatus.skipped => const _StatusVisuals(
-      color: AppColors.error,
-      icon: Icons.remove_circle_outline,
-    ),
-  };
+        MealLogStatus.followed => const _StatusVisuals(
+            color: AppColors.success,
+            icon: Icons.check_circle,
+          ),
+        MealLogStatus.alternative => const _StatusVisuals(
+            color: AppColors.warning,
+            icon: Icons.restaurant,
+          ),
+        MealLogStatus.skipped => const _StatusVisuals(
+            color: AppColors.error,
+            icon: Icons.remove_circle_outline,
+          ),
+      };
 }
 
 class _StatusVisuals {

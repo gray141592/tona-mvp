@@ -5,12 +5,14 @@ import 'core/utils/page_transitions.dart';
 import 'core/constants/app_constants.dart';
 import 'data/repositories/meal_plan_repository.dart';
 import 'data/repositories/meal_log_repository.dart';
+import 'data/repositories/consultation_repository.dart';
 import 'data/models/meal_plan.dart';
 import 'data/mock_data/mock_data.dart';
 import 'domain/services/progress_service.dart';
 import 'presentation/providers/meal_plan_provider.dart';
 import 'presentation/providers/meal_log_provider.dart';
 import 'presentation/providers/progress_provider.dart';
+import 'presentation/providers/consultation_provider.dart';
 import 'presentation/screens/splash_screen.dart';
 import 'presentation/screens/meal_plan_upload_screen.dart';
 import 'presentation/screens/meal_plan_review_screen.dart';
@@ -28,6 +30,7 @@ class TonaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final mealPlanRepository = MealPlanRepository();
     final mealLogRepository = MealLogRepository();
+    final consultationRepository = ConsultationRepository();
     final progressService = ProgressService(
       mealPlanRepository: mealPlanRepository,
       mealLogRepository: mealLogRepository,
@@ -44,9 +47,16 @@ class TonaApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ProgressProvider(progressService),
         ),
+        ChangeNotifierProvider(
+          create: (_) {
+            final provider = ConsultationProvider(consultationRepository);
+            provider.loadAppointments(MockData.getMockConsultations());
+            return provider;
+          },
+        ),
       ],
       child: MaterialApp(
-        title: 'Tona',
+        title: 'IRresistible',
         theme: AppTheme.lightTheme.copyWith(
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: {

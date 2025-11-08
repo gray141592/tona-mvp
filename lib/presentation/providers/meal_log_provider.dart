@@ -95,4 +95,34 @@ class MealLogProvider extends ChangeNotifier {
   List<MealLog> getLogsForDateRange(DateTime startDate, DateTime endDate) {
     return _repository.getLogsForDateRange(startDate, endDate);
   }
+
+  Future<void> logUnplannedMeal({
+    required String clientId,
+    required DateTime loggedDate,
+    required String mealName,
+    String? notes,
+    bool? containsSugar,
+    bool? hasHighGlycemicIndex,
+  }) async {
+    final now = TimeProvider.now();
+    // Generate a unique meal ID for unplanned meals
+    final mealId = 'unplanned_${now.millisecondsSinceEpoch}';
+
+    final log = MealLog(
+      id: 'log_${now.millisecondsSinceEpoch}',
+      clientId: clientId,
+      mealId: mealId,
+      loggedDate: DateUtils.getDateOnly(loggedDate),
+      loggedTime: now,
+      status: MealLogStatus.alternative,
+      alternativeMeal: mealName,
+      notes: notes,
+      containsSugar: containsSugar,
+      hasHighGlycemicIndex: hasHighGlycemicIndex,
+      createdAt: now,
+    );
+
+    await _repository.saveMealLog(log);
+    notifyListeners();
+  }
 }

@@ -246,12 +246,6 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     });
   }
 
-  void _toggleItem(int index) {
-    setState(() {
-      _items[index] = _items[index].copyWith(included: !_items[index].included);
-    });
-  }
-
   void _removeItem(int index) {
     setState(() {
       _items.removeAt(index);
@@ -259,30 +253,33 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
   }
 
   Future<void> _shareList() async {
-    final includedItems = _items.where((item) => item.included).toList();
-
-    if (includedItems.isEmpty) {
+    if (_items.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Select at least one item to share.')),
+        const SnackBar(content: Text('No items to share.')),
       );
       return;
     }
 
-    final buffer = StringBuffer();
-    buffer.writeln('Groceries list for the next $_selectedDays day(s)');
-    buffer.writeln(
-      'Generated on ${date_utils.DateUtils.formatDate(TimeProvider.now())}\n',
-    );
-
-    for (final item in includedItems) {
-      buffer.writeln('• ${item.name} — ${item.formattedQuantity}');
-    }
+    const shareTitle = 'Groceries List';
+    final lines = <String>[
+      shareTitle,
+      '',
+      'Shopping for $_selectedDays day(s)',
+      'Generated on ${date_utils.DateUtils.formatDate(TimeProvider.now())}',
+      '',
+      ..._items.map(
+        (item) => '[ ] ${item.name} — ${item.formattedQuantity}',
+      ),
+    ];
+    final shareBody = lines.join('\n').trim();
 
     try {
-      // ignore: deprecated_member_use, deprecated_member_use_from_same_package
-      await Share.share(
-        buffer.toString(),
-        subject: 'Groceries list',
+      await SharePlus.instance.share(
+        ShareParams(
+          text: shareBody,
+          subject: shareTitle,
+          title: shareTitle,
+        ),
       );
     } catch (error) {
       if (!mounted) return;
@@ -358,7 +355,6 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
                     final item = _items[index];
                     return _GroceryListTile(
                       item: item,
-                      onToggle: () => _toggleItem(index),
                       onRemove: () => _removeItem(index),
                     );
                   },
@@ -392,14 +388,12 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       ),
     );
   }
-
 }
 
 class _GroceryItem {
   final String name;
   final double? grams;
   final double? count;
-  final bool included;
   final bool isEstimate;
   final bool isCustom;
 
@@ -407,17 +401,17 @@ class _GroceryItem {
     required this.name,
     this.grams,
     this.count,
-    this.included = true,
     this.isEstimate = false,
     this.isCustom = false,
-  }) : assert(grams != null || count != null,
-            'Either grams or count must be provided');
+  }) : assert(
+          grams != null || count != null,
+          'Either grams or count must be provided',
+        );
 
   _GroceryItem copyWith({
     String? name,
     double? grams,
     double? count,
-    bool? included,
     bool? isEstimate,
     bool? isCustom,
   }) {
@@ -425,7 +419,6 @@ class _GroceryItem {
       name: name ?? this.name,
       grams: grams ?? this.grams,
       count: count ?? this.count,
-      included: included ?? this.included,
       isEstimate: isEstimate ?? this.isEstimate,
       isCustom: isCustom ?? this.isCustom,
     );
@@ -465,7 +458,8 @@ String _formatCount(double count) {
   if ((count % 1).abs() < 1e-6) {
     return count.round().toString();
   }
-  return count.toStringAsFixed(2)
+  return count
+      .toStringAsFixed(2)
       .replaceAll(RegExp(r'0+$'), '')
       .replaceAll(RegExp(r'\.$'), '');
 }
@@ -482,12 +476,10 @@ class _CustomItemResult {
 
 class _GroceryListTile extends StatelessWidget {
   final _GroceryItem item;
-  final VoidCallback onToggle;
   final VoidCallback onRemove;
 
   const _GroceryListTile({
     required this.item,
-    required this.onToggle,
     required this.onRemove,
   });
 
@@ -505,9 +497,11 @@ class _GroceryListTile extends StatelessWidget {
           ),
         ],
       ),
-      child: CheckboxListTile(
-        value: item.included,
-        onChanged: (_) => onToggle(),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm,
+        ),
         title: Text(
           item.name,
           style: AppTypography.bodyLarge.copyWith(
@@ -520,10 +514,11 @@ class _GroceryListTile extends StatelessWidget {
             color: AppColors.textSecondary,
           ),
         ),
-        secondary: IconButton(
+        trailing: IconButton(
           icon: const Icon(Icons.delete_outline),
           onPressed: onRemove,
           tooltip: 'Remove item',
+          color: AppColors.error,
         ),
       ),
     );

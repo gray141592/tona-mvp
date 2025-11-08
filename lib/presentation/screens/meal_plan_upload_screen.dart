@@ -7,10 +7,12 @@ import '../../core/theme/app_typography.dart';
 
 class MealPlanUploadScreen extends StatefulWidget {
   final VoidCallback onFileSelected;
+  final bool showBackButton;
 
   const MealPlanUploadScreen({
     super.key,
     required this.onFileSelected,
+    this.showBackButton = false,
   });
 
   @override
@@ -96,6 +98,8 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
           color: AppColors.textSecondary,
         ),
       ),
+      showBackButton: widget.showBackButton,
+      onBack: () => Navigator.of(context).pop(),
       body: Center(
         child: GestureDetector(
           onTap: _pickFile,

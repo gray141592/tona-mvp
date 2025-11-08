@@ -38,12 +38,14 @@ class ReportPreviewScreen extends StatelessWidget {
 
       final reportText = _generateReportText(logs, metrics);
 
-      // Using ignore comment for now as the share_plus package is transitioning APIs
-      // ignore: deprecated_member_use, deprecated_member_use_from_same_package
-      await Share.share(
-        reportText,
-        subject:
-            'Progress Report - ${date_utils.DateUtils.formatDate(startDate)} to ${date_utils.DateUtils.formatDate(endDate)}',
+      final shareSubject =
+          'Progress Report - ${date_utils.DateUtils.formatDate(startDate)} to ${date_utils.DateUtils.formatDate(endDate)}';
+      await SharePlus.instance.share(
+        ShareParams(
+          text: reportText,
+          subject: shareSubject,
+          title: shareSubject,
+        ),
       );
     } catch (e) {
       if (context.mounted) {
@@ -63,7 +65,8 @@ class ReportPreviewScreen extends StatelessWidget {
     buffer.writeln('Client: ${client.name}');
     buffer.writeln('Email: ${client.email}');
     buffer.writeln(
-        'Period: ${date_utils.DateUtils.formatDate(startDate)} - ${date_utils.DateUtils.formatDate(endDate)}',);
+      'Period: ${date_utils.DateUtils.formatDate(startDate)} - ${date_utils.DateUtils.formatDate(endDate)}',
+    );
     buffer.writeln('');
     buffer.writeln('Summary:');
     buffer.writeln('Total Meals: ${metrics.totalMeals}');
@@ -73,7 +76,8 @@ class ReportPreviewScreen extends StatelessWidget {
     buffer.writeln('Meals due so far: ${metrics.dueMeals}');
     buffer.writeln('Unlogged meals due: ${metrics.unloggedDueMeals}');
     buffer.writeln(
-        'Adherence: ${metrics.adherencePercentage.toStringAsFixed(1)}%',);
+      'Adherence: ${metrics.adherencePercentage.toStringAsFixed(1)}%',
+    );
     buffer.writeln('');
     buffer.writeln('Daily Breakdown:');
 
@@ -91,7 +95,8 @@ class ReportPreviewScreen extends StatelessWidget {
       buffer.writeln('\n${date_utils.DateUtils.formatDate(date)}:');
       for (final log in dayLogs) {
         buffer.writeln(
-            '  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}',);
+          '  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}',
+        );
         if (log.notes != null) {
           buffer.writeln('    Notes: ${log.notes}');
         }

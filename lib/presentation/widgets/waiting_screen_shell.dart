@@ -11,6 +11,8 @@ class WaitingScreenShell extends StatefulWidget {
   final VoidCallback? onClose;
   final EdgeInsetsGeometry? padding;
   final Gradient? backgroundGradient;
+  final bool showBackButton;
+  final VoidCallback? onBack;
 
   const WaitingScreenShell({
     super.key,
@@ -21,6 +23,8 @@ class WaitingScreenShell extends StatefulWidget {
     this.onClose,
     this.padding,
     this.backgroundGradient,
+    this.showBackButton = false,
+    this.onBack,
   });
 
   @override
@@ -65,15 +69,56 @@ class _WaitingScreenShellState extends State<WaitingScreenShell>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.title,
-                    style: AppTypography.displayMedium.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
-                    ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (widget.showBackButton)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.08),
+                                blurRadius: 16,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back),
+                            color: AppColors.primary,
+                            onPressed: () {
+                              if (widget.onBack != null) {
+                                widget.onBack!();
+                                return;
+                              }
+                              if (Navigator.of(context).canPop()) {
+                                Navigator.of(context).pop();
+                              }
+                            },
+                          ),
+                        ),
+                      if (widget.showBackButton)
+                        const SizedBox(width: AppSpacing.md),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.title,
+                              style: AppTypography.displayMedium.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                            const SizedBox(height: AppSpacing.md),
+                            widget.subtitle,
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: AppSpacing.md),
-                  widget.subtitle,
                   const SizedBox(height: AppSpacing.xxl),
                   Expanded(
                     child: widget.body,

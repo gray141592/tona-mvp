@@ -308,4 +308,3 @@ class IngredientQuantityConverter {
     'sea salt': 3,
   };
 }
-

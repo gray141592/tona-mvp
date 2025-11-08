@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
@@ -144,26 +145,10 @@ class _SplashScreenState extends State<SplashScreen>
                       scale: _logoScale.value,
                       child: Transform.rotate(
                         angle: _logoRotation.value * 0.1,
-                        child: Container(
+                        child: SvgPicture.asset(
+                          'lib/assets/IR.svg',
                           width: 120,
                           height: 120,
-                          decoration: BoxDecoration(
-                            color: AppColors.buttonPrimary,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.buttonPrimary
-                                    .withValues(alpha: 0.3),
-                                blurRadius: 24,
-                                spreadRadius: 8,
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.restaurant_menu,
-                            size: 64,
-                            color: Colors.black,
-                          ),
                         ),
                       ),
                     );
@@ -178,7 +163,7 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       children: [
                         Text(
-                          'Tona',
+                          'IRresistible',
                           style: AppTypography.displayLarge.copyWith(
                             fontSize: 48,
                             fontWeight: FontWeight.bold,

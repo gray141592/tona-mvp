@@ -33,7 +33,7 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
     _stages = const [
       _ProcessingStage(
         title: 'Uploading your plan',
-        subtitle: 'Securely sending to Tona servers',
+        subtitle: 'Securely sending to IRresistible servers',
         icon: Icons.cloud_upload_rounded,
       ),
       _ProcessingStage(
@@ -48,7 +48,7 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
       ),
       _ProcessingStage(
         title: 'Final touches',
-        subtitle: 'Applying the Tona structure',
+        subtitle: 'Applying the IRresistible structure',
         icon: Icons.auto_awesome_motion_outlined,
       ),
     ];

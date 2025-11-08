@@ -1,5 +1,6 @@
 import '../models/client.dart';
 import '../models/meal.dart';
+import '../models/consultation_appointment.dart';
 import '../models/meal_ingredient.dart';
 import '../models/meal_plan.dart';
 import '../models/meal_type.dart';
@@ -19,8 +20,9 @@ class MockData {
     );
   }
 
-  static MealPlan getMockMealPlan() {
-    final startDate = TimeProvider.now().subtract(const Duration(days: 7));
+  static MealPlan getMockMealPlan({DateTime? startDateOverride}) {
+    final anchor = startDateOverride ?? TimeProvider.now();
+    final startDate = anchor.subtract(const Duration(days: 7));
     final endDate = startDate.add(const Duration(days: 6));
 
     final meals = <Meal>[];
@@ -37,6 +39,156 @@ class MockData {
       endDate: endDate,
       meals: meals,
     );
+  }
+
+  static MealPlan getMockEnduranceMealPlan({DateTime? startDateOverride}) {
+    final anchor = startDateOverride ?? TimeProvider.now();
+    final basePlan = getMockMealPlan(startDateOverride: anchor);
+    final startDate = anchor.add(const Duration(days: 7));
+    final endDate = startDate.add(const Duration(days: 6));
+
+    final meals = basePlan.meals
+        .map(
+          (meal) => Meal(
+            id: 'plan_002_${meal.id}',
+            mealPlanId: 'plan_002',
+            dayOfWeek: meal.dayOfWeek,
+            mealType: meal.mealType,
+            name: meal.name,
+            description: meal.description,
+            ingredients: meal.ingredients,
+            preparationInstructions: meal.preparationInstructions,
+            timeScheduled: meal.timeScheduled,
+          ),
+        )
+        .toList();
+
+    return MealPlan(
+      id: 'plan_002',
+      clientId: AppConstants.mockClientId,
+      name: 'Endurance Support Plan',
+      startDate: startDate,
+      endDate: endDate,
+      meals: meals,
+    );
+  }
+
+  static List<ConsultationAppointment> getMockConsultations() {
+    final anchor = TimeProvider.now();
+    final onboardingPlan = getMockMealPlan(startDateOverride: anchor);
+    final endurancePlan = getMockEnduranceMealPlan(startDateOverride: anchor);
+
+    DateTime buildDate({required int daysFromNow, required int hour}) {
+      final base = anchor.add(Duration(days: daysFromNow));
+      return DateTime(
+        base.year,
+        base.month,
+        base.day,
+        hour,
+        0,
+      );
+    }
+
+    final lastQuarterConsultation = ConsultationAppointment(
+      id: 'consult_001',
+      scheduledAt: buildDate(daysFromNow: -45, hour: 9),
+      nutritionistName: 'Dr. Emily Carter',
+      meetingFormat: 'Video call',
+      meetingLink: 'https://meet.example.com/tona-consult-001',
+      focusAreas: const [
+        'Stabilise fasting glucose',
+        'Reintroduce strength training fuel',
+      ],
+      preparationNotes: const [
+        'Upload latest glucometer exports',
+        'Track hydration for 3 days prior',
+      ],
+      linkedMealPlan: onboardingPlan,
+      notes:
+          'Discussed baseline adjustments, focus on consistent breakfast and training recovery.',
+      hasUploadedFollowUpPlan: true,
+      outcome: ConsultationOutcome(
+        summary:
+            'Reviewed first month of adherence, introduced additional protein at lunch and refined evening snack timing.',
+        mealPlan: ConsultationMealPlanSummary(
+          planId: onboardingPlan.id,
+          title: onboardingPlan.name,
+          effectiveFrom: onboardingPlan.startDate,
+          effectiveUntil: onboardingPlan.endDate,
+          highlights: const [
+            'Higher satiety breakfast options',
+            'Post-workout recovery snacks',
+            'Reduced late-evening carbohydrate load',
+          ],
+          plan: onboardingPlan,
+        ),
+        report: ConsultationReportSummary(
+          id: 'consult_001_report',
+          title: 'Onboarding Progress Report',
+          generatedAt: buildDate(daysFromNow: -44, hour: 12),
+          description:
+              'Summarises baseline metrics, adherence trends, and first adjustments.',
+          downloadUrl: 'https://files.example.com/reports/consult_001.pdf',
+        ),
+        actionItems: const [
+          'Maintain hydration tracking until next visit.',
+          'Send three evening glucose logs after workout days.',
+        ],
+      ),
+    );
+
+    final midCycleConsultation = ConsultationAppointment(
+      id: 'consult_002',
+      scheduledAt: buildDate(daysFromNow: -12, hour: 11),
+      nutritionistName: 'Dr. Emily Carter',
+      meetingFormat: 'In-person',
+      location: 'Wellness Clinic, Downtown',
+      focusAreas: const [
+        'Dial in pre-run fuelling',
+        'Adjust fibre targets',
+      ],
+      preparationNotes: const [
+        'Bring food journal for previous 14 days',
+        'Note any hypoglycaemia symptoms',
+      ],
+      linkedMealPlan: endurancePlan,
+      notes:
+          'Agreed to trial new long-run fueling strategy and adjust dinner fibres.',
+      hasUploadedFollowUpPlan: true,
+      outcome: ConsultationOutcome(
+        summary:
+            'Optimised carbohydrate timing around training sessions and introduced higher fibre dinner rotation.',
+        mealPlan: ConsultationMealPlanSummary(
+          planId: endurancePlan.id,
+          title: 'Endurance Support Plan',
+          effectiveFrom: endurancePlan.startDate,
+          effectiveUntil: endurancePlan.endDate,
+          highlights: const [
+            'Targeted carb ramp pre long run',
+            'Electrolyte-focused hydration strategy',
+            'Higher fibre dinner rotation',
+          ],
+          plan: endurancePlan,
+        ),
+        report: ConsultationReportSummary(
+          id: 'consult_002_report',
+          title: 'Training Season Check-in',
+          generatedAt: buildDate(daysFromNow: -11, hour: 15),
+          description:
+              'Includes adherence summary, training day comparisons, and glycaemic response notes.',
+          downloadUrl: 'https://files.example.com/reports/consult_002.pdf',
+        ),
+        actionItems: const [
+          'Share training schedule updates weekly.',
+          'Log perceived effort alongside post-run meals.',
+        ],
+      ),
+    );
+
+    return [
+      lastQuarterConsultation,
+      midCycleConsultation,
+    ];
   }
 
   static List<Meal> _getDayMeals(int dayOfWeek) {

@@ -10,13 +10,15 @@ import '../../providers/meal_log_provider.dart';
 import '../../screens/dashboard_glycemic_info_screen.dart';
 
 class DashboardAlternativeMealSheet extends StatefulWidget {
-  final Meal meal;
+  final Meal? meal;
   final DateTime loggedDate;
+  final bool isUnplanned;
 
   const DashboardAlternativeMealSheet({
     super.key,
-    required this.meal,
+    this.meal,
     required this.loggedDate,
+    this.isUnplanned = false,
   });
 
   @override
@@ -46,17 +48,33 @@ class _DashboardAlternativeMealSheetState
     setState(() => _isSaving = true);
 
     final mealLogProvider = context.read<MealLogProvider>();
-    await mealLogProvider.logMealAsAlternative(
-      clientId: AppConstants.mockClientId,
-      mealId: widget.meal.id,
-      loggedDate: widget.loggedDate,
-      alternativeMeal: _alternativeController.text.trim(),
-      notes: _notesController.text.trim().isEmpty
-          ? null
-          : _notesController.text.trim(),
-      containsSugar: _containsSugar,
-      hasHighGlycemicIndex: _hasHighGlycemicIndex,
-    );
+
+    if (widget.isUnplanned || widget.meal == null) {
+      // Log as unplanned meal
+      await mealLogProvider.logUnplannedMeal(
+        clientId: AppConstants.mockClientId,
+        loggedDate: widget.loggedDate,
+        mealName: _alternativeController.text.trim(),
+        notes: _notesController.text.trim().isEmpty
+            ? null
+            : _notesController.text.trim(),
+        containsSugar: _containsSugar,
+        hasHighGlycemicIndex: _hasHighGlycemicIndex,
+      );
+    } else {
+      // Log as alternative to existing meal
+      await mealLogProvider.logMealAsAlternative(
+        clientId: AppConstants.mockClientId,
+        mealId: widget.meal!.id,
+        loggedDate: widget.loggedDate,
+        alternativeMeal: _alternativeController.text.trim(),
+        notes: _notesController.text.trim().isEmpty
+            ? null
+            : _notesController.text.trim(),
+        containsSugar: _containsSugar,
+        hasHighGlycemicIndex: _hasHighGlycemicIndex,
+      );
+    }
 
     if (!mounted) return;
     Navigator.of(context).pop(true);
@@ -104,24 +122,30 @@ class _DashboardAlternativeMealSheetState
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 Text(
-                  'Log alternative',
+                  widget.isUnplanned ? 'Add unplanned meal' : 'Log alternative',
                   style: AppTypography.titleLarge.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: AppSpacing.sm),
-                Text(
-                  widget.meal.name,
-                  style: AppTypography.bodyMedium.copyWith(
-                    color: AppColors.textSecondary,
+                if (widget.meal != null) ...[
+                  const SizedBox(height: AppSpacing.sm),
+                  Text(
+                    widget.meal!.name,
+                    style: AppTypography.bodyMedium.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
                   ),
-                ),
+                ],
                 const SizedBox(height: AppSpacing.lg),
                 TextFormField(
                   controller: _alternativeController,
-                  decoration: const InputDecoration(
-                    labelText: 'What did you eat instead?',
-                    hintText: 'Describe the meal you had...',
+                  decoration: InputDecoration(
+                    labelText: widget.isUnplanned
+                        ? 'What did you eat?'
+                        : 'What did you eat instead?',
+                    hintText: widget.isUnplanned
+                        ? 'Describe the meal...'
+                        : 'Describe the meal you had...',
                   ),
                   maxLines: 3,
                   validator: (value) {
@@ -189,7 +213,13 @@ class _DashboardAlternativeMealSheetState
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
                       : const Icon(Icons.save_outlined),
-                  label: Text(_isSaving ? 'Saving...' : 'Save alternative'),
+                  label: Text(
+                    _isSaving
+                        ? 'Saving...'
+                        : widget.isUnplanned
+                            ? 'Save meal'
+                            : 'Save alternative',
+                  ),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),

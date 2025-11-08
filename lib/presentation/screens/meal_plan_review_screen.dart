@@ -66,25 +66,26 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
   @override
   Widget build(BuildContext context) {
     return PopScope(
-        canPop: false,
-        onPopInvokedWithResult: (didPop, _) {
-          if (didPop) {
-            return;
-          }
-          widget.onCancel();
-        },
-        child: WaitingScreenShell(
-          title: 'Review Meal Plan',
-          subtitle: _DaySelectorSection(
-            dayNames: _dayNames,
-            selectedDayIndex: _selectedDayIndex,
-            onDaySelected: (index) {
-              setState(() {
-                _selectedDayIndex = index;
-              });
-            },
-          ),
-          body: Column(children: [
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) {
+          return;
+        }
+        widget.onCancel();
+      },
+      child: WaitingScreenShell(
+        title: 'Review Meal Plan',
+        subtitle: _DaySelectorSection(
+          dayNames: _dayNames,
+          selectedDayIndex: _selectedDayIndex,
+          onDaySelected: (index) {
+            setState(() {
+              _selectedDayIndex = index;
+            });
+          },
+        ),
+        body: Column(
+          children: [
             Expanded(
               child: _mealsForSelectedDay.isEmpty
                   ? const _EmptyMealsView()
@@ -96,36 +97,38 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
                       },
                     ),
             ),
-          ],),
-          footer: Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: widget.onCancel,
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.md,
-                    ),
+          ],
+        ),
+        footer: Row(
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                onPressed: widget.onCancel,
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.md,
                   ),
-                  child: const Text('Change File'),
                 ),
+                child: const Text('Change File'),
               ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                flex: 2,
-                child: ElevatedButton(
-                  onPressed: widget.onAccept,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppSpacing.md,
-                    ),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              flex: 2,
+              child: ElevatedButton(
+                onPressed: widget.onAccept,
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.md,
                   ),
-                  child: const Text('Confirm Plan'),
                 ),
+                child: const Text('Confirm Plan'),
               ),
-            ],
-          ),
-        ),);
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

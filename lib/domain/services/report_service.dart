@@ -96,7 +96,8 @@ class ReportService {
               pw.SizedBox(height: 10),
               pw.Text('Total Meals: $totalMeals'),
               pw.Text(
-                  'Meals Followed: $mealsFollowed (${adherencePercentage.toStringAsFixed(1)}%)',),
+                'Meals Followed: $mealsFollowed (${adherencePercentage.toStringAsFixed(1)}%)',
+              ),
               pw.Text('Alternative Meals: $mealsWithAlternatives'),
               pw.Text('Skipped Meals: $mealsSkipped'),
               pw.Text('Meals due so far: $dueMeals'),

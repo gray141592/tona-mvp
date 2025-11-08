@@ -26,11 +26,19 @@ class MealTimelineEntry {
 }
 
 class DashboardMealLogEntry {
-  final Meal meal;
+  final Meal? meal;
   final MealLog log;
 
   const DashboardMealLogEntry({
-    required this.meal,
+    this.meal,
     required this.log,
   });
+
+  String get mealName {
+    if (meal != null) {
+      return meal!.name;
+    }
+    // For unplanned meals, use the alternativeMeal name
+    return log.alternativeMeal ?? 'Unplanned meal';
+  }
 }

@@ -6,12 +6,12 @@ import '../../../core/theme/app_typography.dart';
 
 class DashboardQuickActionsRow extends StatelessWidget {
   final VoidCallback onOpenGroceries;
-  final VoidCallback onOpenMealPlan;
+  final VoidCallback onAddUnplannedMeal;
 
   const DashboardQuickActionsRow({
     super.key,
     required this.onOpenGroceries,
-    required this.onOpenMealPlan,
+    required this.onAddUnplannedMeal,
   });
 
   @override
@@ -30,10 +30,10 @@ class DashboardQuickActionsRow extends StatelessWidget {
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: _buildCard(
-              icon: Icons.restaurant_menu,
-              title: 'Meal plan overview',
-              subtitle: 'Preview the full program',
-              onTap: onOpenMealPlan,
+              icon: Icons.add_circle_outline,
+              title: 'Add unplanned meal',
+              subtitle: 'Log a meal not in plan',
+              onTap: onAddUnplannedMeal,
             ),
           ),
         ],
