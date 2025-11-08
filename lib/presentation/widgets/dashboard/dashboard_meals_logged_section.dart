@@ -138,13 +138,13 @@ class DashboardMealsLoggedSection extends StatelessWidget {
                     runSpacing: AppSpacing.xs,
                     children: [
                       if (entry.log.containsSugar == true)
-                        _ImpactPill(
+                        const _ImpactPill(
                           icon: Icons.cake_outlined,
                           label: 'Contains sugar',
                           color: AppColors.error,
                         ),
                       if (entry.log.hasHighGlycemicIndex == true)
-                        _ImpactPill(
+                        const _ImpactPill(
                           icon: Icons.trending_up_outlined,
                           label: 'High GI',
                           color: AppColors.warning,

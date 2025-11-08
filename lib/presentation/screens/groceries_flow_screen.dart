@@ -11,6 +11,7 @@ import '../../core/utils/quantity_utils.dart';
 import '../../data/models/meal_plan.dart';
 import '../providers/meal_plan_provider.dart';
 import '../widgets/dashboard_page_shell.dart';
+import '../widgets/success_toast.dart';
 
 class GroceriesFlowScreen extends StatefulWidget {
   const GroceriesFlowScreen({super.key});
@@ -36,12 +37,11 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     final mealPlan = _mealPlan;
 
     if (mealPlan == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'You need a meal plan to build a groceries list.',
-          ),
-        ),
+      SuccessToast.show(
+        context,
+        'You need a meal plan to build a groceries list.',
+        emoji: '📝',
+        type: ToastType.warning,
       );
       return;
     }
@@ -122,12 +122,11 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     });
 
     if (_items.isEmpty && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'No grocery items found for the selected days.',
-          ),
-        ),
+      SuccessToast.show(
+        context,
+        'No grocery items found for the selected days.',
+        emoji: 'ℹ️',
+        type: ToastType.info,
       );
     }
 
@@ -135,12 +134,11 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       final preview = unconverted.take(3).join(', ');
       final suffix =
           unconverted.length > 3 ? ' and ${unconverted.length - 3} more' : '';
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Some items could not be converted to grams: $preview$suffix.',
-          ),
-        ),
+      SuccessToast.show(
+        context,
+        'Some items could not be converted to grams: $preview$suffix.',
+        emoji: '⚠️',
+        type: ToastType.warning,
       );
     }
   }
@@ -254,8 +252,11 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
 
   Future<void> _shareList() async {
     if (_items.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No items to share.')),
+      SuccessToast.show(
+        context,
+        'No items to share.',
+        emoji: 'ℹ️',
+        type: ToastType.info,
       );
       return;
     }
@@ -283,8 +284,11 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       );
     } catch (error) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Unable to share groceries list: $error')),
+      SuccessToast.show(
+        context,
+        'Unable to share groceries list: $error',
+        emoji: '⚠️',
+        type: ToastType.warning,
       );
     }
   }

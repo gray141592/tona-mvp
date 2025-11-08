@@ -23,6 +23,10 @@ class ProgressProvider extends ChangeNotifier {
     return getWeeklyProgress(weekStart);
   }
 
+  List<DailyProgress> getProgressHistory() {
+    return _service.calculateProgressHistory();
+  }
+
   void refresh() {
     notifyListeners();
   }

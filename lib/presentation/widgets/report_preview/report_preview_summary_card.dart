@@ -4,34 +4,33 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/utils/time_provider.dart';
+import 'report_preview_adherence_pie_chart.dart';
 import 'report_preview_summary_pill.dart';
 
 class ReportPreviewSummaryCard extends StatelessWidget {
-  final int totalMeals;
   final int mealsFollowed;
   final int mealsWithAlternatives;
   final int mealsSkipped;
-  final int dueMeals;
-  final int unloggedDueMeals;
-  final double adherencePercentage;
+  final int mealsWithSugar;
+  final int mealsWithHighGlycemicIndex;
+  final String longestStreakLabel;
+  final bool hasStreak;
+  final bool showLongestStreak;
 
   const ReportPreviewSummaryCard({
     super.key,
-    required this.totalMeals,
     required this.mealsFollowed,
     required this.mealsWithAlternatives,
     required this.mealsSkipped,
-    required this.dueMeals,
-    required this.unloggedDueMeals,
-    required this.adherencePercentage,
+    required this.mealsWithSugar,
+    required this.mealsWithHighGlycemicIndex,
+    required this.longestStreakLabel,
+    required this.hasStreak,
+    this.showLongestStreak = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final adherenceLabel = '${adherencePercentage.toStringAsFixed(1)}%';
-    final adherenceFooter =
-        'As of ${date_utils.DateUtils.formatDate(TimeProvider.now())}';
-
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -55,79 +54,70 @@ class ReportPreviewSummaryCard extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: ReportPreviewSummaryPill(
-                  icon: Icons.restaurant_menu,
-                  label: 'Total meals',
-                  value: totalMeals.toString(),
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: ReportPreviewSummaryPill(
-                  icon: Icons.check_circle,
-                  label: 'Followed',
-                  value: '$mealsFollowed',
-                  footer:
-                      '${adherencePercentage.toStringAsFixed(1)}% adherence',
-                  accent: AppColors.success,
-                ),
-              ),
-            ],
+          if (showLongestStreak) ...[
+            ReportPreviewSummaryPill(
+              icon: Icons.local_fire_department_rounded,
+              label: 'Longest streak',
+              value: longestStreakLabel,
+              accent: hasStreak ? AppColors.primary : AppColors.textSecondary,
+              footer: hasStreak
+                  ? 'As of ${date_utils.DateUtils.formatDate(TimeProvider.now())}'
+                  : null,
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
+          ReportPreviewAdherencePieChart(
+            followed: mealsFollowed,
+            alternatives: mealsWithAlternatives,
+            skipped: mealsSkipped,
           ),
           const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: ReportPreviewSummaryPill(
-                  icon: Icons.restaurant,
-                  label: 'Alternatives',
-                  value: mealsWithAlternatives.toString(),
-                  accent: AppColors.warning,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: ReportPreviewSummaryPill(
-                  icon: Icons.remove_circle_outline,
-                  label: 'Skipped',
-                  value: mealsSkipped.toString(),
-                  accent: AppColors.error,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: ReportPreviewSummaryPill(
-                  icon: Icons.timeline_rounded,
-                  label: 'Due so far',
-                  value: '$dueMeals',
-                  accent: AppColors.accent,
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: ReportPreviewSummaryPill(
-                  icon: Icons.pending_actions_outlined,
-                  label: 'Needs log',
-                  value: '$unloggedDueMeals',
-                  accent: AppColors.primaryDark,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
-          ReportPreviewSummaryPill(
-            icon: Icons.speed_rounded,
-            label: 'Adherence',
-            value: adherenceLabel,
-            footer: adherenceFooter,
-            accent: AppColors.primary,
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final itemWidth = (constraints.maxWidth - AppSpacing.md) / 2;
+              return Wrap(
+                spacing: AppSpacing.md,
+                runSpacing: AppSpacing.md,
+                children: [
+                  SizedBox(
+                    width: itemWidth,
+                    child: ReportPreviewSummaryPill(
+                      icon: Icons.check_circle,
+                      label: 'Followed',
+                      value: '$mealsFollowed',
+                      accent: AppColors.success,
+                    ),
+                  ),
+                  SizedBox(
+                    width: itemWidth,
+                    child: ReportPreviewSummaryPill(
+                      icon: Icons.restaurant,
+                      label: 'Alternatives',
+                      value: mealsWithAlternatives.toString(),
+                      accent: AppColors.warning,
+                    ),
+                  ),
+                  SizedBox(
+                    width: itemWidth,
+                    child: ReportPreviewSummaryPill(
+                      icon: Icons.cake_outlined,
+                      label: 'Meals with sugar',
+                      value: mealsWithSugar.toString(),
+                      accent: AppColors.accent,
+                    ),
+                  ),
+                  SizedBox(
+                    width: itemWidth,
+                    child: ReportPreviewSummaryPill(
+                      icon: Icons.trending_up_outlined,
+                      label: 'High G index meals',
+                      value: mealsWithHighGlycemicIndex.toString(),
+                      accent: AppColors.primaryDark,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),

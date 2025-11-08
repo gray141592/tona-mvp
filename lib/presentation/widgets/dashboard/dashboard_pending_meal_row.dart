@@ -124,7 +124,9 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
     final screenWidth = MediaQuery.of(context).size.width;
     final newOffset = _dragOffset + details.primaryDelta!;
     final clampedOffset = newOffset.clamp(
-        -screenWidth * _maxSwipeFraction, screenWidth * _maxSwipeFraction);
+      -screenWidth * _maxSwipeFraction,
+      screenWidth * _maxSwipeFraction,
+    );
 
     setState(() {
       _dragOffset = clampedOffset;
@@ -375,7 +377,8 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
                     _completionPhase == _CompletionPhase.idle)
                   DashboardSwipeCoachOverlay(
                     key: ValueKey(
-                        'coach-${widget.entry.meal.id}-$_swipeCoachAnimationSeed'),
+                      'coach-${widget.entry.meal.id}-$_swipeCoachAnimationSeed',
+                    ),
                     borderRadius: BorderRadius.circular(24),
                     onCompleted: _handleSwipeCoachCompleted,
                   ),

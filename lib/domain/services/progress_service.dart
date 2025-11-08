@@ -98,4 +98,47 @@ class ProgressService {
       dailyProgress: dailyProgress,
     );
   }
+
+  List<DailyProgress> calculateProgressHistory() {
+    final plan = mealPlanRepository.getCurrentMealPlan();
+    final logs = mealLogRepository.getAllLogs();
+
+    if (plan == null && logs.isEmpty) {
+      return [];
+    }
+
+    final uniqueDates = <DateTime>{};
+    for (final log in logs) {
+      uniqueDates.add(DateUtils.getDateOnly(log.loggedDate));
+    }
+
+    if (plan != null) {
+      final today = DateUtils.getDateOnly(TimeProvider.now());
+      var cursor = DateUtils.getDateOnly(plan.startDate);
+      final lastRelevantDate = today.isBefore(plan.endDate)
+          ? today
+          : DateUtils.getDateOnly(plan.endDate);
+
+      while (!cursor.isAfter(lastRelevantDate)) {
+        uniqueDates.add(cursor);
+        cursor = cursor.add(const Duration(days: 1));
+      }
+    }
+
+    final sortedDates = uniqueDates.toList()
+      ..sort((a, b) => b.compareTo(a));
+
+    final history = <DailyProgress>[];
+
+    for (final date in sortedDates) {
+      final daily = calculateDailyProgress(date);
+      final hasMeals = daily.totalMeals > 0;
+      final hasLogs = daily.mealLogs.isNotEmpty;
+      if (hasMeals || hasLogs) {
+        history.add(daily);
+      }
+    }
+
+    return history;
+  }
 }

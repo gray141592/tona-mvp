@@ -23,6 +23,7 @@ class ReportPreviewSummaryPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.08),

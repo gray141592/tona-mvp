@@ -36,6 +36,10 @@ class MealLogRepository {
     }).toList();
   }
 
+  List<MealLog> getAllLogs() {
+    return List.unmodifiable(_logs);
+  }
+
   MealLog? getLogForMeal(String mealId, DateTime date) {
     try {
       return _logs.firstWhere(

@@ -93,8 +93,10 @@ class DashboardConsultationFollowupCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.restaurant_menu,
-                          color: AppColors.secondary),
+                      const Icon(
+                        Icons.restaurant_menu,
+                        color: AppColors.secondary,
+                      ),
                       const SizedBox(width: AppSpacing.sm),
                       Expanded(
                         child: Text(
@@ -125,8 +127,11 @@ class DashboardConsultationFollowupCard extends StatelessWidget {
                         children: [
                           const Padding(
                             padding: EdgeInsets.only(top: 6),
-                            child: Icon(Icons.check_circle,
-                                size: 16, color: AppColors.secondary),
+                            child: Icon(
+                              Icons.check_circle,
+                              size: 16,
+                              color: AppColors.secondary,
+                            ),
                           ),
                           const SizedBox(width: AppSpacing.sm),
                           Expanded(

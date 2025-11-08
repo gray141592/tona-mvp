@@ -8,6 +8,7 @@ import '../../data/models/meal.dart';
 import '../../data/models/meal_type.dart';
 import '../providers/meal_plan_provider.dart';
 import '../widgets/dashboard_page_shell.dart';
+import '../widgets/meal_plan/meal_drawer.dart';
 
 class MealPlanOverviewScreen extends StatefulWidget {
   const MealPlanOverviewScreen({super.key});
@@ -70,6 +71,15 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
   List<Meal> _getMealsForDay(MealPlan mealPlan, int dayOfWeek) {
     return mealPlan.meals.where((meal) => meal.dayOfWeek == dayOfWeek).toList()
       ..sort((a, b) => a.timeScheduled.compareTo(b.timeScheduled));
+  }
+
+  void _openMealDrawer(Meal meal) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => MealDrawer(meal: meal),
+    );
   }
 
   @override
@@ -137,7 +147,10 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
                         itemCount: mealsForSelectedDay.length,
                         itemBuilder: (context, index) {
                           final meal = mealsForSelectedDay[index];
-                          return _MealItemWidget(meal: meal);
+                          return _MealItemWidget(
+                            meal: meal,
+                            onMealTap: _openMealDrawer,
+                          );
                         },
                       ),
               ),
@@ -241,78 +254,84 @@ class _EmptyMealsView extends StatelessWidget {
 
 class _MealItemWidget extends StatelessWidget {
   final Meal meal;
+  final ValueChanged<Meal> onMealTap;
 
   const _MealItemWidget({
     required this.meal,
+    required this.onMealTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.md),
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.divider,
-          width: 1,
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: _getMealTypeColor(meal.mealType).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              meal.mealType.emoji,
-              style: const TextStyle(fontSize: 24),
-            ),
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => onMealTap(meal),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: AppSpacing.md),
+        padding: const EdgeInsets.all(AppSpacing.md),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: AppColors.divider,
+            width: 1,
           ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  meal.mealType.displayName,
-                  style: AppTypography.labelMedium.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  meal.name,
-                  style: AppTypography.titleMedium.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                if (meal.description.isNotEmpty) ...[
-                  const SizedBox(height: AppSpacing.xs),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: _getMealTypeColor(meal.mealType).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                meal.mealType.emoji,
+                style: const TextStyle(fontSize: 24),
+              ),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    meal.description,
-                    style: AppTypography.bodySmall.copyWith(
+                    meal.mealType.displayName,
+                    style: AppTypography.labelMedium.copyWith(
                       color: AppColors.textSecondary,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    meal.name,
+                    style: AppTypography.titleMedium.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  if (meal.description.isNotEmpty) ...[
+                    const SizedBox(height: AppSpacing.xs),
+                    Text(
+                      meal.description,
+                      style: AppTypography.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
-          ),
-          Text(
-            meal.timeScheduled,
-            style: AppTypography.bodyMedium.copyWith(
-              color: AppColors.textSecondary,
+            Text(
+              meal.timeScheduled,
+              style: AppTypography.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

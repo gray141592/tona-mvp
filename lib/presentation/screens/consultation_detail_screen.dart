@@ -13,6 +13,7 @@ import '../providers/consultation_provider.dart';
 import '../providers/meal_plan_provider.dart';
 import '../widgets/consultations/consultation_schedule_sheet.dart';
 import '../widgets/dashboard_page_shell.dart';
+import '../widgets/success_toast.dart';
 import 'meal_plan_overview_screen.dart';
 import 'meal_plan_upload_screen.dart';
 import 'report_preview_screen.dart';
@@ -136,12 +137,10 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
       preparationNotes: result.preparationNotes,
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Consultation moved to ${date_utils.DateUtils.formatDate(newDateTime)} at ${date_utils.DateUtils.formatTime(newDateTime)}.',
-        ),
-      ),
+    SuccessToast.show(
+      context,
+      'Consultation moved to ${date_utils.DateUtils.formatDate(newDateTime)} at ${date_utils.DateUtils.formatTime(newDateTime)}.',
+      emoji: '📅',
     );
   }
 
@@ -172,10 +171,10 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
         );
       }
       provider.markFollowUpPlanUploaded(appointment.id);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Meal plan uploaded and linked to this consultation.'),
-        ),
+      SuccessToast.show(
+        context,
+        'Meal plan uploaded and linked',
+        emoji: '📄',
       );
     }
   }
@@ -191,8 +190,11 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
 
   void _viewReport(ConsultationOutcome? outcome) {
     if (outcome?.report == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No report available yet.')),
+      SuccessToast.show(
+        context,
+        'No report available yet',
+        emoji: 'ℹ️',
+        type: ToastType.info,
       );
       return;
     }

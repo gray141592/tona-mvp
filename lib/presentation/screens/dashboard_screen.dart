@@ -40,7 +40,7 @@ import 'consultation_detail_screen.dart';
 import 'meal_plan_overview_screen.dart';
 import 'report_generation_screen.dart';
 import 'report_preview_screen.dart';
-import 'weekly_progress_screen.dart';
+import 'progress_screen.dart';
 import 'meal_plan_upload_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -298,11 +298,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  void _navigateToWeeklyProgress() {
+  void _navigateToProgress() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const WeeklyProgressScreen(),
+        builder: (context) => const ProgressScreen(),
       ),
     );
   }
@@ -727,7 +727,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: DashboardMenu(
                 isVisible: _isMenuOpen,
                 onClose: _toggleMenu,
-                onWeeklyProgress: _navigateToWeeklyProgress,
+                onWeeklyProgress: _navigateToProgress,
                 onConsultations: _navigateToConsultations,
                 onMealPlanOverview: _navigateToMealPlanOverview,
                 onGroceries: _navigateToGroceriesFlow,

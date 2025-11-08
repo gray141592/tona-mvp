@@ -779,7 +779,9 @@ class MockData {
             ingredients: const [
               MealIngredient(quantity: '5 oz', name: 'lean sirloin steak'),
               MealIngredient(
-                  quantity: '1 cup', name: 'roasted Brussels sprouts'),
+                quantity: '1 cup',
+                name: 'roasted Brussels sprouts',
+              ),
               MealIngredient(quantity: '1 cup', name: 'roasted carrots'),
             ],
             preparationInstructions: const [

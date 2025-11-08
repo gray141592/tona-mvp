@@ -13,6 +13,7 @@ import '../widgets/consultations/consultation_history_list.dart';
 import '../widgets/consultations/consultation_overview_section.dart';
 import '../widgets/consultations/consultation_schedule_sheet.dart';
 import '../widgets/dashboard_page_shell.dart';
+import '../widgets/success_toast.dart';
 import 'consultation_detail_screen.dart';
 import 'report_generation_screen.dart';
 import 'report_preview_screen.dart';
@@ -33,10 +34,11 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     final provider = context.read<ConsultationProvider>();
     if (provider.isAddedToSchedule(appointment.id)) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('This consultation is already on your calendar.'),
-          ),
+        SuccessToast.show(
+          context,
+          'Already on your calendar',
+          emoji: '📅',
+          type: ToastType.info,
         );
       }
       return;
@@ -46,22 +48,23 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
       await CalendarLauncher.addToCalendar(appointment);
     } catch (error) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not open calendar. Please try again.'),
-        ),
+      if (!context.mounted) return;
+      SuccessToast.show(
+        context,
+        'Calendar unavailable',
+        emoji: '⚠️',
+        type: ToastType.warning,
       );
       return;
     }
 
     provider.markAddedToSchedule(appointment.id);
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Added ${date_utils.DateUtils.formatDate(appointment.scheduledAt)} to your calendar list.',
-        ),
-      ),
+    if (!context.mounted) return;
+    SuccessToast.show(
+      context,
+      'Added to calendar for ${date_utils.DateUtils.formatDate(appointment.scheduledAt)}',
+      emoji: '✅',
     );
   }
 
@@ -142,6 +145,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     );
 
     if (!mounted || result == null) return;
+    if (!context.mounted) return;
 
     provider.scheduleAppointment(
       scheduledAt: result.scheduledAt,
@@ -152,12 +156,10 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
       preparationNotes: result.preparationNotes,
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Consultation scheduled for ${date_utils.DateUtils.formatDate(result.scheduledAt)}.',
-        ),
-      ),
+    SuccessToast.show(
+      context,
+      'Consultation scheduled for ${date_utils.DateUtils.formatDate(result.scheduledAt)}.',
+      emoji: '🗓️',
     );
   }
 
@@ -167,10 +169,11 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
   ) {
     final mealPlan = context.read<MealPlanProvider>().currentMealPlan;
     if (mealPlan == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No meal plan loaded to link yet.'),
-        ),
+      SuccessToast.show(
+        context,
+        'No meal plan loaded to link yet.',
+        emoji: 'ℹ️',
+        type: ToastType.info,
       );
       return;
     }
@@ -180,12 +183,10 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
           mealPlan: mealPlan,
         );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Linked ${mealPlan.name} to ${date_utils.DateUtils.formatDate(appointment.scheduledAt)} consultation.',
-        ),
-      ),
+    SuccessToast.show(
+      context,
+      'Linked ${mealPlan.name} to ${date_utils.DateUtils.formatDate(appointment.scheduledAt)} consultation.',
+      emoji: '🔗',
     );
   }
 
@@ -196,10 +197,11 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     final plan =
         appointment.linkedMealPlan ?? appointment.outcome?.mealPlan?.plan;
     if (plan == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No meal plan is linked to this consultation yet.'),
-        ),
+      SuccessToast.show(
+        context,
+        'No meal plan linked yet',
+        emoji: 'ℹ️',
+        type: ToastType.info,
       );
       return;
     }
@@ -326,7 +328,7 @@ class _EmptyConsultationsState extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.primaryLight,
               shape: BoxShape.circle,
             ),

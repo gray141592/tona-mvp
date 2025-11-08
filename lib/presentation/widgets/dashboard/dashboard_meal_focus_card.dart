@@ -871,9 +871,9 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
                                                 shape: BoxShape.circle,
                                                 boxShadow: [
                                                   BoxShadow(
-                                                    color: Colors.black
-                                                        .withValues(
-                                                            alpha: 0.08),
+                                                    color: Colors.black.withValues(
+                                                      alpha: 0.08,
+                                                    ),
                                                     blurRadius: 18,
                                                     offset: const Offset(0, 12),
                                                   ),
@@ -882,11 +882,13 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
                                               child: Text(
                                                 meal.mealType.emoji,
                                                 style: const TextStyle(
-                                                    fontSize: 22),
+                                                  fontSize: 22,
+                                                ),
                                               ),
                                             ),
                                             const SizedBox(
-                                                width: AppSpacing.md),
+                                              width: AppSpacing.md,
+                                            ),
                                             Expanded(
                                               child: Column(
                                                 crossAxisAlignment:
@@ -899,12 +901,12 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
                                                       vertical: AppSpacing.xs,
                                                     ),
                                                     decoration: BoxDecoration(
-                                                      color: statusColor
-                                                          .withValues(
-                                                              alpha: 0.12),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              999),
+                                                      color: statusColor.withValues(
+                                                        alpha: 0.12,
+                                                      ),
+                                                      borderRadius: BorderRadius.circular(
+                                                        999,
+                                                      ),
                                                     ),
                                                     child: Text(
                                                       statusLabel,

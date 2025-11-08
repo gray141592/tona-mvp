@@ -69,7 +69,7 @@ class DashboardMenu extends StatelessWidget {
                     const SizedBox(height: AppSpacing.lg),
                     _buildTile(
                       icon: Icons.show_chart_outlined,
-                      label: 'Weekly progress',
+                      label: 'Progress',
                       onTap: () {
                         onClose();
                         onWeeklyProgress();

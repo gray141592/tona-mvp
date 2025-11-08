@@ -4,7 +4,7 @@ class AppColors {
   // Core brand palette - Science-based calming colors
   // Primary: Soft sage green - associated with nature, healing, calm, and trust
   // Research shows green reduces anxiety and promotes feelings of safety
-  static const Color primary = Color(0xFF6B9B7A);
+  static const Color primary = Color(0xFF2F7A8A);
   static const Color primaryDark = Color(0xFF5A8A6A);
   static const Color primaryLight = Color(0xFFE8F0EB);
 

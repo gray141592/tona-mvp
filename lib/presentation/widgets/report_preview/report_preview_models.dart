@@ -6,6 +6,10 @@ class ReportPreviewMetrics {
   final int dueMeals;
   final int unloggedDueMeals;
   final double adherencePercentage;
+  final int mealsWithSugar;
+  final int mealsWithHighGlycemicIndex;
+  final int longestAdherentDayStreak;
+  final int longestFollowedMealStreak;
 
   const ReportPreviewMetrics({
     required this.totalMeals,
@@ -15,5 +19,9 @@ class ReportPreviewMetrics {
     required this.dueMeals,
     required this.unloggedDueMeals,
     required this.adherencePercentage,
+    required this.mealsWithSugar,
+    required this.mealsWithHighGlycemicIndex,
+    required this.longestAdherentDayStreak,
+    required this.longestFollowedMealStreak,
   });
 }
