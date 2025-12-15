@@ -297,6 +297,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+  
+  void _navigateToSettings() {
+    Navigator.pushNamed(context, '/settings');
+  }
 
   void _navigateToProgress() {
     Navigator.push(
@@ -714,7 +718,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: GestureDetector(
                   onTap: _toggleMenu,
                   child: Container(
-                    color: Colors.black.withValues(alpha: 0.2),
+                    color: Colors.black.withOpacity(0.2),
                   ),
                 ),
               ),
@@ -731,6 +735,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 onConsultations: _navigateToConsultations,
                 onMealPlanOverview: _navigateToMealPlanOverview,
                 onGroceries: _navigateToGroceriesFlow,
+                onSettings: _navigateToSettings, // Added this line
                 width: sidebarWidth,
               ),
             ),

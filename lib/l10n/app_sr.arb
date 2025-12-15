@@ -1,0 +1,12 @@
+{
+    "@@locale": "sr",
+    "appTitle": "Tona",
+    "settings": "Podešavanja",
+    "language": "Jezik",
+    "english": "Engleski",
+    "german": "Nemački",
+    "serbian": "Srpski",
+    "resetOnboarding": "Resetuj Onboarding",
+    "resetSwipeCoach": "Resetuj Swipe Coach",
+    "changeTime": "Promeni vreme u aplikaciji"
+}

@@ -1,0 +1,12 @@
+{
+    "@@locale": "de",
+    "appTitle": "Tona",
+    "settings": "Einstellungen",
+    "language": "Sprache",
+    "english": "Englisch",
+    "german": "Deutsch",
+    "serbian": "Serbisch",
+    "resetOnboarding": "Onboarding zurücksetzen",
+    "resetSwipeCoach": "Swipe Coach zurücksetzen",
+    "changeTime": "App-Zeit ändern"
+}

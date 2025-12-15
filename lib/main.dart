@@ -1,5 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
+
 import 'core/theme/app_theme.dart';
 import 'core/utils/page_transitions.dart';
 import 'core/constants/app_constants.dart';
@@ -18,13 +23,48 @@ import 'presentation/screens/meal_plan_upload_screen.dart';
 import 'presentation/screens/meal_plan_review_screen.dart';
 import 'presentation/screens/meal_plan_processing_screen.dart';
 import 'presentation/screens/dashboard_screen.dart';
+import 'presentation/screens/settings_screen.dart';
 
 void main() {
-  runApp(const TonaApp());
+  runApp(const MyApp());
 }
 
-class TonaApp extends StatelessWidget {
-  const TonaApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+  
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocale();
+  }
+
+  Future<void> _loadLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    final languageCode = prefs.getString('languageCode');
+    if (languageCode != null) {
+      setState(() {
+        _locale = Locale(languageCode);
+      });
+    }
+  }
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +105,23 @@ class TonaApp extends StatelessWidget {
             },
           ),
         ),
+        locale: _locale,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', ''),
+          Locale('de', ''),
+          Locale('sr', ''),
+        ],
         home: const OnboardingFlow(),
+        routes: {
+          '/settings': (context) => const SettingsScreen(),
+          '/splash': (context) => const SplashScreen(onComplete: MyApp.onSplashComplete),
+        },
         debugShowCheckedModeBanner: false,
       ),
     );
@@ -92,6 +148,10 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
         mealPlanProvider.loadMealPlan(MockData.getMockMealPlan());
       });
     }
+  }
+  
+  static void onSplashComplete() {
+    //This is a static method now and the state will be handled differently
   }
 
   void _onSplashComplete() {

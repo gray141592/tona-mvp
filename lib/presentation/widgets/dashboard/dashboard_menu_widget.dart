@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -12,6 +13,7 @@ class DashboardMenu extends StatelessWidget {
   final VoidCallback onConsultations;
   final VoidCallback onMealPlanOverview;
   final VoidCallback onGroceries;
+  final VoidCallback onSettings;
   final double width;
 
   const DashboardMenu({
@@ -22,11 +24,13 @@ class DashboardMenu extends StatelessWidget {
     required this.onConsultations,
     required this.onMealPlanOverview,
     required this.onGroceries,
+    required this.onSettings,
     required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return IgnorePointer(
       ignoring: !isVisible,
       child: AnimatedOpacity(
@@ -47,7 +51,7 @@ class DashboardMenu extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.16),
+                    color: Colors.black.withOpacity(0.16),
                     blurRadius: 28,
                     offset: const Offset(6, 0),
                   ),
@@ -99,6 +103,14 @@ class DashboardMenu extends StatelessWidget {
                         onMealPlanOverview();
                       },
                     ),
+                     _buildTile(
+                      icon: Icons.settings_outlined,
+                      label: localizations.settings,
+                      onTap: () {
+                        onClose();
+                        onSettings();
+                      },
+                    ),
                     const Spacer(),
                     TextButton.icon(
                       onPressed: onClose,
@@ -125,7 +137,7 @@ class DashboardMenu extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(AppSpacing.sm),
         decoration: BoxDecoration(
-          color: AppColors.primary.withValues(alpha: 0.1),
+          color: AppColors.primary.withOpacity(0.1),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Icon(icon, color: AppColors.primary),
