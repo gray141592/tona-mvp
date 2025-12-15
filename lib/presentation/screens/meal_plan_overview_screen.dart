@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
@@ -23,16 +24,6 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
   int _selectedDayIndex = 0;
-
-  final List<String> _dayNames = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ];
 
   @override
   void initState() {
@@ -84,13 +75,23 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final mealPlanProvider = context.watch<MealPlanProvider>();
     final mealPlan = mealPlanProvider.currentMealPlan;
+    final dayNames = [
+      localizations.day_monday,
+      localizations.day_tuesday,
+      localizations.day_wednesday,
+      localizations.day_thursday,
+      localizations.day_friday,
+      localizations.day_saturday,
+      localizations.day_sunday,
+    ];
 
     if (mealPlan == null) {
       return DashboardPageShell(
-        title: 'Meal plan overview',
-        subtitle: 'No meal plan available',
+        title: localizations.mealPlanOverviewTitle,
+        subtitle: localizations.noMealPlanAvailable,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +103,7 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'No meal plan available',
+                localizations.noMealPlanAvailable,
                 style: AppTypography.bodyLarge.copyWith(
                   color: AppColors.textSecondary,
                 ),
@@ -117,7 +118,7 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
         _getMealsForDay(mealPlan, _selectedDayIndex + 1);
 
     return DashboardPageShell(
-      title: 'Meal plan overview',
+      title: localizations.mealPlanOverviewTitle,
       subtitle: mealPlan.name,
       bodyPadding: EdgeInsets.zero,
       child: FadeTransition(
@@ -128,7 +129,7 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
             children: [
               const SizedBox(height: AppSpacing.md),
               _DaySelector(
-                dayNames: _dayNames,
+                dayNames: dayNames,
                 selectedDayIndex: _selectedDayIndex,
                 onDaySelected: (index) {
                   setState(() {
@@ -139,7 +140,7 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
               const SizedBox(height: AppSpacing.md),
               Expanded(
                 child: mealsForSelectedDay.isEmpty
-                    ? const _EmptyMealsView()
+                    ? _EmptyMealsView()
                     : ListView.builder(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppSpacing.md,
@@ -230,6 +231,7 @@ class _EmptyMealsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -241,7 +243,7 @@ class _EmptyMealsView extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'No meals scheduled',
+            localizations.noMealsScheduled,
             style: AppTypography.bodyLarge.copyWith(
               color: AppColors.textSecondary,
             ),

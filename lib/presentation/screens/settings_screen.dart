@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tona_mvp/core/constants/app_constants.dart';
 import 'package:tona_mvp/core/utils/time_provider.dart';
 import 'package:tona_mvp/l10n/app_localizations.dart';
 import 'package:tona_mvp/main.dart';
@@ -63,7 +64,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               title: Text(localizations.resetSwipeCoach),
               onTap: () {
-                _prefs.setBool('swipeCoachDone', false);
+                _prefs.setBool(AppConstants.hasSeenNextMealSwipeHintKey, false);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(localizations.resetSwipeCoachMessage)),
+                );
               },
             ),
             const Divider(),
@@ -75,8 +79,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   initialTime: TimeOfDay.now(),
                 );
                 if (selectedTime != null) {
-                  //TODO: Implement time change logic
-                  TimeProvider.setOverride(selectedTime);
+                  final now = DateTime.now();
+                  final newTime = DateTime(now.year, now.month, now.day, selectedTime.hour, selectedTime.minute);
+                  TimeProvider.setOverride(newTime);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(localizations.changeTimeMessage)),
+                  );
                 }
               },
             ),
@@ -87,6 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _changeLanguage(String languageCode) {
+    _prefs.setString('languageCode', languageCode);
     MyApp.setLocale(context, Locale(languageCode));
   }
 }

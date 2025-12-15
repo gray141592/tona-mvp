@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
@@ -114,6 +115,7 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
     ConsultationAppointment appointment,
     ConsultationProvider provider,
   ) async {
+    final localizations = AppLocalizations.of(context)!;
     final result = await ConsultationScheduleSheet.show(
       context,
       initialNutritionistName: appointment.nutritionistName,
@@ -139,7 +141,7 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
 
     SuccessToast.show(
       context,
-      'Consultation moved to ${date_utils.DateUtils.formatDate(newDateTime)} at ${date_utils.DateUtils.formatTime(newDateTime)}.',
+      localizations.consultationMoved(date_utils.DateUtils.formatDate(newDateTime), date_utils.DateUtils.formatTime(newDateTime)),
       emoji: '📅',
     );
   }
@@ -148,6 +150,7 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
     ConsultationAppointment appointment,
     ConsultationProvider provider,
   ) async {
+    final localizations = AppLocalizations.of(context)!;
     final didUpload = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
@@ -173,7 +176,7 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
       provider.markFollowUpPlanUploaded(appointment.id);
       SuccessToast.show(
         context,
-        'Meal plan uploaded and linked',
+        localizations.mealPlanUploadedAndLinked,
         emoji: '📄',
       );
     }
@@ -189,10 +192,11 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
   }
 
   void _viewReport(ConsultationOutcome? outcome) {
+    final localizations = AppLocalizations.of(context)!;
     if (outcome?.report == null) {
       SuccessToast.show(
         context,
-        'No report available yet',
+        localizations.noReportAvailableYet,
         emoji: 'ℹ️',
         type: ToastType.info,
       );
@@ -249,13 +253,14 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Consumer<ConsultationProvider>(
       builder: (context, provider, _) {
         final appointment = provider.getAppointmentById(widget.appointmentId);
         if (appointment == null) {
-          return const Scaffold(
+          return Scaffold(
             body: Center(
-              child: Text('Consultation not found'),
+              child: Text(localizations.consultationNotFound),
             ),
           );
         }
@@ -268,7 +273,7 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
         final hasPreparedReport = provider.hasPreparedReport(appointment.id);
 
         return DashboardPageShell(
-          title: 'Consultation notes',
+          title: localizations.consultationNotes,
           subtitle: date_utils.DateUtils.formatDate(appointment.scheduledAt),
           bodyPadding: EdgeInsets.zero,
           child: ListView(
@@ -281,12 +286,12 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
                     ? null
                     : () => _reschedule(appointment, provider),
                 icon: const Icon(Icons.schedule_rounded),
-                label: const Text('Reschedule'),
+                label: Text(localizations.reschedule),
               ),
               if (appointment.hasUploadedFollowUpPlan) ...[
                 const SizedBox(height: AppSpacing.sm),
                 Text(
-                  'Rescheduling disabled after uploading a follow-up meal plan.',
+                  localizations.reschedulingDisabled,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: AppColors.textSecondary,
                       ),
@@ -299,12 +304,12 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
                 OutlinedButton.icon(
                   onPressed: () => _openPreparedReport(provider, appointment),
                   icon: const Icon(Icons.description_outlined),
-                  label: const Text('Open prepared report'),
+                  label: Text(localizations.openPreparedReport),
                 ),
               ],
               const SizedBox(height: AppSpacing.xl),
               Text(
-                'My notes',
+                localizations.myNotes,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -315,14 +320,14 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
                 maxLines: 6,
                 minLines: 3,
                 onChanged: (value) => _handleNotesChanged(value, provider),
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Capture takeaways, adjustments, questions…',
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: localizations.myNotesHint,
                 ),
               ),
               const SizedBox(height: AppSpacing.xl),
               Text(
-                'Focus areas',
+                localizations.focusAreas,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -332,9 +337,9 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
                 controller: _focusAreasController,
                 maxLines: 4,
                 focusNode: _focusAreasFocusNode,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'One per line (e.g. Pre-workout fueling)',
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: localizations.focusAreasHint,
                 ),
               ),
               if (appointment.focusAreas.isNotEmpty) ...[
@@ -356,7 +361,7 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
               if (isPast) ...[
                 const SizedBox(height: AppSpacing.xl),
                 Text(
-                  'After the visit',
+                  localizations.afterTheVisit,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -369,8 +374,8 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
                   icon: const Icon(Icons.upload_file_rounded),
                   label: Text(
                     appointment.hasUploadedFollowUpPlan
-                        ? 'Meal plan uploaded'
-                        : 'Upload new meal plan',
+                        ? localizations.mealPlanUploaded
+                        : localizations.uploadNewMealPlan,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
@@ -378,19 +383,19 @@ class _ConsultationDetailScreenState extends State<ConsultationDetailScreen> {
                   OutlinedButton.icon(
                     onPressed: _viewMealPlan,
                     icon: const Icon(Icons.restaurant_menu_rounded),
-                    label: const Text('View linked meal plan'),
+                    label: Text(localizations.viewLinkedMealPlan),
                   ),
                 if (appointment.outcome?.report != null)
                   TextButton.icon(
                     onPressed: () => _viewReport(appointment.outcome),
                     icon: const Icon(Icons.description_outlined),
-                    label: const Text('View report'),
+                    label: Text(localizations.viewReport),
                   ),
                 if (appointment.outcome?.report == null && hasPreparedReport)
                   TextButton.icon(
                     onPressed: () => _openPreparedReport(provider, appointment),
                     icon: const Icon(Icons.description_outlined),
-                    label: const Text('Open prepared report'),
+                    label: Text(localizations.openPreparedReport),
                   ),
               ],
             ],

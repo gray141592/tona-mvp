@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_colors.dart';
@@ -31,12 +32,13 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     BuildContext context,
     ConsultationAppointment appointment,
   ) async {
+    final localizations = AppLocalizations.of(context)!;
     final provider = context.read<ConsultationProvider>();
     if (provider.isAddedToSchedule(appointment.id)) {
       if (mounted) {
         SuccessToast.show(
           context,
-          'Already on your calendar',
+          localizations.alreadyOnYourCalendar,
           emoji: '📅',
           type: ToastType.info,
         );
@@ -51,7 +53,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
       if (!context.mounted) return;
       SuccessToast.show(
         context,
-        'Calendar unavailable',
+        localizations.calendarUnavailable,
         emoji: '⚠️',
         type: ToastType.warning,
       );
@@ -63,7 +65,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     if (!context.mounted) return;
     SuccessToast.show(
       context,
-      'Added to calendar for ${date_utils.DateUtils.formatDate(appointment.scheduledAt)}',
+      localizations.addedToCalendar(date_utils.DateUtils.formatDate(appointment.scheduledAt)),
       emoji: '✅',
     );
   }
@@ -73,6 +75,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     ConsultationAppointment appointment,
     ConsultationAppointment? lastAppointment,
   ) {
+    final localizations = AppLocalizations.of(context)!;
     final provider = context.read<ConsultationProvider>();
     provider.markReportPrepared(appointment.id);
 
@@ -89,7 +92,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
           initialStartDate: suggestedStart,
           initialEndDate: suggestedEnd,
           contextLabel:
-              'Preparing for ${date_utils.DateUtils.formatDate(appointment.scheduledAt)} consultation',
+              localizations.preparingForConsultation(date_utils.DateUtils.formatDate(appointment.scheduledAt)),
         ),
       ),
     );
@@ -135,9 +138,10 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     BuildContext context,
     ConsultationProvider provider,
   ) async {
+    final localizations = AppLocalizations.of(context)!;
     final defaultNutritionist = provider.appointments.isNotEmpty
         ? provider.appointments.first.nutritionistName
-        : 'Your nutritionist';
+        : localizations.yourNutritionist;
 
     final result = await ConsultationScheduleSheet.show(
       context,
@@ -158,7 +162,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
 
     SuccessToast.show(
       context,
-      'Consultation scheduled for ${date_utils.DateUtils.formatDate(result.scheduledAt)}.',
+      localizations.consultationScheduledFor(date_utils.DateUtils.formatDate(result.scheduledAt)),
       emoji: '🗓️',
     );
   }
@@ -167,11 +171,12 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     BuildContext context,
     ConsultationAppointment appointment,
   ) {
+    final localizations = AppLocalizations.of(context)!;
     final mealPlan = context.read<MealPlanProvider>().currentMealPlan;
     if (mealPlan == null) {
       SuccessToast.show(
         context,
-        'No meal plan loaded to link yet.',
+        localizations.noMealPlanLoaded,
         emoji: 'ℹ️',
         type: ToastType.info,
       );
@@ -185,7 +190,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
 
     SuccessToast.show(
       context,
-      'Linked ${mealPlan.name} to ${date_utils.DateUtils.formatDate(appointment.scheduledAt)} consultation.',
+      localizations.linkedMealPlanToConsultation(mealPlan.name, date_utils.DateUtils.formatDate(appointment.scheduledAt)),
       emoji: '🔗',
     );
   }
@@ -194,12 +199,13 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     BuildContext context,
     ConsultationAppointment appointment,
   ) {
+    final localizations = AppLocalizations.of(context)!;
     final plan =
         appointment.linkedMealPlan ?? appointment.outcome?.mealPlan?.plan;
     if (plan == null) {
       SuccessToast.show(
         context,
-        'No meal plan linked yet',
+        localizations.noMealPlanLinked,
         emoji: 'ℹ️',
         type: ToastType.info,
       );
@@ -230,6 +236,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Consumer<ConsultationProvider>(
       builder: (context, provider, _) {
         final nextAppointment = provider.getNextAppointment();
@@ -240,14 +247,14 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
             : const <ConsultationAppointment>[];
 
         return DashboardPageShell(
-          title: 'Consultations',
-          subtitle: 'Stay aligned with your nutritionist',
+          title: localizations.consultations,
+          subtitle: localizations.consultationsSubtitle,
           bodyPadding: EdgeInsets.zero,
           actions: [
             IconButton(
               onPressed: () => _scheduleNewAppointment(context, provider),
               icon: const Icon(Icons.add_circle_outline_rounded),
-              tooltip: 'Schedule consultation',
+              tooltip: localizations.scheduleConsultation,
               color: AppColors.primary,
             ),
           ],
@@ -321,6 +328,7 @@ class _EmptyConsultationsState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.xl),
       child: Column(
@@ -340,16 +348,16 @@ class _EmptyConsultationsState extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
-            'No consultations yet',
+            localizations.noConsultationsYet,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
-            'Upload a meal plan or connect with your nutritionist to see upcoming appointments.',
+            localizations.noConsultationsYetBody,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: Theme.of((context)).textTheme.bodyMedium?.copyWith(
                   color: AppColors.textSecondary,
                 ),
           ),
@@ -357,7 +365,7 @@ class _EmptyConsultationsState extends StatelessWidget {
           OutlinedButton.icon(
             onPressed: onUploadPlan,
             icon: const Icon(Icons.upload_file_rounded),
-            label: const Text('Upload meal plan'),
+            label: Text(localizations.uploadMealPlan),
           ),
         ],
       ),

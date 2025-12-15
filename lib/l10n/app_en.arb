@@ -8,5 +8,222 @@
     "serbian": "Serbian",
     "resetOnboarding": "Reset Onboarding",
     "resetSwipeCoach": "Reset Swipe Coach",
-    "changeTime": "Change App Time"
+    "changeTime": "Change App Time",
+    "consultationNotes": "Consultation notes",
+    "consultationNotFound": "Consultation not found",
+    "reschedule": "Reschedule",
+    "reschedulingDisabled": "Rescheduling disabled after uploading a follow-up meal plan.",
+    "openPreparedReport": "Open prepared report",
+    "myNotes": "My notes",
+    "myNotesHint": "Capture takeaways, adjustments, questions…",
+    "focusAreas": "Focus areas",
+    "focusAreasHint": "One per line (e.g. Pre-workout fueling)",
+    "afterTheVisit": "After the visit",
+    "mealPlanUploaded": "Meal plan uploaded",
+    "uploadNewMealPlan": "Upload new meal plan",
+    "viewLinkedMealPlan": "View linked meal plan",
+    "viewReport": "View report",
+    "consultationMoved": "Consultation moved to {date} at {time}.",
+    "@consultationMoved": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "mealPlanUploadedAndLinked": "Meal plan uploaded and linked",
+    "noReportAvailableYet": "No report available yet",
+    "resetSwipeCoachMessage": "Swipe coach hint has been reset.",
+    "changeTimeMessage": "Time has been changed.",
+    "alreadyOnYourCalendar": "Already on your calendar",
+    "calendarUnavailable": "Calendar unavailable",
+    "addedToCalendar": "Added to calendar for {date}",
+    "@addedToCalendar": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "preparingForConsultation": "Preparing for {date} consultation",
+    "@preparingForConsultation": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "yourNutritionist": "Your nutritionist",
+    "consultationScheduledFor": "Consultation scheduled for {date}.",
+    "@consultationScheduledFor": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "noMealPlanLoaded": "No meal plan loaded to link yet.",
+    "linkedMealPlanToConsultation": "Linked {mealPlanName} to {date} consultation.",
+    "@linkedMealPlanToConsultation": {
+        "placeholders": {
+            "mealPlanName": {
+                "type": "String"
+            },
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "noMealPlanLinked": "No meal plan linked yet",
+    "consultations": "Consultations",
+    "consultationsSubtitle": "Stay aligned with your nutritionist",
+    "scheduleConsultation": "Schedule consultation",
+    "noConsultationsYet": "No consultations yet",
+    "noConsultationsYetBody": "Upload a meal plan or connect with your nutritionist to see upcoming appointments.",
+    "uploadMealPlan": "Upload meal plan",
+    "glycemicIndexQuickGuide": "Glycemic index quick guide",
+    "glycemicIndexQuickGuideBody": "Use this guide to decide whether a meal spikes blood sugar levels.",
+    "gotIt": "Got it",
+    "mealMarkedAsSkipped": "Meal marked as skipped",
+    "unplannedMealLogged": "Unplanned meal logged",
+    "newMealPlanProcessed": "Great! New meal plan will be processed and linked to your consultation.",
+    "uploadMealPlanToGetStarted": "Upload a meal plan to get started",
+    "mealLoggedSuccess": "Way to go! {mealName} is logged.",
+    "@mealLoggedSuccess": {
+        "placeholders": {
+            "mealName": {
+                "type": "String"
+            }
+        }
+    },
+    "alternativeLoggedSuccess": "Good call. Your alternative to {mealName} is logged.",
+    "@alternativeLoggedSuccess": {
+        "placeholders": {
+            "mealName": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesNeedMealPlan": "You need a meal plan to build a groceries list.",
+    "groceriesNoItemsFound": "No grocery items found for the selected days.",
+    "groceriesConversionError": "Some items could not be converted to grams: {preview}{suffix}.",
+    "@groceriesConversionError": {
+        "placeholders": {
+            "preview": {
+                "type": "String"
+            },
+            "suffix": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesAddCustomItem": "Add custom item",
+    "groceriesIngredientName": "Ingredient name",
+    "groceriesIngredientNameHint": "e.g., Extra bananas",
+    "groceriesIngredientNameError": "Please enter an ingredient name",
+    "groceriesQuantityGrams": "Quantity (grams)",
+    "groceriesQuantityGramsHint": "e.g., 250",
+    "groceriesQuantityGramsError": "Please enter a quantity in grams",
+    "groceriesPositiveNumberError": "Enter a positive number",
+    "cancel": "Cancel",
+    "add": "Add",
+    "groceriesNoItemsToShare": "No items to share.",
+    "groceriesList": "Groceries List",
+    "groceriesShoppingForDays": "Shopping for {days} day(s)",
+    "@groceriesShoppingForDays": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesGeneratedOn": "Generated on {date}",
+    "@groceriesGeneratedOn": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesShareError": "Unable to share groceries list: {error}",
+    "@groceriesShareError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesTitle": "Groceries list",
+    "groceriesSubtitle": "Shopping for {days} day(s)",
+    "@groceriesSubtitle": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesStep1Title": "Choose planning window",
+    "groceriesStep1Subtitle": "How many days of meals are you shopping for?",
+    "groceriesGenerateButton": "Generate groceries list",
+    "groceriesStep2Title": "Review and adjust",
+    "groceriesStep2Subtitle": "Remove anything you already have and add extra items.",
+    "groceriesGeneratedListPlaceholder": "Your generated list will appear here. Tap the button above once you’ve selected how many days to shop for.",
+    "groceriesAddCustomItemButton": "Add custom item",
+    "groceriesStep3Title": "Share your list",
+    "groceriesStep3Subtitle": "Send to your phone, a coach, or anyone helping with groceries.",
+    "groceriesShareButton": "Share groceries list",
+    "groceriesRemoveItem": "Remove item",
+    "groceriesCustom": "custom",
+    "groceriesEstimated": "estimated",
+    "groceriesDays": "{days} days",
+    "@groceriesDays": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesCustomRange": "Or set a custom range",
+    "groceriesDayRange": "{days} day(s)",
+    "@groceriesDayRange": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "mealPlanOverviewTitle": "Meal plan overview",
+    "noMealPlanAvailable": "No meal plan available",
+    "noMealsScheduled": "No meals scheduled",
+    "day_monday": "Monday",
+    "day_tuesday": "Tuesday",
+    "day_wednesday": "Wednesday",
+    "day_thursday": "Thursday",
+    "day_friday": "Friday",
+    "day_saturday": "Saturday",
+    "day_sunday": "Sunday",
+    "mealPlanProcessing_title": "Preparing your plan",
+    "mealPlanProcessing_stageUploading_title": "Uploading your plan",
+    "mealPlanProcessing_stageUploading_subtitle": "Securely sending to IRresistible servers",
+    "mealPlanProcessing_stageAnalyzing_title": "Analyzing details",
+    "mealPlanProcessing_stageAnalyzing_subtitle": "Understanding nutrition goals",
+    "mealPlanProcessing_stageExtracting_title": "Extracting meals",
+    "mealPlanProcessing_stageExtracting_subtitle": "Capturing meals and supplements",
+    "mealPlanProcessing_stageFinalizing_title": "Final touches",
+    "mealPlanProcessing_stageFinalizing_subtitle": "Applying the IRresistible structure",
+    "mealPlanProcessing_progress": "Progress {progress}",
+    "@mealPlanProcessing_progress": {
+        "placeholders": {
+            "progress": {
+                "type": "String"
+            }
+        }
+    },
+    "mealPlanProcessing_cancel": "Cancel and choose another file",
+    "mealPlanReview_title": "Review Meal Plan",
+    "mealPlanReview_changeFile": "Change File",
+    "mealPlanReview_confirmPlan": "Confirm Plan"
 }

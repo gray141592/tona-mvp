@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
@@ -34,12 +35,13 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
   }
 
   Future<void> _generateGroceries() async {
+    final localizations = AppLocalizations.of(context)!;
     final mealPlan = _mealPlan;
 
     if (mealPlan == null) {
       SuccessToast.show(
         context,
-        'You need a meal plan to build a groceries list.',
+        localizations.groceriesNeedMealPlan,
         emoji: '📝',
         type: ToastType.warning,
       );
@@ -124,7 +126,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
     if (_items.isEmpty && mounted) {
       SuccessToast.show(
         context,
-        'No grocery items found for the selected days.',
+        localizations.groceriesNoItemsFound,
         emoji: 'ℹ️',
         type: ToastType.info,
       );
@@ -136,7 +138,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
           unconverted.length > 3 ? ' and ${unconverted.length - 3} more' : '';
       SuccessToast.show(
         context,
-        'Some items could not be converted to grams: $preview$suffix.',
+        localizations.groceriesConversionError(preview, suffix),
         emoji: '⚠️',
         type: ToastType.warning,
       );
@@ -144,6 +146,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
   }
 
   Future<void> _addCustomItem() async {
+    final localizations = AppLocalizations.of(context)!;
     final nameController = TextEditingController();
     final gramsController = TextEditingController();
     final formKey = GlobalKey<FormState>();
@@ -152,7 +155,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Add custom item'),
+          title: Text(localizations.groceriesAddCustomItem),
           content: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -163,13 +166,13 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
                     controller: nameController,
                     autofocus: true,
                     textCapitalization: TextCapitalization.sentences,
-                    decoration: const InputDecoration(
-                      labelText: 'Ingredient name',
-                      hintText: 'e.g., Extra bananas',
+                    decoration: InputDecoration(
+                      labelText: localizations.groceriesIngredientName,
+                      hintText: localizations.groceriesIngredientNameHint,
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter an ingredient name';
+                        return localizations.groceriesIngredientNameError;
                       }
                       return null;
                     },
@@ -179,18 +182,18 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
                     controller: gramsController,
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
-                    decoration: const InputDecoration(
-                      labelText: 'Quantity (grams)',
-                      hintText: 'e.g., 250',
+                    decoration: InputDecoration(
+                      labelText: localizations.groceriesQuantityGrams,
+                      hintText: localizations.groceriesQuantityGramsHint,
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter a quantity in grams';
+                        return localizations.groceriesQuantityGramsError;
                       }
                       final sanitized = value.replaceAll(',', '.').trim();
                       final parsed = double.tryParse(sanitized);
                       if (parsed == null || parsed <= 0) {
-                        return 'Enter a positive number';
+                        return localizations.groceriesPositiveNumberError;
                       }
                       return null;
                     },
@@ -202,7 +205,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancel'),
+              child: Text(localizations.cancel),
             ),
             TextButton(
               onPressed: () {
@@ -220,7 +223,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
                   ),
                 );
               },
-              child: const Text('Add'),
+              child: Text(localizations.add),
             ),
           ],
         );
@@ -251,22 +254,23 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
   }
 
   Future<void> _shareList() async {
+    final localizations = AppLocalizations.of(context)!;
     if (_items.isEmpty) {
       SuccessToast.show(
         context,
-        'No items to share.',
+        localizations.groceriesNoItemsToShare,
         emoji: 'ℹ️',
         type: ToastType.info,
       );
       return;
     }
 
-    const shareTitle = 'Groceries List';
+    final shareTitle = localizations.groceriesList;
     final lines = <String>[
       shareTitle,
       '',
-      'Shopping for $_selectedDays day(s)',
-      'Generated on ${date_utils.DateUtils.formatDate(TimeProvider.now())}',
+      localizations.groceriesShoppingForDays(_selectedDays),
+      localizations.groceriesGeneratedOn(date_utils.DateUtils.formatDate(TimeProvider.now())),
       '',
       ..._items.map(
         (item) => '[ ] ${item.name} — ${item.formattedQuantity}',
@@ -286,7 +290,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
       if (!mounted) return;
       SuccessToast.show(
         context,
-        'Unable to share groceries list: $error',
+        localizations.groceriesShareError(error.toString()),
         emoji: '⚠️',
         type: ToastType.warning,
       );
@@ -295,17 +299,18 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return DashboardPageShell(
-      title: 'Groceries list',
-      subtitle: 'Shopping for $_selectedDays day(s)',
+      title: localizations.groceriesTitle,
+      subtitle: localizations.groceriesSubtitle(_selectedDays),
       bodyPadding: EdgeInsets.zero,
       child: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
-          const _StepHeader(
+          _StepHeader(
             stepNumber: 1,
-            title: 'Choose planning window',
-            subtitle: 'How many days of meals are you shopping for?',
+            title: localizations.groceriesStep1Title,
+            subtitle: localizations.groceriesStep1Subtitle,
           ),
           const SizedBox(height: AppSpacing.sm),
           _DaysSelector(
@@ -316,13 +321,13 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
           ElevatedButton.icon(
             onPressed: _generateGroceries,
             icon: const Icon(Icons.play_arrow_rounded),
-            label: const Text('Generate groceries list'),
+            label: Text(localizations.groceriesGenerateButton),
           ),
           const SizedBox(height: AppSpacing.xl),
-          const _StepHeader(
+          _StepHeader(
             stepNumber: 2,
-            title: 'Review and adjust',
-            subtitle: 'Remove anything you already have and add extra items.',
+            title: localizations.groceriesStep2Title,
+            subtitle: localizations.groceriesStep2Subtitle,
           ),
           const SizedBox(height: AppSpacing.sm),
           if (!_listGenerated)
@@ -340,7 +345,7 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
                 ],
               ),
               child: Text(
-                'Your generated list will appear here. Tap the button above once you’ve selected how many days to shop for.',
+                localizations.groceriesGeneratedListPlaceholder,
                 style: AppTypography.bodyMedium.copyWith(
                   color: AppColors.textSecondary,
                 ),
@@ -369,23 +374,22 @@ class _GroceriesFlowScreenState extends State<GroceriesFlowScreen> {
                   child: TextButton.icon(
                     onPressed: _addCustomItem,
                     icon: const Icon(Icons.add),
-                    label: const Text('Add custom item'),
+                    label: Text(localizations.groceriesAddCustomItemButton),
                   ),
                 ),
               ],
             ),
           const SizedBox(height: AppSpacing.xl),
-          const _StepHeader(
+          _StepHeader(
             stepNumber: 3,
-            title: 'Share your list',
-            subtitle:
-                'Send to your phone, a coach, or anyone helping with groceries.',
+            title: localizations.groceriesStep3Title,
+            subtitle: localizations.groceriesStep3Subtitle,
           ),
           const SizedBox(height: AppSpacing.sm),
           OutlinedButton.icon(
             onPressed: _items.isEmpty ? null : _shareList,
             icon: const Icon(Icons.share_outlined),
-            label: const Text('Share groceries list'),
+            label: Text(localizations.groceriesShareButton),
           ),
           const SizedBox(height: AppSpacing.lg),
         ],
@@ -489,6 +493,7 @@ class _GroceryListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -513,7 +518,7 @@ class _GroceryListTile extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          _buildSubtitle(item),
+          _buildSubtitle(context, item),
           style: AppTypography.bodySmall.copyWith(
             color: AppColors.textSecondary,
           ),
@@ -521,19 +526,20 @@ class _GroceryListTile extends StatelessWidget {
         trailing: IconButton(
           icon: const Icon(Icons.delete_outline),
           onPressed: onRemove,
-          tooltip: 'Remove item',
+          tooltip: localizations.groceriesRemoveItem,
           color: AppColors.error,
         ),
       ),
     );
   }
 
-  String _buildSubtitle(_GroceryItem item) {
+  String _buildSubtitle(BuildContext context, _GroceryItem item) {
+    final localizations = AppLocalizations.of(context)!;
     final details = <String>[item.formattedQuantity];
     if (item.isCustom) {
-      details.add('custom');
+      details.add(localizations.groceriesCustom);
     } else if (item.isEstimate) {
-      details.add('estimated');
+      details.add(localizations.groceriesEstimated);
     }
     return details.join(' · ');
   }
@@ -609,6 +615,7 @@ class _DaysSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -630,7 +637,7 @@ class _DaysSelector extends StatelessWidget {
             children: _options
                 .map(
                   (option) => ChoiceChip(
-                    label: Text('$option days'),
+                    label: Text(localizations.groceriesDays(option)),
                     selected: selectedDays == option,
                     onSelected: (_) => onChanged(option),
                     selectedColor: AppColors.primary.withValues(alpha: 0.18),
@@ -640,7 +647,7 @@ class _DaysSelector extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(
-            'Or set a custom range',
+            localizations.groceriesCustomRange,
             style: AppTypography.bodySmall.copyWith(
               color: AppColors.textSecondary,
             ),
@@ -654,7 +661,7 @@ class _DaysSelector extends StatelessWidget {
               min: 1,
               max: 14,
               divisions: 13,
-              label: '$selectedDays day(s)',
+              label: localizations.groceriesDayRange(selectedDays),
               value: selectedDays.toDouble(),
               onChanged: (value) => onChanged(value.round()),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
@@ -30,29 +31,6 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
   @override
   void initState() {
     super.initState();
-    _stages = const [
-      _ProcessingStage(
-        title: 'Uploading your plan',
-        subtitle: 'Securely sending to IRresistible servers',
-        icon: Icons.cloud_upload_rounded,
-      ),
-      _ProcessingStage(
-        title: 'Analyzing details',
-        subtitle: 'Understanding nutrition goals',
-        icon: Icons.analytics_outlined,
-      ),
-      _ProcessingStage(
-        title: 'Extracting meals',
-        subtitle: 'Capturing meals and supplements',
-        icon: Icons.fact_check_outlined,
-      ),
-      _ProcessingStage(
-        title: 'Final touches',
-        subtitle: 'Applying the IRresistible structure',
-        icon: Icons.auto_awesome_motion_outlined,
-      ),
-    ];
-
     _controller = AnimationController(vsync: this, duration: _totalDuration)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed && !_isCancelled) {
@@ -65,6 +43,34 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
         }
       })
       ..forward();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final localizations = AppLocalizations.of(context)!;
+    _stages = [
+      _ProcessingStage(
+        title: localizations.mealPlanProcessing_stageUploading_title,
+        subtitle: localizations.mealPlanProcessing_stageUploading_subtitle,
+        icon: Icons.cloud_upload_rounded,
+      ),
+      _ProcessingStage(
+        title: localizations.mealPlanProcessing_stageAnalyzing_title,
+        subtitle: localizations.mealPlanProcessing_stageAnalyzing_subtitle,
+        icon: Icons.analytics_outlined,
+      ),
+      _ProcessingStage(
+        title: localizations.mealPlanProcessing_stageExtracting_title,
+        subtitle: localizations.mealPlanProcessing_stageExtracting_subtitle,
+        icon: Icons.fact_check_outlined,
+      ),
+      _ProcessingStage(
+        title: localizations.mealPlanProcessing_stageFinalizing_title,
+        subtitle: localizations.mealPlanProcessing_stageFinalizing_subtitle,
+        icon: Icons.auto_awesome_motion_outlined,
+      ),
+    ];
   }
 
   @override
@@ -96,6 +102,7 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final stage = _stages[_currentStageIndex];
     final uploadProgress = (_stageProgressFraction * 100).clamp(0, 100).round();
 
@@ -108,7 +115,7 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
         _handleCancel();
       },
       child: WaitingScreenShell(
-        title: 'Preparing your plan',
+        title: localizations.mealPlanProcessing_title,
         subtitle: _StageStepper(
           stages: _stages,
           activeIndex: _currentStageIndex,
@@ -151,7 +158,9 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
                     const SizedBox(height: AppSpacing.sm),
                     Text(
                       _currentStageIndex == 0
-                          ? 'Progress ${uploadProgress.toString().padLeft(2, '0')}%'
+                          ? localizations.mealPlanProcessing_progress(
+                              uploadProgress.toString().padLeft(2, '0') + '%',
+                            )
                           : stage.subtitle,
                       style: AppTypography.bodyLarge.copyWith(
                         color: AppColors.textSecondary,
@@ -182,7 +191,7 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
             TextButton.icon(
               onPressed: _handleCancel,
               icon: const Icon(Icons.arrow_back),
-              label: const Text('Cancel and choose another file'),
+              label: Text(localizations.mealPlanProcessing_cancel),
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.textPrimary,
                 padding: const EdgeInsets.symmetric(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
@@ -16,10 +17,11 @@ class DashboardGlycemicInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return WaitingScreenShell(
-      title: 'Glycemic index quick guide',
+      title: localizations.glycemicIndexQuickGuide,
       subtitle: Text(
-        'Use this guide to decide whether a meal spikes blood sugar levels.',
+        localizations.glycemicIndexQuickGuideBody,
         style: AppTypography.bodyMedium.copyWith(
           color: AppColors.textSecondary,
         ),
@@ -28,7 +30,7 @@ class DashboardGlycemicInfoScreen extends StatelessWidget {
       footer: FilledButton.icon(
         onPressed: () => Navigator.of(context).pop(),
         icon: const Icon(Icons.check_circle_outline),
-        label: const Text('Got it'),
+        label: Text(localizations.gotIt),
       ),
     );
   }

@@ -1,3 +1,4 @@
+
 {
     "@@locale": "sr",
     "appTitle": "Tona",
@@ -8,5 +9,222 @@
     "serbian": "Srpski",
     "resetOnboarding": "Resetuj Onboarding",
     "resetSwipeCoach": "Resetuj Swipe Coach",
-    "changeTime": "Promeni vreme u aplikaciji"
+    "changeTime": "Promeni vreme u aplikaciji",
+    "consultationNotes": "Beleške sa konsultacija",
+    "consultationNotFound": "Konsultacija nije pronađena",
+    "reschedule": "Zakaži ponovo",
+    "reschedulingDisabled": "Ponovno zakazivanje je onemogućeno nakon otpremanja plana obroka za praćenje.",
+    "openPreparedReport": "Otvori pripremljeni izveštaj",
+    "myNotes": "Moje beleške",
+    "myNotesHint": "Zabeležite zaključke, prilagođavanja, pitanja…",
+    "focusAreas": "Oblasti fokusa",
+    "focusAreasHint": "Jedna po redu (npr. punjenje gorivom pre treninga)",
+    "afterTheVisit": "Nakon posete",
+    "mealPlanUploaded": "Plan obroka je otpremljen",
+    "uploadNewMealPlan": "Otpremi novi plan obroka",
+    "viewLinkedMealPlan": "Pogledaj povezani plan obroka",
+    "viewReport": "Pogledaj izveštaj",
+    "consultationMoved": "Konsultacija je premeštena na {date} u {time}.",
+    "@consultationMoved": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "mealPlanUploadedAndLinked": "Plan obroka je otpremljen i povezan",
+    "noReportAvailableYet": "Izveštaj još uvek nije dostupan",
+    "resetSwipeCoachMessage": "Podsetnik za prevlačenje je resetovan.",
+    "changeTimeMessage": "Vreme je promenjeno.",
+    "alreadyOnYourCalendar": "Već u vašem kalendaru",
+    "calendarUnavailable": "Kalendar nije dostupan",
+    "addedToCalendar": "Dodato u kalendar za {date}",
+    "@addedToCalendar": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "preparingForConsultation": "Priprema za konsultacije {date}",
+    "@preparingForConsultation": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "yourNutritionist": "Vaš nutricionista",
+    "consultationScheduledFor": "Konsultacije su zakazane za {date}.",
+    "@consultationScheduledFor": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "noMealPlanLoaded": "Nije učitan nijedan plan obroka za povezivanje.",
+    "linkedMealPlanToConsultation": "Povezan {mealPlanName} sa konsultacijama {date}.",
+    "@linkedMealPlanToConsultation": {
+        "placeholders": {
+            "mealPlanName": {
+                "type": "String"
+            },
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "noMealPlanLinked": "Još uvek nema povezanog plana obroka",
+    "consultations": "Konsultacije",
+    "consultationsSubtitle": "Ostanite usklađeni sa svojim nutricionistom",
+    "scheduleConsultation": "Zakažite konsultacije",
+    "noConsultationsYet": "Još uvek nema konsultacija",
+    "noConsultationsYetBody": "Otpremite plan obroka ili se povežite sa svojim nutricionistom da biste videli predstojeće termine.",
+    "uploadMealPlan": "Otpremite plan obroka",
+    "glycemicIndexQuickGuide": "Brzi vodič za glikemijski indeks",
+    "glycemicIndexQuickGuideBody": "Koristite ovaj vodič da odlučite da li obrok povećava nivo šećera u krvi.",
+    "gotIt": "Razumem",
+    "mealMarkedAsSkipped": "Obrok je označen kao preskočen",
+    "unplannedMealLogged": "Neplanirani obrok je zabeležen",
+    "newMealPlanProcessed": "Odlično! Novi plan obroka će biti obrađen i povezan sa vašom konsultacijom.",
+    "uploadMealPlanToGetStarted": "Otpremite plan obroka da biste započeli",
+    "mealLoggedSuccess": "Samo tako nastavi! {mealName} je zabeležen.",
+    "@mealLoggedSuccess": {
+        "placeholders": {
+            "mealName": {
+                "type": "String"
+            }
+        }
+    },
+    "alternativeLoggedSuccess": "Dobra odluka. Vaša alternativa za {mealName} je zabeležena.",
+    "@alternativeLoggedSuccess": {
+        "placeholders": {
+            "mealName": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesNeedMealPlan": "Potreban vam je plan obroka da biste napravili listu za kupovinu.",
+    "groceriesNoItemsFound": "Za izabrane dane nisu pronađene namirnice.",
+    "groceriesConversionError": "Neke stavke nije bilo moguće pretvoriti u grame: {preview}{suffix}.",
+    "@groceriesConversionError": {
+        "placeholders": {
+            "preview": {
+                "type": "String"
+            },
+            "suffix": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesAddCustomItem": "Dodaj prilagođenu stavku",
+    "groceriesIngredientName": "Naziv sastojka",
+    "groceriesIngredientNameHint": "npr. dodatne banane",
+    "groceriesIngredientNameError": "Molimo unesite naziv sastojka",
+    "groceriesQuantityGrams": "Količina (grami)",
+    "groceriesQuantityGramsHint": "npr. 250",
+    "groceriesQuantityGramsError": "Molimo unesite količinu u gramima",
+    "groceriesPositiveNumberError": "Unesite pozitivan broj",
+    "cancel": "Otkaži",
+    "add": "Dodaj",
+    "groceriesNoItemsToShare": "Nema stavki za deljenje.",
+    "groceriesList": "Lista za kupovinu",
+    "groceriesShoppingForDays": "Kupovina za {days} dan(a)",
+    "@groceriesShoppingForDays": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesGeneratedOn": "Generisano {date}",
+    "@groceriesGeneratedOn": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesShareError": "Nije moguće podeliti listu za kupovinu: {error}",
+    "@groceriesShareError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesTitle": "Lista za kupovinu",
+    "groceriesSubtitle": "Kupovina za {days} dan(a)",
+    "@groceriesSubtitle": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesStep1Title": "Izaberite period planiranja",
+    "groceriesStep1Subtitle": "Za koliko dana obroka kupujete?",
+    "groceriesGenerateButton": "Generiši listu za kupovinu",
+    "groceriesStep2Title": "Pregledajte i prilagodite",
+    "groceriesStep2Subtitle": "Uklonite sve što već imate i dodajte dodatne stavke.",
+    "groceriesGeneratedListPlaceholder": "Vaša generisana lista će se pojaviti ovde. Dodirnite dugme iznad kada izaberete za koliko dana želite da kupujete.",
+    "groceriesAddCustomItemButton": "Dodaj prilagođenu stavku",
+    "groceriesStep3Title": "Podelite svoju listu",
+    "groceriesStep3Subtitle": "Pošaljite na svoj telefon, treneru ili bilo kome ko pomaže u kupovini.",
+    "groceriesShareButton": "Podeli listu za kupovinu",
+    "groceriesRemoveItem": "Ukloni stavku",
+    "groceriesCustom": "prilagođeno",
+    "groceriesEstimated": "procenjeno",
+    "groceriesDays": "{days} dana",
+    "@groceriesDays": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesCustomRange": "Ili postavite prilagođeni opseg",
+    "groceriesDayRange": "{days} dan(a)",
+    "@groceriesDayRange": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "mealPlanOverviewTitle": "Pregled plana obroka",
+    "noMealPlanAvailable": "Nema dostupnog plana obroka",
+    "noMealsScheduled": "Nema zakazanih obroka",
+    "day_monday": "Ponedeljak",
+    "day_tuesday": "Utorak",
+    "day_wednesday": "Sreda",
+    "day_thursday": "Četvrtak",
+    "day_friday": "Petak",
+    "day_saturday": "Subota",
+    "day_sunday": "Nedelja",
+    "mealPlanProcessing_title": "Priprema vašeg plana",
+    "mealPlanProcessing_stageUploading_title": "Otpremanje vašeg plana",
+    "mealPlanProcessing_stageUploading_subtitle": "Bezbedno slanje na IRresistible servere",
+    "mealPlanProcessing_stageAnalyzing_title": "Analiziranje detalja",
+    "mealPlanProcessing_stageAnalyzing_subtitle": "Razumevanje ciljeva ishrane",
+    "mealPlanProcessing_stageExtracting_title": "Izdvajanje obroka",
+    "mealPlanProcessing_stageExtracting_subtitle": "Hvatanje obroka i dodataka ishrani",
+    "mealPlanProcessing_stageFinalizing_title": "Završni detalji",
+    "mealPlanProcessing_stageFinalizing_subtitle": "Primena IRresistible strukture",
+    "mealPlanProcessing_progress": "Napredak {progress}",
+    "@mealPlanProcessing_progress": {
+        "placeholders": {
+            "progress": {
+                "type": "String"
+            }
+        }
+    },
+    "mealPlanProcessing_cancel": "Otkaži i izaberi drugu datoteku",
+    "mealPlanReview_title": "Pregledaj plan obroka",
+    "mealPlanReview_changeFile": "Promeni datoteku",
+    "mealPlanReview_confirmPlan": "Potvrdi plan"
 }

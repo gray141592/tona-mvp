@@ -8,5 +8,222 @@
     "serbian": "Serbisch",
     "resetOnboarding": "Onboarding zurücksetzen",
     "resetSwipeCoach": "Swipe Coach zurücksetzen",
-    "changeTime": "App-Zeit ändern"
+    "changeTime": "App-Zeit ändern",
+    "consultationNotes": "Beratungsnotizen",
+    "consultationNotFound": "Beratung nicht gefunden",
+    "reschedule": "Neu planen",
+    "reschedulingDisabled": "Neuplanung nach dem Hochladen eines Folgespeiseplans deaktiviert.",
+    "openPreparedReport": "Vorbereiteten Bericht öffnen",
+    "myNotes": "Meine Notizen",
+    "myNotesHint": "Erkenntnisse, Anpassungen, Fragen erfassen…",
+    "focusAreas": "Fokusbereiche",
+    "focusAreasHint": "Einer pro Zeile (z.B. Pre-Workout-Betankung)",
+    "afterTheVisit": "Nach dem Besuch",
+    "mealPlanUploaded": "Speiseplan hochgeladen",
+    "uploadNewMealPlan": "Neuen Speiseplan hochladen",
+    "viewLinkedMealPlan": "Verknüpften Speiseplan ansehen",
+    "viewReport": "Bericht ansehen",
+    "consultationMoved": "Beratung verschoben auf {date} um {time}.",
+    "@consultationMoved": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "mealPlanUploadedAndLinked": "Speiseplan hochgeladen und verknüpft",
+    "noReportAvailableYet": "Noch kein Bericht verfügbar",
+    "resetSwipeCoachMessage": "Swipe-Coach-Hinweis wurde zurückgesetzt.",
+    "changeTimeMessage": "Die Zeit wurde geändert.",
+    "alreadyOnYourCalendar": "Bereits in deinem Kalender",
+    "calendarUnavailable": "Kalender nicht verfügbar",
+    "addedToCalendar": "Zum Kalender für {date} hinzugefügt",
+    "@addedToCalendar": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "preparingForConsultation": "Vorbereitung auf die Beratung am {date}",
+    "@preparingForConsultation": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "yourNutritionist": "Dein Ernährungsberater",
+    "consultationScheduledFor": "Beratung geplant für {date}.",
+    "@consultationScheduledFor": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "noMealPlanLoaded": "Noch kein Speiseplan zum Verknüpfen geladen.",
+    "linkedMealPlanToConsultation": "{mealPlanName} mit Beratung am {date} verknüpft.",
+    "@linkedMealPlanToConsultation": {
+        "placeholders": {
+            "mealPlanName": {
+                "type": "String"
+            },
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "noMealPlanLinked": "Noch kein Speiseplan verknüpft",
+    "consultations": "Beratungen",
+    "consultationsSubtitle": "Bleiben Sie mit Ihrem Ernährungsberater auf einer Linie",
+    "scheduleConsultation": "Beratung planen",
+    "noConsultationsYet": "Noch keine Beratungen",
+    "noConsultationsYetBody": "Laden Sie einen Speiseplan hoch oder verbinden Sie sich mit Ihrem Ernährungsberater, um bevorstehende Termine zu sehen.",
+    "uploadMealPlan": "Speiseplan hochladen",
+    "glycemicIndexQuickGuide": "Kurzanleitung zum glykämischen Index",
+    "glycemicIndexQuickGuideBody": "Verwenden Sie diese Anleitung, um zu entscheiden, ob eine Mahlzeit den Blutzuckerspiegel in die Höhe treibt.",
+    "gotIt": "Verstanden",
+    "mealMarkedAsSkipped": "Mahlzeit als übersprungen markiert",
+    "unplannedMealLogged": "Ungeplante Mahlzeit protokolliert",
+    "newMealPlanProcessed": "Großartig! Der neue Speiseplan wird bearbeitet und mit Ihrer Beratung verknüpft.",
+    "uploadMealPlanToGetStarted": "Laden Sie einen Speiseplan hoch, um loszulegen",
+    "mealLoggedSuccess": "Weiter so! {mealName} ist protokolliert.",
+    "@mealLoggedSuccess": {
+        "placeholders": {
+            "mealName": {
+                "type": "String"
+            }
+        }
+    },
+    "alternativeLoggedSuccess": "Gute Entscheidung. Ihre Alternative zu {mealName} ist protokolliert.",
+    "@alternativeLoggedSuccess": {
+        "placeholders": {
+            "mealName": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesNeedMealPlan": "Du benötigst einen Speiseplan, um eine Einkaufsliste zu erstellen.",
+    "groceriesNoItemsFound": "Für die ausgewählten Tage wurden keine Lebensmittel gefunden.",
+    "groceriesConversionError": "Einige Artikel konnten nicht in Gramm umgerechnet werden: {preview}{suffix}.",
+    "@groceriesConversionError": {
+        "placeholders": {
+            "preview": {
+                "type": "String"
+            },
+            "suffix": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesAddCustomItem": "Benutzerdefinierten Artikel hinzufügen",
+    "groceriesIngredientName": "Zutatenname",
+    "groceriesIngredientNameHint": "z.B. Extra-Bananen",
+    "groceriesIngredientNameError": "Bitte geben Sie einen Zutatenamen ein",
+    "groceriesQuantityGrams": "Menge (Gramm)",
+    "groceriesQuantityGramsHint": "z.B. 250",
+    "groceriesQuantityGramsError": "Bitte geben Sie eine Menge in Gramm ein",
+    "groceriesPositiveNumberError": "Geben Sie eine positive Zahl ein",
+    "cancel": "Abbrechen",
+    "add": "Hinzufügen",
+    "groceriesNoItemsToShare": "Keine Artikel zum Teilen.",
+    "groceriesList": "Einkaufsliste",
+    "groceriesShoppingForDays": "Einkauf für {days} Tag(e)",
+    "@groceriesShoppingForDays": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesGeneratedOn": "Erstellt am {date}",
+    "@groceriesGeneratedOn": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesShareError": "Einkaufsliste konnte nicht geteilt werden: {error}",
+    "@groceriesShareError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "groceriesTitle": "Einkaufsliste",
+    "groceriesSubtitle": "Einkauf für {days} Tag(e)",
+    "@groceriesSubtitle": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesStep1Title": "Planungsfenster auswählen",
+    "groceriesStep1Subtitle": "Für wie viele Tage kaufen Sie Mahlzeiten ein?",
+    "groceriesGenerateButton": "Einkaufsliste erstellen",
+    "groceriesStep2Title": "Überprüfen und anpassen",
+    "groceriesStep2Subtitle": "Entfernen Sie alles, was Sie bereits haben, und fügen Sie zusätzliche Artikel hinzu.",
+    "groceriesGeneratedListPlaceholder": "Ihre generierte Liste wird hier angezeigt. Tippen Sie auf die Schaltfläche oben, nachdem Sie ausgewählt haben, für wie viele Tage Sie einkaufen möchten.",
+    "groceriesAddCustomItemButton": "Benutzerdefinierten Artikel hinzufügen",
+    "groceriesStep3Title": "Teile deine Liste",
+    "groceriesStep3Subtitle": "Senden Sie es an Ihr Telefon, einen Trainer oder jeden, der beim Einkaufen hilft.",
+    "groceriesShareButton": "Einkaufsliste teilen",
+    "groceriesRemoveItem": "Artikel entfernen",
+    "groceriesCustom": "benutzerdefiniert",
+    "groceriesEstimated": "geschätzt",
+    "groceriesDays": "{days} Tage",
+    "@groceriesDays": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "groceriesCustomRange": "Oder einen benutzerdefinierten Bereich festlegen",
+    "groceriesDayRange": "{days} Tag(e)",
+    "@groceriesDayRange": {
+        "placeholders": {
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "mealPlanOverviewTitle": "Speiseplanübersicht",
+    "noMealPlanAvailable": "Kein Speiseplan verfügbar",
+    "noMealsScheduled": "Keine Mahlzeiten geplant",
+    "day_monday": "Montag",
+    "day_tuesday": "Dienstag",
+    "day_wednesday": "Mittwoch",
+    "day_thursday": "Donnerstag",
+    "day_friday": "Freitag",
+    "day_saturday": "Samstag",
+    "day_sunday": "Sonntag",
+    "mealPlanProcessing_title": "Dein Plan wird vorbereitet",
+    "mealPlanProcessing_stageUploading_title": "Dein Plan wird hochgeladen",
+    "mealPlanProcessing_stageUploading_subtitle": "Sicheres Senden an IRresistible-Server",
+    "mealPlanProcessing_stageAnalyzing_title": "Details werden analysiert",
+    "mealPlanProcessing_stageAnalyzing_subtitle": "Ernährungsziele werden verstanden",
+    "mealPlanProcessing_stageExtracting_title": "Mahlzeiten werden extrahiert",
+    "mealPlanProcessing_stageExtracting_subtitle": "Mahlzeiten und Nahrungsergänzungsmittel werden erfasst",
+    "mealPlanProcessing_stageFinalizing_title": "Letzte Handgriffe",
+    "mealPlanProcessing_stageFinalizing_subtitle": "Die IRresistible-Struktur wird angewendet",
+    "mealPlanProcessing_progress": "Fortschritt {progress}",
+    "@mealPlanProcessing_progress": {
+        "placeholders": {
+            "progress": {
+                "type": "String"
+            }
+        }
+    },
+    "mealPlanProcessing_cancel": "Abbrechen und eine andere Datei auswählen",
+    "mealPlanReview_title": "Speiseplan überprüfen",
+    "mealPlanReview_changeFile": "Datei ändern",
+    "mealPlanReview_confirmPlan": "Plan bestätigen"
 }

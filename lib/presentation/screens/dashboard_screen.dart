@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../core/theme/app_colors.dart';
@@ -10,7 +11,6 @@ import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/utils/date_utils.dart' as date_utils;
 import '../../core/utils/time_provider.dart';
-import '../../core/utils/message_generator.dart';
 import '../../data/mock_data/mock_data.dart';
 import '../../data/models/consultation_appointment.dart';
 import '../../data/models/meal.dart';
@@ -84,7 +84,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return;
     }
 
-    // Align the first tick to the start of the next minute for smoother updates.
     final now = TimeProvider.now();
     final secondsToNextMinute = 60 - now.second;
     final initialDelay =
@@ -193,6 +192,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (_isLoggingAction) return;
     setState(() => _isLoggingAction = true);
 
+    final localizations = AppLocalizations.of(context)!;
     final mealLogProvider = context.read<MealLogProvider>();
     await mealLogProvider.logMealAsFollowed(
       clientId: AppConstants.mockClientId,
@@ -208,7 +208,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } else {
       SuccessToast.show(
         context,
-        MessageGenerator.getMealLoggedMessage(meal.name),
+        localizations.mealLoggedSuccess(meal.name),
         emoji: '🎉',
       );
     }
@@ -222,6 +222,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (_isLoggingAction) return;
     setState(() => _isLoggingAction = true);
 
+    final localizations = AppLocalizations.of(context)!;
     final mealLogProvider = context.read<MealLogProvider>();
     await mealLogProvider.logMealAsSkipped(
       clientId: AppConstants.mockClientId,
@@ -237,7 +238,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } else {
       SuccessToast.show(
         context,
-        'Meal marked as skipped',
+        localizations.mealMarkedAsSkipped,
         emoji: '⏭️',
       );
     }
@@ -248,6 +249,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _logMealAsAlternative(Meal meal) async {
+    final localizations = AppLocalizations.of(context)!;
     final didLog = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -266,7 +268,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       } else {
         SuccessToast.show(
           context,
-          MessageGenerator.getAlternativeLoggedMessage(meal.name),
+          localizations.alternativeLoggedSuccess(meal.name),
           emoji: '✅',
         );
       }
@@ -332,6 +334,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _prepareConsultationReport(ConsultationAppointment appointment) {
+    final localizations = AppLocalizations.of(context)!;
     final consultationProvider = context.read<ConsultationProvider>();
     consultationProvider.markReportPrepared(appointment.id);
 
@@ -347,8 +350,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         builder: (context) => ReportGenerationScreen(
           initialStartDate: suggestedStart,
           initialEndDate: appointment.scheduledAt,
-          contextLabel:
-              'Preparing for ${date_utils.DateUtils.formatDate(appointment.scheduledAt)} consultation',
+          contextLabel: localizations.preparingForConsultation(date_utils.DateUtils.formatDate(appointment.scheduledAt)),
         ),
       ),
     );
@@ -389,6 +391,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _addUnplannedMeal() async {
+    final localizations = AppLocalizations.of(context)!;
     final didLog = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -404,7 +407,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       context.read<ProgressProvider>().refresh();
       SuccessToast.show(
         context,
-        'Unplanned meal logged',
+        localizations.unplannedMealLogged,
         emoji: '✅',
       );
 
@@ -424,6 +427,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Future<void> _startMealPlanUploadFlow(
     ConsultationAppointment appointment,
   ) async {
+    final localizations = AppLocalizations.of(context)!;
     final didUpload = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
@@ -449,7 +453,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           .markFollowUpPlanUploaded(appointment.id);
       SuccessToast.show(
         context,
-        'Great! New meal plan will be processed and linked to your consultation.',
+        localizations.newMealPlanProcessed,
         emoji: '📄',
       );
     }
@@ -457,6 +461,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final mealPlanProvider = context.watch<MealPlanProvider>();
     final mealLogProvider = context.watch<MealLogProvider>();
     final progressProvider = context.watch<ProgressProvider>();
@@ -478,7 +483,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 Text(
-                  'Upload a meal plan to get started',
+                  localizations.uploadMealPlanToGetStarted,
                   style: AppTypography.titleMedium.copyWith(
                     color: AppColors.textSecondary,
                   ),
@@ -539,7 +544,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         )
         .toList();
 
-    // Add unplanned meals (meals with mealId starting with "unplanned_")
     final allLogsForToday = mealLogProvider.getLogsForDate(_today);
     final unplannedLogs = allLogsForToday
         .where((log) => log.mealId.startsWith('unplanned_'))
@@ -554,7 +558,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         )
         .toList();
 
-    // Combine planned and unplanned meals, sorted by logged time
     final allLoggedMeals = [...loggedMeals, ...unplannedMealEntries]
       ..sort((a, b) => b.log.loggedTime.compareTo(a.log.loggedTime));
 
@@ -734,7 +737,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 onWeeklyProgress: _navigateToProgress,
                 onConsultations: _navigateToConsultations,
                 onMealPlanOverview: _navigateToMealPlanOverview,
-                onGroceries: _navigateToGroceriesFlow,
+_onGroceries: _navigateToGroceriesFlow,
                 onSettings: _navigateToSettings, // Added this line
                 width: sidebarWidth,
               ),
