@@ -159,7 +159,7 @@ class _MealPlanProcessingScreenState extends State<MealPlanProcessingScreen>
                     Text(
                       _currentStageIndex == 0
                           ? localizations.mealPlanProcessing_progress(
-                              uploadProgress.toString().padLeft(2, '0') + '%',
+                              '${uploadProgress.toString().padLeft(2, '0')}%',
                             )
                           : stage.subtitle,
                       style: AppTypography.bodyLarge.copyWith(

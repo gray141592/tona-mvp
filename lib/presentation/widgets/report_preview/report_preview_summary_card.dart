@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -31,6 +32,7 @@ class ReportPreviewSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -48,7 +50,7 @@ class ReportPreviewSummaryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Snapshot summary',
+            localizations.report_snapshotSummary,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -57,11 +59,11 @@ class ReportPreviewSummaryCard extends StatelessWidget {
           if (showLongestStreak) ...[
             ReportPreviewSummaryPill(
               icon: Icons.local_fire_department_rounded,
-              label: 'Longest streak',
+              label: localizations.report_longestStreak,
               value: longestStreakLabel,
               accent: hasStreak ? AppColors.primary : AppColors.textSecondary,
               footer: hasStreak
-                  ? 'As of ${date_utils.DateUtils.formatDate(TimeProvider.now())}'
+                  ? localizations.report_asOfDate(date_utils.DateUtils.formatDate(TimeProvider.now()))
                   : null,
             ),
             const SizedBox(height: AppSpacing.md),
@@ -83,7 +85,7 @@ class ReportPreviewSummaryCard extends StatelessWidget {
                     width: itemWidth,
                     child: ReportPreviewSummaryPill(
                       icon: Icons.check_circle,
-                      label: 'Followed',
+                      label: localizations.report_followed,
                       value: '$mealsFollowed',
                       accent: AppColors.success,
                     ),
@@ -92,7 +94,7 @@ class ReportPreviewSummaryCard extends StatelessWidget {
                     width: itemWidth,
                     child: ReportPreviewSummaryPill(
                       icon: Icons.restaurant,
-                      label: 'Alternatives',
+                      label: localizations.report_alternatives,
                       value: mealsWithAlternatives.toString(),
                       accent: AppColors.warning,
                     ),
@@ -101,7 +103,7 @@ class ReportPreviewSummaryCard extends StatelessWidget {
                     width: itemWidth,
                     child: ReportPreviewSummaryPill(
                       icon: Icons.cake_outlined,
-                      label: 'Meals with sugar',
+                      label: localizations.report_mealsWithSugar,
                       value: mealsWithSugar.toString(),
                       accent: AppColors.accent,
                     ),
@@ -110,7 +112,7 @@ class ReportPreviewSummaryCard extends StatelessWidget {
                     width: itemWidth,
                     child: ReportPreviewSummaryPill(
                       icon: Icons.trending_up_outlined,
-                      label: 'High G index meals',
+                      label: localizations.report_highGIMeals,
                       value: mealsWithHighGlycemicIndex.toString(),
                       accent: AppColors.primaryDark,
                     ),

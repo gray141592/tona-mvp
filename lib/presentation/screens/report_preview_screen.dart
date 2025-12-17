@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
@@ -33,6 +34,7 @@ class ReportPreviewScreen extends StatelessWidget {
   });
 
   Future<void> _shareReport(BuildContext context) async {
+    final localizations = AppLocalizations.of(context)!;
     try {
       final mealLogProvider = context.read<MealLogProvider>();
       final mealPlanProvider = context.read<MealPlanProvider>();
@@ -51,6 +53,7 @@ class ReportPreviewScreen extends StatelessWidget {
       );
 
       final reportText = _generateReportText(
+        localizations,
         logs,
         metrics,
       );
@@ -68,7 +71,7 @@ class ReportPreviewScreen extends StatelessWidget {
       if (context.mounted) {
         SuccessToast.show(
           context,
-          'Error sharing report: $e',
+          localizations.report_shareError(e.toString()),
           emoji: '⚠️',
           type: ToastType.warning,
         );
@@ -76,7 +79,19 @@ class ReportPreviewScreen extends StatelessWidget {
     }
   }
 
+  String _getLocalizedStatus(AppLocalizations localizations, MealLogStatus status) {
+    switch (status) {
+      case MealLogStatus.followed:
+        return localizations.report_followed;
+      case MealLogStatus.alternative:
+        return localizations.report_alternatives;
+      case MealLogStatus.skipped:
+        return localizations.report_skipped;
+    }
+  }
+
   String _generateReportText(
+    AppLocalizations localizations,
     List<MealLog> logs,
     ReportPreviewMetrics metrics,
   ) {
@@ -87,32 +102,37 @@ class ReportPreviewScreen extends StatelessWidget {
     final rangeEnd = date_utils.DateUtils.getDateOnly(orderedEnd);
 
     final buffer = StringBuffer();
-    buffer.writeln('Progress Report');
-    buffer.writeln('Client: ${client.name}');
-    buffer.writeln('Email: ${client.email}');
+    buffer.writeln(localizations.reportText_title);
+    buffer.writeln(localizations.reportText_client(client.name));
+    buffer.writeln(localizations.reportText_email(client.email));
     buffer.writeln(
-      'Period: ${date_utils.DateUtils.formatDate(rangeStart)} - ${date_utils.DateUtils.formatDate(rangeEnd)}',
+      localizations.reportText_period(
+        date_utils.DateUtils.formatDate(rangeStart),
+        date_utils.DateUtils.formatDate(rangeEnd),
+      ),
     );
     buffer.writeln('');
-    buffer.writeln('Summary:');
-    buffer.writeln('Total Meals: ${metrics.totalMeals}');
-    buffer.writeln('Meals Followed: ${metrics.mealsFollowed}');
-    buffer.writeln('Alternative Meals: ${metrics.mealsWithAlternatives}');
-    buffer.writeln('Meals Skipped: ${metrics.mealsSkipped}');
-    buffer.writeln('Meals due so far: ${metrics.dueMeals}');
-    buffer.writeln('Unlogged meals due: ${metrics.unloggedDueMeals}');
+    buffer.writeln(localizations.reportText_summary);
+    buffer.writeln(localizations.reportText_totalMeals(metrics.totalMeals));
+    buffer.writeln(localizations.reportText_mealsFollowed(metrics.mealsFollowed));
+    buffer.writeln(localizations.reportText_mealsAlternatives(metrics.mealsWithAlternatives));
+    buffer.writeln(localizations.reportText_mealsSkipped(metrics.mealsSkipped));
+    buffer.writeln(localizations.reportText_mealsDue(metrics.dueMeals));
+    buffer.writeln(localizations.reportText_unloggedDue(metrics.unloggedDueMeals));
     buffer.writeln(
-      'Longest streak: ${StreakUtils.formatLongestStreakLabel(
-        metrics.longestAdherentDayStreak,
-        metrics.longestFollowedMealStreak,
-      )}',
+      localizations.reportText_longestStreak(
+        StreakUtils.formatLongestStreakLabel(
+          metrics.longestAdherentDayStreak,
+          metrics.longestFollowedMealStreak,
+        ),
+      ),
     );
-    buffer.writeln('Meals with sugar: ${metrics.mealsWithSugar}');
+    buffer.writeln(localizations.reportText_mealsWithSugar(metrics.mealsWithSugar));
     buffer.writeln(
-      'Meals with high glycemic index: ${metrics.mealsWithHighGlycemicIndex}',
+      localizations.reportText_mealsHighGI(metrics.mealsWithHighGlycemicIndex),
     );
     buffer.writeln('');
-    buffer.writeln('Daily Breakdown:');
+    buffer.writeln(localizations.reportText_dailyBreakdown);
 
     for (var date = rangeStart;
         !date.isAfter(rangeEnd);
@@ -128,10 +148,10 @@ class ReportPreviewScreen extends StatelessWidget {
       buffer.writeln('\n${date_utils.DateUtils.formatDate(date)}:');
       for (final log in dayLogs) {
         buffer.writeln(
-          '  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}',
+          '  ${date_utils.DateUtils.formatTime(log.loggedTime)} - ${_getLocalizedStatus(localizations, log.status)}',
         );
         if (log.notes != null) {
-          buffer.writeln('    Notes: ${log.notes}');
+          buffer.writeln(localizations.reportText_notes(log.notes!));
         }
       }
     }
@@ -141,6 +161,7 @@ class ReportPreviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final mealLogProvider = context.watch<MealLogProvider>();
     final mealPlanProvider = context.watch<MealPlanProvider>();
     final orderedStart =
@@ -160,12 +181,12 @@ class ReportPreviewScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Progress report'),
+        title: Text(localizations.report_progressReportTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () => _shareReport(context),
-            tooltip: 'Share report',
+            tooltip: localizations.report_shareTooltip,
           ),
         ],
       ),

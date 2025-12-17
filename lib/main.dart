@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import 'core/theme/app_theme.dart';
@@ -30,11 +31,10 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
-  
+  State<MyApp> createState() => _MyAppState();  
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state?.setLocale(newLocale);
@@ -43,10 +43,21 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
+  late final MealPlanRepository _mealPlanRepository;
+  late final MealLogRepository _mealLogRepository;
+  late final ConsultationRepository _consultationRepository;
+  late final ProgressService _progressService;
 
   @override
   void initState() {
     super.initState();
+    _mealPlanRepository = MealPlanRepository();
+    _mealLogRepository = MealLogRepository();
+    _consultationRepository = ConsultationRepository();
+    _progressService = ProgressService(
+      mealPlanRepository: _mealPlanRepository,
+      mealLogRepository: _mealLogRepository,
+    );
     _loadLocale();
   }
 
@@ -56,6 +67,7 @@ class _MyAppState extends State<MyApp> {
     if (languageCode != null) {
       setState(() {
         _locale = Locale(languageCode);
+        Intl.defaultLocale = languageCode;
       });
     }
   }
@@ -63,40 +75,29 @@ class _MyAppState extends State<MyApp> {
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
+      Intl.defaultLocale = locale.languageCode;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final mealPlanRepository = MealPlanRepository();
-    final mealLogRepository = MealLogRepository();
-    final consultationRepository = ConsultationRepository();
-    final progressService = ProgressService(
-      mealPlanRepository: mealPlanRepository,
-      mealLogRepository: mealLogRepository,
-    );
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => MealPlanProvider(mealPlanRepository),
+          create: (_) => MealPlanProvider(_mealPlanRepository),
         ),
         ChangeNotifierProvider(
-          create: (_) => MealLogProvider(mealLogRepository),
+          create: (_) => MealLogProvider(_mealLogRepository),
         ),
         ChangeNotifierProvider(
-          create: (_) => ProgressProvider(progressService),
+          create: (_) => ProgressProvider(_progressService),
         ),
         ChangeNotifierProvider(
-          create: (_) {
-            final provider = ConsultationProvider(consultationRepository);
-            provider.loadAppointments(MockData.getMockConsultations());
-            return provider;
-          },
+          create: (_) => ConsultationProvider(_consultationRepository),
         ),
       ],
       child: MaterialApp(
-        title: 'IRresistible',
+        onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
         theme: AppTheme.lightTheme.copyWith(
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: {
@@ -120,7 +121,7 @@ class _MyAppState extends State<MyApp> {
         home: const OnboardingFlow(),
         routes: {
           '/settings': (context) => const SettingsScreen(),
-          '/splash': (context) => const SplashScreen(onComplete: MyApp.onSplashComplete),
+          '/splash': (context) => const OnboardingFlow(),
         },
         debugShowCheckedModeBanner: false,
       ),
@@ -142,16 +143,23 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
   @override
   void initState() {
     super.initState();
-    if (AppConstants.skipOnboarding) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final mealPlanProvider = context.read<MealPlanProvider>();
-        mealPlanProvider.loadMealPlan(MockData.getMockMealPlan());
-      });
-    }
+    _checkSkipOnboarding();
   }
-  
-  static void onSplashComplete() {
-    //This is a static method now and the state will be handled differently
+
+  Future<void> _checkSkipOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    final shouldSkip = prefs.getBool('skipOnboarding') ?? AppConstants.skipOnboarding;
+    
+    if (shouldSkip) {
+      if (mounted) {
+        final mealPlanProvider = context.read<MealPlanProvider>();
+        if (mealPlanProvider.currentMealPlan == null) {
+          mealPlanProvider.loadMealPlan(MockData.getMockMealPlan(
+            localizations: AppLocalizations.of(context),
+          ));
+        }
+      }
+    }
   }
 
   void _onSplashComplete() {
@@ -172,7 +180,9 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
   void _onProcessingComplete() {
     debugPrint('Processing complete, preparing review screen...');
     setState(() {
-      _selectedMealPlan = MockData.getMockMealPlan();
+      _selectedMealPlan = MockData.getMockMealPlan(
+        localizations: AppLocalizations.of(context),
+      );
       _currentStep = 3;
     });
   }
@@ -206,13 +216,21 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
 
   @override
   Widget build(BuildContext context) {
-    if (AppConstants.skipOnboarding) {
+    // We remove the static check here because we handle it in initState/provider
+    final mealPlanProvider = context.watch<MealPlanProvider>();
+    
+    // If we have a meal plan (either loaded from persistence, or mock loaded due to skip flag)
+    // AND we are not explicitly in the onboarding flow (step < 4 implies we are in flow, but we check plan first?)
+    // Actually, if we have a plan, we generally want to go to Home.
+    // BUT if the user just clicked "Reset Onboarding", we cleared the plan, so we should be here.
+    
+    if (mealPlanProvider.currentMealPlan != null) {
       return const HomeScreen();
     }
-
-    final mealPlanProvider = context.watch<MealPlanProvider>();
-    if (mealPlanProvider.currentMealPlan != null || _currentStep >= 4) {
-      return const HomeScreen();
+    
+    // If we've completed the flow
+    if (_currentStep >= 4) {
+       return const HomeScreen();
     }
 
     switch (_currentStep) {

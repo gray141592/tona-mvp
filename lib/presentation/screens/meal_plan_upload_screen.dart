@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import 'package:tona_mvp/presentation/widgets/waiting_screen_shell.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
@@ -90,10 +91,11 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return WaitingScreenShell(
-      title: 'Upload Your Meal Plan',
+      title: localizations.uploadPlan_title,
       subtitle: Text(
-        'Select your meal plan file to get started',
+        localizations.uploadPlan_subtitle,
         style: AppTypography.bodyLarge.copyWith(
           color: AppColors.textSecondary,
         ),
@@ -139,7 +141,7 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
                 const SizedBox(height: AppSpacing.lg),
                 if (_selectedFileName != null) ...[
                   Text(
-                    'File Selected',
+                    localizations.uploadPlan_fileSelected,
                     style: AppTypography.titleLarge.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.textPrimary,
@@ -157,7 +159,7 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
                   ),
                 ] else ...[
                   Text(
-                    'Tap to select file',
+                    localizations.uploadPlan_tapToSelect,
                     style: AppTypography.titleLarge.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.textPrimary,
@@ -165,7 +167,7 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   Text(
-                    'PDF, DOC, or any file format',
+                    localizations.uploadPlan_fileFormats,
                     style: AppTypography.bodyMedium.copyWith(
                       color: AppColors.textSecondary,
                     ),
@@ -192,7 +194,7 @@ class _MealPlanUploadScreenState extends State<MealPlanUploadScreen>
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                 ),
               )
-            : const Text('Continue'),
+            : Text(localizations.continueButton),
       ),
     );
   }

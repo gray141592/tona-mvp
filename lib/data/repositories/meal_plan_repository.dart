@@ -12,6 +12,10 @@ class MealPlanRepository {
     _currentMealPlan = mealPlan;
   }
 
+  void clearMealPlan() {
+    _currentMealPlan = null;
+  }
+
   List<Meal> getMealsForDate(DateTime date) {
     if (_currentMealPlan == null) return [];
 

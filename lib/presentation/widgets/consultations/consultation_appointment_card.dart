@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -25,10 +26,25 @@ class ConsultationAppointmentCard extends StatelessWidget {
   final List<Widget> actions;
   final VoidCallback? onTap;
 
+  String _getLocalizedMeetingFormat(BuildContext context, String format) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (format) {
+      case 'Video call':
+        return localizations.consultationSchedule_videoCall;
+      case 'In-person':
+        return localizations.consultationSchedule_inPerson;
+      case 'Phone':
+        return localizations.consultationSchedule_phone;
+      default:
+        return format;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final appointmentDate = appointment.scheduledAt;
-    final relativeTime = _buildRelativeDate(appointmentDate);
+    final relativeTime = _buildRelativeDate(context, appointmentDate);
     final formattedDate =
         '${date_utils.DateUtils.formatDayOfWeek(appointmentDate)}, ${date_utils.DateUtils.formatDate(appointmentDate)}';
     final formattedTime = date_utils.DateUtils.formatTime(appointmentDate);
@@ -79,6 +95,7 @@ class ConsultationAppointmentCard extends StatelessWidget {
     String? mealPlanTitle,
   }) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +129,7 @@ class ConsultationAppointmentCard extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    '${appointment.nutritionistName} • ${appointment.meetingFormat}',
+                    '${appointment.nutritionistName} • ${_getLocalizedMeetingFormat(context, appointment.meetingFormat)}',
                     style: AppTypography.titleMedium.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -150,9 +167,9 @@ class ConsultationAppointmentCard extends StatelessWidget {
         ),
         if (!showOutcomeDetails && mealPlanTitle != null) ...[
           const SizedBox(height: AppSpacing.lg),
-          const _SectionHeader(
+          _SectionHeader(
             icon: Icons.restaurant_menu,
-            label: 'Meal plan in effect',
+            label: localizations.consultationCard_mealPlanInEffect,
           ),
           const SizedBox(height: AppSpacing.sm),
           _Panel(
@@ -166,18 +183,18 @@ class ConsultationAppointmentCard extends StatelessWidget {
         ],
         if (appointment.focusAreas.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.lg),
-          const _SectionHeader(
+          _SectionHeader(
             icon: Icons.flag_rounded,
-            label: 'Focus areas',
+            label: localizations.consultationCard_focusAreas,
           ),
           const SizedBox(height: AppSpacing.sm),
           _BulletList(items: appointment.focusAreas),
         ],
         if (appointment.preparationNotes.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.lg),
-          const _SectionHeader(
+          _SectionHeader(
             icon: Icons.checklist_outlined,
-            label: 'Preparation',
+            label: localizations.consultationCard_preparation,
           ),
           const SizedBox(height: AppSpacing.sm),
           _BulletList(items: appointment.preparationNotes),
@@ -194,41 +211,54 @@ class ConsultationAppointmentCard extends StatelessWidget {
     );
   }
 
-  String? _buildRelativeDate(DateTime date) {
+  String? _buildRelativeDate(BuildContext context, DateTime date) {
+    final localizations = AppLocalizations.of(context)!;
     final now = TimeProvider.now();
     final difference = date.difference(now);
 
     if (difference.inDays >= 1) {
       final days = difference.inDays;
-      return days == 1 ? 'In 1 day' : 'In $days days';
+      return days == 1
+          ? localizations.consultationCard_inDay
+          : localizations.consultationCard_inDays(days);
     }
 
     if (difference.inHours >= 1) {
       final hours = difference.inHours;
-      return hours == 1 ? 'In 1 hour' : 'In $hours hours';
+      return hours == 1
+          ? localizations.consultationCard_inHour
+          : localizations.consultationCard_inHours(hours);
     }
 
     if (difference.inMinutes >= 1) {
       final minutes = difference.inMinutes;
-      return minutes == 1 ? 'In 1 minute' : 'In $minutes minutes';
+      return minutes == 1
+          ? localizations.consultationCard_inMinute
+          : localizations.consultationCard_inMinutes(minutes);
     }
 
     if (difference.inMinutes > -1 && difference.inMinutes < 1) {
-      return 'Happening now';
+      return localizations.consultationCard_happeningNow;
     }
 
     final pastDifference = now.difference(date);
     if (pastDifference.inDays >= 1) {
       final days = pastDifference.inDays;
-      return days == 1 ? '1 day ago' : '$days days ago';
+      return days == 1
+          ? localizations.consultationCard_dayAgo
+          : localizations.consultationCard_daysAgo(days);
     }
     if (pastDifference.inHours >= 1) {
       final hours = pastDifference.inHours;
-      return hours == 1 ? '1 hour ago' : '$hours hours ago';
+      return hours == 1
+          ? localizations.consultationCard_hourAgo
+          : localizations.consultationCard_hoursAgo(hours);
     }
     if (pastDifference.inMinutes >= 1) {
       final minutes = pastDifference.inMinutes;
-      return minutes == 1 ? '1 minute ago' : '$minutes minutes ago';
+      return minutes == 1
+          ? localizations.consultationCard_minuteAgo
+          : localizations.consultationCard_minutesAgo(minutes);
     }
     return null;
   }

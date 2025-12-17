@@ -1,22 +1,32 @@
-String relativeTimeLabel(Duration difference) {
+import 'package:tona_mvp/l10n/app_localizations.dart';
+
+String relativeTimeLabel(Duration difference, AppLocalizations localizations) {
   final isFuture = !difference.isNegative;
   final absolute = difference.abs();
 
   if (absolute.inMinutes == 0) {
-    return isFuture ? 'in under a minute' : 'less than a minute ago';
+    return isFuture
+        ? localizations.time_underMinuteFuture
+        : localizations.time_underMinutePast;
   }
 
   if (absolute.inMinutes < 60) {
     final minutes = absolute.inMinutes;
-    return isFuture ? 'in $minutes min' : '$minutes min ago';
+    return isFuture
+        ? localizations.time_minutesFuture(minutes)
+        : localizations.time_minutesPast(minutes);
   }
 
   final hours = absolute.inHours;
   final minutes = absolute.inMinutes % 60;
 
   if (minutes == 0) {
-    return isFuture ? 'in $hours h' : '$hours h ago';
+    return isFuture
+        ? localizations.time_hoursFuture(hours)
+        : localizations.time_hoursPast(hours);
   }
 
-  return isFuture ? 'in ${hours}h ${minutes}m' : '${hours}h ${minutes}m ago';
+  return isFuture
+      ? localizations.time_hoursMinutesFuture(hours, minutes)
+      : localizations.time_hoursMinutesPast(hours, minutes);
 }

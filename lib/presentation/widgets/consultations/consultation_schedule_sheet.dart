@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -193,6 +194,7 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -206,7 +208,7 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
             Row(
               children: [
                 Text(
-                  'Schedule consultation',
+                  localizations.consultationSchedule_title,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -222,9 +224,9 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
             TextField(
               controller: _nutritionistController,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: 'Nutritionist name',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: localizations.consultationSchedule_nutritionistName,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: AppSpacing.md),
@@ -236,7 +238,7 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
                     icon: const Icon(Icons.calendar_today_rounded),
                     label: Text(
                       _selectedDate == null
-                          ? 'Select date'
+                          ? localizations.consultationSchedule_selectDate
                           : '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
                     ),
                   ),
@@ -248,7 +250,7 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
                     icon: const Icon(Icons.schedule_rounded),
                     label: Text(
                       _selectedTime == null
-                          ? 'Select time'
+                          ? localizations.consultationSchedule_selectTime
                           : _selectedTime!.format(context),
                     ),
                   ),
@@ -257,19 +259,19 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
             ),
             const SizedBox(height: AppSpacing.md),
             DropdownButtonFormField<String>(
-              value: _meetingFormat,
-              items: const [
+              initialValue: _meetingFormat,
+              items: [
                 DropdownMenuItem(
                   value: 'Video call',
-                  child: Text('Video call'),
+                  child: Text(localizations.consultationSchedule_videoCall),
                 ),
                 DropdownMenuItem(
                   value: 'In-person',
-                  child: Text('In-person'),
+                  child: Text(localizations.consultationSchedule_inPerson),
                 ),
                 DropdownMenuItem(
                   value: 'Phone',
-                  child: Text('Phone'),
+                  child: Text(localizations.consultationSchedule_phone),
                 ),
               ],
               onChanged: (value) {
@@ -278,18 +280,18 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
                   _meetingFormat = value;
                 });
               },
-              decoration: const InputDecoration(
-                labelText: 'Format',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: localizations.consultationSchedule_format,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: AppSpacing.md),
             if (_meetingFormat == 'In-person') ...[
               TextField(
                 controller: _locationController,
-                decoration: const InputDecoration(
-                  labelText: 'Location',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: localizations.consultationSchedule_location,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
@@ -297,18 +299,18 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
             if (_meetingFormat == 'Video call') ...[
               TextField(
                 controller: _meetingLinkController,
-                decoration: const InputDecoration(
-                  labelText: 'Meeting link',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: localizations.consultationSchedule_meetingLink,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: AppSpacing.md),
             ],
             TextField(
               controller: _preparationController,
-              decoration: const InputDecoration(
-                labelText: 'Preparation notes (comma separated)',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: localizations.consultationSchedule_prepNotes,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -323,7 +325,7 @@ class _ConsultationScheduleSheetState extends State<ConsultationScheduleSheet> {
                     vertical: AppSpacing.md,
                   ),
                 ),
-                child: const Text('Save appointment'),
+                child: Text(localizations.consultationSchedule_saveButton),
               ),
             ),
           ],

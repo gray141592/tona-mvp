@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -27,13 +28,13 @@ class DashboardPendingMealsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     if (entries.isEmpty) return const SizedBox.shrink();
 
     final severityMessage = switch (entries.length) {
-      >= 3 =>
-        'Several meals are waiting — capturing them now keeps your data accurate.',
-      2 => 'Two meals need attention — a couple quick logs will close the gap.',
-      1 => 'One meal is ready to log — take a moment to record it.',
+      >= 3 => localizations.dashboard_pendingMealsSeveritySeveral,
+      2 => localizations.dashboard_pendingMealsSeverityTwo,
+      1 => localizations.dashboard_pendingMealsSeverityOne,
       _ => null,
     };
 
@@ -84,14 +85,14 @@ class DashboardPendingMealsSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Needs attention',
+                      localizations.dashboard_needsAttention,
                       style: AppTypography.titleLarge.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      'Swipe overdue and due meals to keep your log current.',
+                      localizations.dashboard_pendingMealsSwipeHint,
                       style: AppTypography.bodySmall.copyWith(
                         color: AppColors.textSecondary,
                         fontWeight: FontWeight.w600,

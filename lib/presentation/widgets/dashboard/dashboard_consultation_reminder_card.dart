@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -26,8 +27,9 @@ class DashboardConsultationReminderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final date = appointment.scheduledAt;
-    final relative = _relativeLabel(date);
+    final relative = _relativeLabel(context, date);
 
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -65,7 +67,7 @@ class DashboardConsultationReminderCard extends StatelessWidget {
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Text(
-                  'Consultation coming up',
+                  localizations.consultationReminder_title,
                   style: AppTypography.titleLarge.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
@@ -93,7 +95,7 @@ class DashboardConsultationReminderCard extends StatelessWidget {
           ],
           const SizedBox(height: AppSpacing.lg),
           Text(
-            'Prepare your notes so ${appointment.nutritionistName} has the latest insights. Generating a report now keeps everything ready to review together.',
+            localizations.consultationReminder_body(appointment.nutritionistName),
             style: theme.textTheme.bodyMedium?.copyWith(
               color: Colors.white.withValues(alpha: 0.92),
               height: 1.4,
@@ -133,7 +135,9 @@ class DashboardConsultationReminderCard extends StatelessWidget {
                       ? onOpenReport ?? onPrepareReport
                       : onPrepareReport,
                   label: Text(
-                    isReportPrepared ? 'Open report' : 'Prepare report',
+                    isReportPrepared
+                        ? localizations.openReport
+                        : localizations.consultationOverview_prepareReport,
                   ),
                 ),
               ),
@@ -143,7 +147,7 @@ class DashboardConsultationReminderCard extends StatelessWidget {
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.white,
                 ),
-                child: const Text('View agenda'),
+                child: Text(localizations.consultationReminder_viewAgenda),
               ),
             ],
           ),
@@ -152,7 +156,8 @@ class DashboardConsultationReminderCard extends StatelessWidget {
     );
   }
 
-  String? _relativeLabel(DateTime date) {
+  String? _relativeLabel(BuildContext context, DateTime date) {
+    final localizations = AppLocalizations.of(context)!;
     final now = TimeProvider.now();
     final diff = date.difference(now);
     if (diff.isNegative) {
@@ -160,16 +165,22 @@ class DashboardConsultationReminderCard extends StatelessWidget {
     }
     if (diff.inDays >= 1) {
       final days = diff.inDays;
-      return days == 1 ? 'Tomorrow' : 'In $days days';
+      return days == 1
+          ? localizations.consultationReminder_tomorrow
+          : localizations.consultationCard_inDays(days);
     }
     if (diff.inHours >= 1) {
       final hours = diff.inHours;
-      return hours == 1 ? 'In 1 hour' : 'In $hours hours';
+      return hours == 1
+          ? localizations.consultationCard_inHour
+          : localizations.consultationCard_inHours(hours);
     }
     if (diff.inMinutes >= 1) {
       final minutes = diff.inMinutes;
-      return minutes == 1 ? 'In 1 minute' : 'In $minutes minutes';
+      return minutes == 1
+          ? localizations.consultationCard_inMinute
+          : localizations.consultationCard_inMinutes(minutes);
     }
-    return 'Happening soon';
+    return localizations.consultationReminder_happeningSoon;
   }
 }

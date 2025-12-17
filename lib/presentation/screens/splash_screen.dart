@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_typography.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -116,6 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.background,
       body: FadeTransition(
@@ -163,7 +165,7 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       children: [
                         Text(
-                          'IRresistible',
+                          localizations.splashTitle,
                           style: AppTypography.displayLarge.copyWith(
                             fontSize: 48,
                             fontWeight: FontWeight.bold,
@@ -172,7 +174,7 @@ class _SplashScreenState extends State<SplashScreen>
                         ),
                         const SizedBox(height: AppSpacing.sm),
                         Text(
-                          'Your personalized nutrition journey',
+                          localizations.splashSubtitle,
                           style: AppTypography.bodyLarge.copyWith(
                             color: AppColors.textSecondary,
                           ),

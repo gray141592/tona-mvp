@@ -225,5 +225,775 @@
     "mealPlanProcessing_cancel": "Cancel and choose another file",
     "mealPlanReview_title": "Review Meal Plan",
     "mealPlanReview_changeFile": "Change File",
-    "mealPlanReview_confirmPlan": "Confirm Plan"
+    "mealPlanReview_confirmPlan": "Confirm Plan",
+    "menuProgress": "Progress",
+    "dashboardMenu_closeMenu": "Close menu",
+    "glycemicInfo_lowTitle": "Low GI (0-55)",
+    "glycemicInfo_lowDesc": "Steady energy, best for maintaining balanced blood sugar.",
+    "glycemicInfo_lowExample1": "Leafy greens, non-starchy vegetables",
+    "glycemicInfo_lowExample2": "Beans, lentils, chickpeas",
+    "glycemicInfo_lowExample3": "Whole grains like barley or quinoa",
+    "glycemicInfo_mediumTitle": "Medium GI (56-69)",
+    "glycemicInfo_mediumDesc": "Moderate impact, balance with protein or healthy fats.",
+    "glycemicInfo_mediumExample1": "Whole grain bread, oats",
+    "glycemicInfo_mediumExample2": "Sweet corn, sweet potatoes",
+    "glycemicInfo_mediumExample3": "Tropical fruits like pineapple or mango",
+    "glycemicInfo_highTitle": "High GI (70+)",
+    "glycemicInfo_highDesc": "Spikes blood sugar quickly; limit when possible.",
+    "glycemicInfo_highExample1": "White bread, bagels, pretzels",
+    "glycemicInfo_highExample2": "Sugary cereals, candy, pastries",
+    "glycemicInfo_highExample3": "White rice, fries, processed snacks",
+    "swipeCoach_followedPlan": "Followed plan",
+    "swipeCoach_skippedMeal": "Skipped meal",
+    "quickActions_groceriesTitle": "Groceries",
+    "quickActions_groceriesSubtitle": "Generate your list",
+    "quickActions_addUnplannedTitle": "Add unplanned meal",
+    "quickActions_addUnplannedSubtitle": "Log a meal not in plan",
+    "alternativeMeal_addUnplannedTitle": "Add unplanned meal",
+    "alternativeMeal_logAlternativeTitle": "Log alternative",
+    "alternativeMeal_whatDidYouEat": "What did you eat?",
+    "alternativeMeal_whatDidYouEatInstead": "What did you eat instead?",
+    "alternativeMeal_describeMeal": "Describe the meal...",
+    "alternativeMeal_describeMealHad": "Describe the meal you had...",
+    "alternativeMeal_validationError": "Please provide a short description",
+    "alternativeMeal_notesOptional": "Notes (optional)",
+    "alternativeMeal_bloodSugarImpact": "Blood sugar impact",
+    "alternativeMeal_containsSugar": "Contains added sugar",
+    "alternativeMeal_containsSugarSubtitle": "Mark if the alternative meal includes refined sugar or sweet syrups.",
+    "alternativeMeal_highGI": "High glycemic index",
+    "alternativeMeal_highGISubtitle": "Select when the meal is likely to cause a sharp blood sugar spike.",
+    "alternativeMeal_saveMeal": "Save meal",
+    "alternativeMeal_saveAlternative": "Save alternative",
+    "alternativeMeal_saving": "Saving...",
+    "consultationSchedule_title": "Schedule consultation",
+    "consultationSchedule_nutritionistName": "Nutritionist name",
+    "consultationSchedule_selectDate": "Select date",
+    "consultationSchedule_selectTime": "Select time",
+    "consultationSchedule_videoCall": "Video call",
+    "consultationSchedule_inPerson": "In-person",
+    "consultationSchedule_phone": "Phone",
+    "consultationSchedule_format": "Format",
+    "consultationSchedule_location": "Location",
+    "consultationSchedule_meetingLink": "Meeting link",
+    "consultationSchedule_prepNotes": "Preparation notes (comma separated)",
+    "consultationSchedule_saveButton": "Save appointment",
+    "consultationCard_mealPlanInEffect": "Meal plan in effect",
+    "consultationCard_focusAreas": "Focus areas",
+    "consultationCard_preparation": "Preparation",
+    "consultationCard_happeningNow": "Happening now",
+    "consultationCard_inDays": "In {count} days",
+    "@consultationCard_inDays": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inDay": "In 1 day",
+    "consultationCard_inHours": "In {count} hours",
+    "@consultationCard_inHours": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inHour": "In 1 hour",
+    "consultationCard_inMinutes": "In {count} minutes",
+    "@consultationCard_inMinutes": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inMinute": "In 1 minute",
+    "consultationCard_daysAgo": "{count} days ago",
+    "@consultationCard_daysAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_dayAgo": "1 day ago",
+    "consultationCard_hoursAgo": "{count} hours ago",
+    "@consultationCard_hoursAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_hourAgo": "1 hour ago",
+    "consultationCard_minutesAgo": "{count} minutes ago",
+    "@consultationCard_minutesAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_minuteAgo": "1 minute ago",
+    "consultationOverview_upcoming": "Upcoming",
+    "consultationOverview_nextAppointment": "Next appointment",
+    "consultationOverview_addedToSchedule": "Added to schedule",
+    "consultationOverview_addToSchedule": "Add to schedule",
+    "consultationOverview_prepareReport": "Prepare report",
+    "consultationOverview_mostRecent": "Most recent visit",
+    "consultationOverview_lastAppointment": "Last appointment",
+    "consultationOverview_linkMealPlan": "Link current meal plan",
+    "consultationOverview_viewMealPlan": "View meal plan",
+    "consultationHistory_title": "History",
+    "consultationHistory_consultationPrefix": "Consultation",
+    "consultationFollowup_title": "How did it go?",
+    "consultationFollowup_subtitle": "Your consultation on {date} may have updated your meal plan.",
+    "@consultationFollowup_subtitle": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "consultationFollowup_body": "If you received a new meal plan or changes, you can upload them now so we can adjust your schedule immediately.",
+    "consultationFollowup_highlights": "Highlights",
+    "consultationFollowup_uploadNewPlan": "Upload new plan",
+    "consultationFollowup_reviewNotes": "Review notes",
+    "consultationReminder_title": "Consultation coming up",
+    "consultationReminder_body": "Prepare your notes so {name} has the latest insights. Generating a report now keeps everything ready to review together.",
+    "@consultationReminder_body": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "consultationReminder_viewAgenda": "View agenda",
+    "consultationReminder_happeningSoon": "Happening soon",
+    "consultationReminder_tomorrow": "Tomorrow",
+    "openReport": "Open report",
+    "report_followed": "Followed",
+    "report_alternatives": "Alternatives",
+    "report_skipped": "Skipped",
+    "report_totalLogs": "Total logs",
+    "report_snapshotSummary": "Snapshot summary",
+    "report_longestStreak": "Longest streak",
+    "report_asOfDate": "As of {date}",
+    "@report_asOfDate": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "report_mealsWithSugar": "Meals with sugar",
+    "report_highGIMeals": "High G index meals",
+    "progress_logToUnlock": "Log your meals to unlock progress insights",
+    "progress_logToStartStreak": "Log your meals to start a streak",
+    "streak_fire": "Incredible run! Keep the fire going! 🔥",
+    "streak_stacking": "Amazing consistency — keep stacking days! 💪",
+    "streak_strongStart": "Strong start — let's stretch it further! 🚀",
+    "streak_owningWeek": "Meal-by-meal, you're owning this week! 🍽️",
+    "streak_momentum": "One meal at a time — keep that momentum! 🙌",
+    "streak_freshDay": "Fresh day, fresh opportunity to shine! 🌟",
+    "progress_dailyHistory": "Daily history",
+    "progress_allLogs": "All of your logs",
+    "progress_noMealsLogged": "No meals logged yet",
+    "progress_logFirstMeal": "Log your first meal to start building your progress timeline.",
+    "report_progressReportTitle": "Progress report",
+    "report_shareTooltip": "Share report",
+    "report_shareError": "Error sharing report: {error}",
+    "@report_shareError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_title": "Progress Report",
+    "reportText_client": "Client: {name}",
+    "@reportText_client": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_email": "Email: {email}",
+    "@reportText_email": {
+        "placeholders": {
+            "email": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_period": "Period: {start} - {end}",
+    "@reportText_period": {
+        "placeholders": {
+            "start": {
+                "type": "String"
+            },
+            "end": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_summary": "Summary:",
+    "reportText_totalMeals": "Total Meals: {count}",
+    "@reportText_totalMeals": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsFollowed": "Meals Followed: {count}",
+    "@reportText_mealsFollowed": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsAlternatives": "Alternative Meals: {count}",
+    "@reportText_mealsAlternatives": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsSkipped": "Meals Skipped: {count}",
+    "@reportText_mealsSkipped": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsDue": "Meals due so far: {count}",
+    "@reportText_mealsDue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_unloggedDue": "Unlogged meals due: {count}",
+    "@reportText_unloggedDue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_longestStreak": "Longest streak: {streak}",
+    "@reportText_longestStreak": {
+        "placeholders": {
+            "streak": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_mealsWithSugar": "Meals with sugar: {count}",
+    "@reportText_mealsWithSugar": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsHighGI": "Meals with high glycemic index: {count}",
+    "@reportText_mealsHighGI": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_dailyBreakdown": "Daily Breakdown:",
+    "reportText_notes": "    Notes: {notes}",
+    "@reportText_notes": {
+        "placeholders": {
+            "notes": {
+                "type": "String"
+            }
+        }
+    },
+    "reportGen_title": "Generate report",
+    "reportGen_subtitle": "Summaries ready to share",
+    "reportGen_choosePeriod": "Choose a period",
+    "reportGen_periodDesc": "We'll summarise all activity within the selected range.",
+    "reportGen_last7Days": "Last 7 days",
+    "reportGen_last30Days": "Last 30 days",
+    "reportGen_customRange": "Custom range",
+    "reportGen_from": "From",
+    "reportGen_to": "To",
+    "reportGen_includeTitle": "Your report will include",
+    "reportGen_include1": "Full meal log history for the period",
+    "reportGen_include2": "Adherence and consistency insights",
+    "reportGen_include3": "Client notes and alternative selections",
+    "reportGen_include4": "Weekly summaries ready to share",
+    "reportGen_button": "Generate report",
+    "uploadPlan_title": "Upload Your Meal Plan",
+    "uploadPlan_subtitle": "Select your meal plan file to get started",
+    "uploadPlan_fileSelected": "File Selected",
+    "uploadPlan_tapToSelect": "Tap to select file",
+    "uploadPlan_fileFormats": "PDF, DOC, or any file format",
+    "continueButton": "Continue",
+    "mealDrawer_ingredients": "Ingredients",
+    "mealDrawer_noIngredients": "No ingredient list provided for this meal.",
+    "mealDrawer_preparation": "Preparation",
+    "mealDrawer_noPrep": "No preparation instructions provided for this meal.",
+    "appName": "IRresistible",
+    "settings_debug": "Debug",
+    "settings_skipOnboarding": "Skip Onboarding",
+    "splashTitle": "IRresistible",
+    "splashSubtitle": "Your personalized nutrition journey",
+    "mock_meal_1_breakfast_name": "Oatmeal with Berries",
+    "mock_meal_1_breakfast_desc": "1 cup cooked oatmeal, 1/2 cup mixed berries, 1 tbsp almond butter, honey drizzle",
+    "mock_meal_1_snack1_name": "Apple with Almond Butter",
+    "mock_meal_1_snack1_desc": "1 medium apple, 1 tbsp almond butter",
+    "mock_meal_1_lunch_name": "Grilled Chicken Salad",
+    "mock_meal_1_lunch_desc": "4oz grilled chicken breast, mixed greens, cherry tomatoes, cucumber, olive oil dressing",
+    "mock_meal_1_snack2_name": "Greek Yogurt with Berries",
+    "mock_meal_1_snack2_desc": "1 cup plain Greek yogurt, 1/4 cup mixed berries",
+    "mock_meal_1_dinner_name": "Baked Salmon with Vegetables",
+    "mock_meal_1_dinner_desc": "5oz salmon fillet, roasted broccoli and sweet potato",
+    "mock_meal_1_breakfast_ingredient_0": "1 cup cooked oatmeal",
+    "mock_meal_1_breakfast_ingredient_1": "1/2 cup mixed berries",
+    "mock_meal_1_breakfast_ingredient_2": "1 tbsp almond butter",
+    "mock_meal_1_breakfast_ingredient_3": "1 tsp honey",
+    "mock_meal_1_breakfast_instruction_0": "Cook the oatmeal with water or milk until creamy.",
+    "mock_meal_1_breakfast_instruction_1": "Top with mixed berries, almond butter, and a drizzle of honey.",
+    "mock_meal_1_snack1_ingredient_0": "1 medium apple",
+    "mock_meal_1_snack1_ingredient_1": "1 tbsp almond butter",
+    "mock_meal_1_snack1_instruction_0": "Slice the apple into wedges or rounds.",
+    "mock_meal_1_snack1_instruction_1": "Serve with almond butter for dipping or spreading.",
+    "mock_meal_1_lunch_ingredient_0": "4 oz grilled chicken breast",
+    "mock_meal_1_lunch_ingredient_1": "2 cups mixed greens",
+    "mock_meal_1_lunch_ingredient_2": "1/2 cup cherry tomatoes",
+    "mock_meal_1_lunch_ingredient_3": "1/2 cucumber",
+    "mock_meal_1_lunch_ingredient_4": "2 tbsp olive oil dressing",
+    "mock_meal_1_lunch_instruction_0": "Slice the grilled chicken and vegetables.",
+    "mock_meal_1_lunch_instruction_1": "Combine everything in a bowl and drizzle with olive oil dressing.",
+    "mock_meal_1_snack2_ingredient_0": "1 cup plain Greek yogurt",
+    "mock_meal_1_snack2_ingredient_1": "1/4 cup mixed berries",
+    "mock_meal_1_snack2_instruction_0": "Spoon the yogurt into a bowl.",
+    "mock_meal_1_snack2_instruction_1": "Top with mixed berries just before serving.",
+    "mock_meal_1_dinner_ingredient_0": "5 oz salmon fillet",
+    "mock_meal_1_dinner_ingredient_1": "1 cup roasted broccoli",
+    "mock_meal_1_dinner_ingredient_2": "1 medium sweet potato",
+    "mock_meal_1_dinner_ingredient_3": "1 lemon wedge",
+    "mock_meal_1_dinner_instruction_0": "Bake the seasoned salmon and vegetables until tender.",
+    "mock_meal_1_dinner_instruction_1": "Serve with a squeeze of lemon over the top.",
+    
+    "mock_meal_2_breakfast_name": "Scrambled Eggs with Avocado Toast",
+    "mock_meal_2_breakfast_desc": "2 eggs scrambled, 1 slice whole grain toast, 1/2 avocado, cherry tomatoes",
+    "mock_meal_2_snack1_name": "Protein Smoothie",
+    "mock_meal_2_snack1_desc": "Banana, protein powder, almond milk, spinach",
+    "mock_meal_2_lunch_name": "Turkey Wrap with Hummus",
+    "mock_meal_2_lunch_desc": "Whole wheat tortilla, 4oz turkey breast, hummus, lettuce, peppers",
+    "mock_meal_2_snack2_name": "Carrot Sticks with Hummus",
+    "mock_meal_2_snack2_desc": "1 cup carrot sticks, 1/4 cup hummus",
+    "mock_meal_2_dinner_name": "Chicken Stir-Fry",
+    "mock_meal_2_dinner_desc": "5oz chicken breast, mixed vegetables, brown rice, teriyaki sauce",
+    "mock_meal_2_breakfast_ingredient_0": "2 large eggs",
+    "mock_meal_2_breakfast_ingredient_1": "1 slice whole grain bread",
+    "mock_meal_2_breakfast_ingredient_2": "1/2 avocado",
+    "mock_meal_2_breakfast_ingredient_3": "4 cherry tomatoes",
+    "mock_meal_2_breakfast_instruction_0": "Scramble the eggs in a non-stick pan until softly set.",
+    "mock_meal_2_breakfast_instruction_1": "Toast the bread, top with mashed avocado, and serve with tomatoes.",
+    "mock_meal_2_snack1_ingredient_0": "1 banana",
+    "mock_meal_2_snack1_ingredient_1": "1 scoop protein powder",
+    "mock_meal_2_snack1_ingredient_2": "1 cup almond milk",
+    "mock_meal_2_snack1_ingredient_3": "1 cup spinach",
+    "mock_meal_2_snack1_instruction_0": "Add all ingredients to a blender.",
+    "mock_meal_2_snack1_instruction_1": "Blend until smooth and creamy, then serve immediately.",
+    "mock_meal_2_lunch_ingredient_0": "1 whole wheat tortilla",
+    "mock_meal_2_lunch_ingredient_1": "4 oz sliced turkey breast",
+    "mock_meal_2_lunch_ingredient_2": "2 tbsp hummus",
+    "mock_meal_2_lunch_ingredient_3": "1 cup lettuce",
+    "mock_meal_2_lunch_ingredient_4": "1/4 cup sliced bell peppers",
+    "mock_meal_2_lunch_instruction_0": "Spread hummus over the tortilla.",
+    "mock_meal_2_lunch_instruction_1": "Layer turkey, lettuce, and peppers, then roll tightly and slice.",
+    "mock_meal_2_snack2_ingredient_0": "1 cup carrot sticks",
+    "mock_meal_2_snack2_ingredient_1": "1/4 cup hummus",
+    "mock_meal_2_snack2_instruction_0": "Peel and slice the carrots into sticks if needed.",
+    "mock_meal_2_snack2_instruction_1": "Serve with hummus for dipping.",
+    "mock_meal_2_dinner_ingredient_0": "5 oz chicken breast",
+    "mock_meal_2_dinner_ingredient_1": "2 cups mixed vegetables",
+    "mock_meal_2_dinner_ingredient_2": "1 cup brown rice",
+    "mock_meal_2_dinner_ingredient_3": "2 tbsp teriyaki sauce",
+    "mock_meal_2_dinner_instruction_0": "Stir-fry the chicken until nearly cooked through.",
+    "mock_meal_2_dinner_instruction_1": "Add vegetables and sauce, cook until crisp-tender, and serve over rice.",
+
+    "mock_meal_3_breakfast_name": "Greek Yogurt Parfait",
+    "mock_meal_3_breakfast_desc": "Greek yogurt layered with granola, berries, and honey",
+    "mock_meal_3_snack1_name": "Mixed Nuts",
+    "mock_meal_3_snack1_desc": "1/4 cup mixed almonds, cashews, and walnuts",
+    "mock_meal_3_lunch_name": "Quinoa Buddha Bowl",
+    "mock_meal_3_lunch_desc": "Quinoa, roasted chickpeas, avocado, vegetables, tahini dressing",
+    "mock_meal_3_snack2_name": "Cottage Cheese with Pineapple",
+    "mock_meal_3_snack2_desc": "1 cup low-fat cottage cheese, 1/2 cup pineapple chunks",
+    "mock_meal_3_dinner_name": "Lean Beef Tacos",
+    "mock_meal_3_dinner_desc": "Lean ground beef, corn tortillas, lettuce, tomato, salsa",
+    "mock_meal_3_breakfast_ingredient_0": "1 cup Greek yogurt",
+    "mock_meal_3_breakfast_ingredient_1": "1/2 cup granola",
+    "mock_meal_3_breakfast_ingredient_2": "1/2 cup mixed berries",
+    "mock_meal_3_breakfast_ingredient_3": "1 tsp honey",
+    "mock_meal_3_breakfast_instruction_0": "Layer yogurt, granola, and berries in a glass or bowl.",
+    "mock_meal_3_breakfast_instruction_1": "Drizzle honey over the top before serving.",
+    "mock_meal_3_snack1_ingredient_0": "1/4 cup mixed nuts",
+    "mock_meal_3_snack1_instruction_0": "Portion the mixed nuts into a small bowl or container.",
+    "mock_meal_3_snack1_instruction_1": "Enjoy immediately or pack to-go for later.",
+    "mock_meal_3_lunch_ingredient_0": "1 cup cooked quinoa",
+    "mock_meal_3_lunch_ingredient_1": "1/2 cup roasted chickpeas",
+    "mock_meal_3_lunch_ingredient_2": "1/2 avocado",
+    "mock_meal_3_lunch_ingredient_3": "1 cup mixed vegetables",
+    "mock_meal_3_lunch_ingredient_4": "2 tbsp tahini dressing",
+    "mock_meal_3_lunch_instruction_0": "Warm the quinoa and arrange it in a bowl.",
+    "mock_meal_3_lunch_instruction_1": "Top with chickpeas, vegetables, avocado, and drizzle with tahini dressing.",
+    "mock_meal_3_snack2_ingredient_0": "1 cup low-fat cottage cheese",
+    "mock_meal_3_snack2_ingredient_1": "1/2 cup pineapple chunks",
+    "mock_meal_3_snack2_instruction_0": "Scoop cottage cheese into a serving bowl.",
+    "mock_meal_3_snack2_instruction_1": "Top with pineapple chunks and enjoy.",
+    "mock_meal_3_dinner_ingredient_0": "5 oz lean ground beef",
+    "mock_meal_3_dinner_ingredient_1": "2 corn tortillas",
+    "mock_meal_3_dinner_ingredient_2": "1 cup shredded lettuce",
+    "mock_meal_3_dinner_ingredient_3": "1 diced tomato",
+    "mock_meal_3_dinner_ingredient_4": "2 tbsp salsa",
+    "mock_meal_3_dinner_instruction_0": "Cook the ground beef with seasonings until browned.",
+    "mock_meal_3_dinner_instruction_1": "Warm the tortillas, then assemble with lettuce, tomato, and salsa.",
+
+    "mock_meal_4_breakfast_name": "Whole Grain Pancakes",
+    "mock_meal_4_breakfast_desc": "2 whole grain pancakes, fresh berries, maple syrup",
+    "mock_meal_4_snack1_name": "Pear with String Cheese",
+    "mock_meal_4_snack1_desc": "1 medium pear, 1 string cheese",
+    "mock_meal_4_lunch_name": "Tuna Salad",
+    "mock_meal_4_lunch_desc": "Tuna, mixed greens, hard-boiled egg, olives, olive oil",
+    "mock_meal_4_snack2_name": "Protein Bar",
+    "mock_meal_4_snack2_desc": "1 protein bar (aim for 10g+ protein)",
+    "mock_meal_4_dinner_name": "Baked Chicken with Quinoa",
+    "mock_meal_4_dinner_desc": "Herb-crusted chicken breast, quinoa, roasted asparagus",
+    "mock_meal_4_breakfast_ingredient_0": "2 whole grain pancakes",
+    "mock_meal_4_breakfast_ingredient_1": "1/2 cup fresh berries",
+    "mock_meal_4_breakfast_ingredient_2": "1 tbsp maple syrup",
+    "mock_meal_4_breakfast_instruction_0": "Warm the pancakes in a skillet or toaster if needed.",
+    "mock_meal_4_breakfast_instruction_1": "Serve with berries on top and drizzle with maple syrup.",
+    "mock_meal_4_snack1_ingredient_0": "1 medium pear",
+    "mock_meal_4_snack1_ingredient_1": "1 string cheese",
+    "mock_meal_4_snack1_instruction_0": "Wash the pear and slice if desired.",
+    "mock_meal_4_snack1_instruction_1": "Pair with string cheese for a quick snack.",
+    "mock_meal_4_lunch_ingredient_0": "1 can tuna in water",
+    "mock_meal_4_lunch_ingredient_1": "2 cups mixed greens",
+    "mock_meal_4_lunch_ingredient_2": "1 hard-boiled egg",
+    "mock_meal_4_lunch_ingredient_3": "5 olives",
+    "mock_meal_4_lunch_ingredient_4": "2 tbsp olive oil",
+    "mock_meal_4_lunch_instruction_0": "Drain the tuna and slice the egg and olives.",
+    "mock_meal_4_lunch_instruction_1": "Combine ingredients with greens and drizzle with olive oil.",
+    "mock_meal_4_snack2_ingredient_0": "1 protein bar",
+    "mock_meal_4_snack2_instruction_0": "Unwrap the protein bar and enjoy as a quick snack.",
+    "mock_meal_4_dinner_ingredient_0": "5 oz chicken breast",
+    "mock_meal_4_dinner_ingredient_1": "1 cup cooked quinoa",
+    "mock_meal_4_dinner_ingredient_2": "1 cup roasted asparagus",
+    "mock_meal_4_dinner_ingredient_3": "to taste herbs and spices",
+    "mock_meal_4_dinner_instruction_0": "Bake the seasoned chicken until cooked through.",
+    "mock_meal_4_dinner_instruction_1": "Serve alongside quinoa and roasted asparagus.",
+
+    "mock_meal_5_breakfast_name": "Veggie Omelet",
+    "mock_meal_5_breakfast_desc": "3-egg omelet with spinach, mushrooms, and feta cheese",
+    "mock_meal_5_snack1_name": "Banana with Peanut Butter",
+    "mock_meal_5_snack1_desc": "1 medium banana, 1 tbsp peanut butter",
+    "mock_meal_5_lunch_name": "Mediterranean Chicken Bowl",
+    "mock_meal_5_lunch_desc": "Grilled chicken, brown rice, hummus, cucumber, tomatoes, olives",
+    "mock_meal_5_snack2_name": "Rice Cakes with Avocado",
+    "mock_meal_5_snack2_desc": "2 rice cakes topped with mashed avocado",
+    "mock_meal_5_dinner_name": "Shrimp Pasta Primavera",
+    "mock_meal_5_dinner_desc": "Whole wheat pasta, shrimp, mixed vegetables, garlic olive oil",
+    "mock_meal_5_breakfast_ingredient_0": "3 large eggs",
+    "mock_meal_5_breakfast_ingredient_1": "1 cup spinach",
+    "mock_meal_5_breakfast_ingredient_2": "1/2 cup mushrooms",
+    "mock_meal_5_breakfast_ingredient_3": "2 tbsp feta cheese",
+    "mock_meal_5_breakfast_instruction_0": "Sauté mushrooms and spinach until tender.",
+    "mock_meal_5_breakfast_instruction_1": "Add beaten eggs, cook until set, and sprinkle with feta before folding.",
+    "mock_meal_5_snack1_ingredient_0": "1 medium banana",
+    "mock_meal_5_snack1_ingredient_1": "1 tbsp peanut butter",
+    "mock_meal_5_snack1_instruction_0": "Peel the banana and slice if desired.",
+    "mock_meal_5_snack1_instruction_1": "Serve with peanut butter for dipping or spreading.",
+    "mock_meal_5_lunch_ingredient_0": "4 oz grilled chicken",
+    "mock_meal_5_lunch_ingredient_1": "1 cup brown rice",
+    "mock_meal_5_lunch_ingredient_2": "2 tbsp hummus",
+    "mock_meal_5_lunch_ingredient_3": "1/2 cucumber",
+    "mock_meal_5_lunch_ingredient_4": "1/2 cup tomatoes",
+    "mock_meal_5_lunch_ingredient_5": "5 olives",
+    "mock_meal_5_lunch_instruction_0": "Layer rice in a bowl and top with sliced chicken.",
+    "mock_meal_5_lunch_instruction_1": "Add hummus, cucumber, tomatoes, and olives before serving.",
+    "mock_meal_5_snack2_ingredient_0": "2 rice cakes",
+    "mock_meal_5_snack2_ingredient_1": "1/2 avocado",
+    "mock_meal_5_snack2_instruction_0": "Mash the avocado with a fork and season if desired.",
+    "mock_meal_5_snack2_instruction_1": "Spread over rice cakes and serve immediately.",
+    "mock_meal_5_dinner_ingredient_0": "2 oz whole wheat pasta",
+    "mock_meal_5_dinner_ingredient_1": "5 oz shrimp",
+    "mock_meal_5_dinner_ingredient_2": "2 cups mixed vegetables",
+    "mock_meal_5_dinner_ingredient_3": "2 tbsp garlic olive oil",
+    "mock_meal_5_dinner_instruction_0": "Cook the pasta until al dente and reserve a little cooking water.",
+    "mock_meal_5_dinner_instruction_1": "Sauté shrimp and vegetables in garlic oil, then toss with pasta.",
+
+    "mock_meal_6_breakfast_name": "Breakfast Burrito",
+    "mock_meal_6_breakfast_desc": "Scrambled eggs, black beans, cheese, salsa in whole wheat tortilla",
+    "mock_meal_6_snack1_name": "Trail Mix",
+    "mock_meal_6_snack1_desc": "Mixed nuts, dried cranberries, dark chocolate chips",
+    "mock_meal_6_lunch_name": "Grilled Veggie Sandwich",
+    "mock_meal_6_lunch_desc": "Grilled zucchini, peppers, mozzarella on whole grain bread",
+    "mock_meal_6_snack2_name": "Edamame",
+    "mock_meal_6_snack2_desc": "1 cup steamed edamame with sea salt",
+    "mock_meal_6_dinner_name": "Grilled Steak with Vegetables",
+    "mock_meal_6_dinner_desc": "Lean sirloin steak, roasted Brussels sprouts and carrots",
+    "mock_meal_6_breakfast_ingredient_0": "2 scrambled eggs",
+    "mock_meal_6_breakfast_ingredient_1": "1/4 cup black beans",
+    "mock_meal_6_breakfast_ingredient_2": "2 tbsp shredded cheese",
+    "mock_meal_6_breakfast_ingredient_3": "2 tbsp salsa",
+    "mock_meal_6_breakfast_ingredient_4": "1 whole wheat tortilla",
+    "mock_meal_6_breakfast_instruction_0": "Warm the tortilla and scramble the eggs with beans.",
+    "mock_meal_6_breakfast_instruction_1": "Fill the tortilla, top with cheese and salsa, then roll tightly.",
+    "mock_meal_6_snack1_ingredient_0": "1/4 cup mixed nuts",
+    "mock_meal_6_snack1_ingredient_1": "2 tbsp dried cranberries",
+    "mock_meal_6_snack1_ingredient_2": "1 tbsp dark chocolate chips",
+    "mock_meal_6_snack1_instruction_0": "Combine nuts, cranberries, and chocolate chips in a small bowl.",
+    "mock_meal_6_snack1_instruction_1": "Portion into a to-go container if needed.",
+    "mock_meal_6_lunch_ingredient_0": "2 slices whole grain bread",
+    "mock_meal_6_lunch_ingredient_1": "1/2 grilled zucchini",
+    "mock_meal_6_lunch_ingredient_2": "1/4 cup grilled peppers",
+    "mock_meal_6_lunch_ingredient_3": "2 slices fresh mozzarella",
+    "mock_meal_6_lunch_ingredient_4": "1 tbsp balsamic glaze",
+    "mock_meal_6_lunch_instruction_0": "Layer grilled vegetables and mozzarella on the bread.",
+    "mock_meal_6_lunch_instruction_1": "Drizzle with balsamic glaze and toast until cheese melts if desired.",
+    "mock_meal_6_snack2_ingredient_0": "1 cup edamame",
+    "mock_meal_6_snack2_ingredient_1": "to taste sea salt",
+    "mock_meal_6_snack2_instruction_0": "Steam or microwave the edamame until heated through.",
+    "mock_meal_6_snack2_instruction_1": "Sprinkle with sea salt before serving.",
+    "mock_meal_6_dinner_ingredient_0": "5 oz lean sirloin steak",
+    "mock_meal_6_dinner_ingredient_1": "1 cup roasted Brussels sprouts",
+    "mock_meal_6_dinner_ingredient_2": "1 cup roasted carrots",
+    "mock_meal_6_dinner_instruction_0": "Grill or sear the steak to your preferred doneness.",
+    "mock_meal_6_dinner_instruction_1": "Serve with roasted Brussels sprouts and carrots on the side.",
+
+    "mock_meal_7_breakfast_name": "French Toast with Fruit",
+    "mock_meal_7_breakfast_desc": "Whole grain French toast, fresh berries, yogurt drizzle",
+    "mock_meal_7_snack1_name": "Celery with Peanut Butter",
+    "mock_meal_7_snack1_desc": "4 celery sticks with 2 tbsp peanut butter",
+    "mock_meal_7_lunch_name": "Chicken Caesar Salad",
+    "mock_meal_7_lunch_desc": "Grilled chicken, romaine lettuce, parmesan, light Caesar dressing",
+    "mock_meal_7_snack2_name": "Smoothie Bowl",
+    "mock_meal_7_snack2_desc": "Blended berries, banana, topped with granola and chia seeds",
+    "mock_meal_7_dinner_name": "Baked Cod with Sweet Potato",
+    "mock_meal_7_dinner_desc": "Herb-baked cod, mashed sweet potato, steamed green beans",
+    "mock_meal_7_breakfast_ingredient_0": "2 slices whole grain bread",
+    "mock_meal_7_breakfast_ingredient_1": "1 egg",
+    "mock_meal_7_breakfast_ingredient_2": "1/2 cup mixed berries",
+    "mock_meal_7_breakfast_ingredient_3": "2 tbsp Greek yogurt",
+    "mock_meal_7_breakfast_ingredient_4": "1 tsp cinnamon",
+    "mock_meal_7_breakfast_instruction_0": "Whisk the egg with cinnamon and soak the bread slices.",
+    "mock_meal_7_breakfast_instruction_1": "Cook on a griddle until golden, then top with berries and yogurt.",
+    "mock_meal_7_snack1_ingredient_0": "4 celery sticks",
+    "mock_meal_7_snack1_ingredient_1": "2 tbsp peanut butter",
+    "mock_meal_7_snack1_instruction_0": "Wash and trim the celery sticks.",
+    "mock_meal_7_snack1_instruction_1": "Fill the celery grooves with peanut butter.",
+    "mock_meal_7_lunch_ingredient_0": "4 oz grilled chicken breast",
+    "mock_meal_7_lunch_ingredient_1": "2 cups romaine lettuce",
+    "mock_meal_7_lunch_ingredient_2": "2 tbsp parmesan cheese",
+    "mock_meal_7_lunch_ingredient_3": "2 tbsp light Caesar dressing",
+    "mock_meal_7_lunch_ingredient_4": "1/2 cup whole grain croutons",
+    "mock_meal_7_lunch_instruction_0": "Chop the lettuce and slice the grilled chicken.",
+    "mock_meal_7_lunch_instruction_1": "Toss with dressing, parmesan, and croutons before serving.",
+    "mock_meal_7_snack2_ingredient_0": "1 cup mixed berries",
+    "mock_meal_7_snack2_ingredient_1": "1/2 banana",
+    "mock_meal_7_snack2_ingredient_2": "1/4 cup granola",
+    "mock_meal_7_snack2_ingredient_3": "1 tbsp chia seeds",
+    "mock_meal_7_snack2_instruction_0": "Blend the berries and banana until smooth.",
+    "mock_meal_7_snack2_instruction_1": "Pour into a bowl and top with granola and chia seeds.",
+    "mock_meal_7_dinner_ingredient_0": "5 oz cod fillet",
+    "mock_meal_7_dinner_ingredient_1": "1 medium sweet potato",
+    "mock_meal_7_dinner_ingredient_2": "1 cup green beans",
+    "mock_meal_7_dinner_ingredient_3": "to taste herbs and lemon",
+    "mock_meal_7_dinner_instruction_0": "Season the cod with herbs and lemon, then bake until flaky.",
+    "mock_meal_7_dinner_instruction_1": "Serve with mashed sweet potato and steamed green beans.",
+    "dashboard_today": "Today",
+    "dashboard_greeting_unlogged_3": "Let’s log a few meals while the details are fresh.",
+    "dashboard_greeting_unlogged_2": "Two meals are waiting for a log — quick updates help a ton.",
+    "dashboard_greeting_unlogged_1": "One meal needs a quick log to stay on track.",
+    "dashboard_greeting_all_set": "You’re all set until the next meal.",
+    "dashboard_greeting_good_job": "Nice work staying current — keep the momentum going.",
+    "dashboard_status_overdue": "{count} {label} overdue",
+    "@dashboard_status_overdue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_status_logged": "{count} {label} logged",
+    "@dashboard_status_logged": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "mealLabel": "meal",
+    "mealsLabel": "meals",
+    "mock_mealPlanName": "Week 1 Meal Plan",
+    "mock_endurancePlanName": "Endurance Support Plan",
+    "mock_consultation_1_focusArea_0": "Stabilise fasting glucose",
+    "mock_consultation_1_focusArea_1": "Reintroduce strength training fuel",
+    "mock_consultation_1_preparationNote_0": "Upload latest glucometer exports",
+    "mock_consultation_1_preparationNote_1": "Track hydration for 3 days prior",
+    "mock_consultation_2_focusArea_0": "Dial in pre-run fuelling",
+    "mock_consultation_2_focusArea_1": "Adjust fibre targets",
+    "mock_consultation_2_preparationNote_0": "Bring food journal for previous 14 days",
+    "mock_consultation_2_preparationNote_1": "Note any hypoglycaemia symptoms",
+    "dashboard_catchUp": "Catch up",
+    "dashboard_logNow": "Log now",
+    "dashboard_needsAttention": "Needs attention",
+    "dashboard_pendingMealsSwipeHint": "Swipe overdue and due meals to keep your log current.",
+    "dashboard_pendingMealsSeveritySeveral": "Several meals are waiting — capturing them now keeps your data accurate.",
+    "dashboard_pendingMealsSeverityTwo": "Two meals need attention — a couple quick logs will close the gap.",
+    "dashboard_pendingMealsSeverityOne": "One meal is ready to log — take a moment to record it.",
+    "dashboard_comingUp": "Coming up",
+    "dashboard_nextMeal": "Next meal",
+    "dashboard_logged": "Logged",
+    "dashboard_scheduled": "Scheduled {time} • {relativeTime}",
+    "@dashboard_scheduled": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_scheduled_full": "{time} • {mealType} • {relativeTime}",
+    "@dashboard_scheduled_full": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "mealType": {
+                "type": "String"
+            },
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_logged_full": "{time} • {mealType}",
+    "@dashboard_logged_full": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "mealType": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_logSomethingElse": "Log something else",
+    "dashboard_greatJob": "Great job!",
+    "dashboard_noted": "Noted",
+    "dashboard_logSuccess": "Log was successfully saved",
+    "dashboard_followedRecipe": "Followed recipe",
+    "dashboard_followedMeal": "Followed meal",
+    "dashboard_skippedMeal": "Skipped meal",
+    "dashboard_thanksTrack": "Thanks for staying on track!",
+    "dashboard_notedAdjust": "Noted, we'll adjust your plan.",
+    "dashboard_followingRecipe": "Following recipe",
+    "dashboard_skippingMeal": "Skipping meal",
+    "dashboard_loggingMeal": "Logging your meal...",
+    "dashboard_markingSkipped": "Marking as skipped...",
+    "dashboard_loggedExactly": "Logged exactly as planned",
+    "dashboard_markedSkipped": "Marked as skipped for today",
+    "time_underMinuteFuture": "in under a minute",
+    "time_underMinutePast": "less than a minute ago",
+    "time_minutesFuture": "in {minutes} min",
+    "@time_minutesFuture": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_minutesPast": "{minutes} min ago",
+    "@time_minutesPast": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursFuture": "in {hours} h",
+    "@time_hoursFuture": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursPast": "{hours} h ago",
+    "@time_hoursPast": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursMinutesFuture": "in {hours}h {minutes}m",
+    "@time_hoursMinutesFuture": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            },
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursMinutesPast": "{hours}h {minutes}m ago",
+    "@time_hoursMinutesPast": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            },
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "dashboard_allMealsLogged": "All meals logged!",
+    "dashboard_allMealsLoggedBody": "Great job staying on track today. You can review your entries or jump into the schedule for upcoming days.",
+    "dashboard_mealsLogged": "Meals logged",
+    "dashboard_mealsLoggedCount": "{current} of {total} logged",
+    "@dashboard_mealsLoggedCount": {
+        "placeholders": {
+            "current": {
+                "type": "int"
+            },
+            "total": {
+                "type": "int"
+            }
+        }
+    },
+    "dashboard_nothingLogged": "Nothing logged yet. Your updates will appear here.",
+    "dashboard_containsSugar": "Contains sugar",
+    "dashboard_highGI": "High GI",
+    "status_followed": "Followed Plan",
+    "status_alternative": "Alternative Meal",
+    "status_skipped": "Skipped Meal"
 }

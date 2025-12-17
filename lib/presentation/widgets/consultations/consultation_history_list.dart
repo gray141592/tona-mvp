@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/date_utils.dart' as date_utils;
@@ -19,6 +20,7 @@ class ConsultationHistoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     if (appointments.isEmpty) {
       return const SizedBox.shrink();
     }
@@ -28,7 +30,7 @@ class ConsultationHistoryList extends StatelessWidget {
       children: [
         const SizedBox(height: AppSpacing.xl),
         Text(
-          'History',
+          localizations.consultationHistory_title,
           style: Theme.of(context).textTheme.displaySmall?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -37,7 +39,7 @@ class ConsultationHistoryList extends StatelessWidget {
         for (final appointment in appointments)
           ConsultationAppointmentCard(
             label:
-                'Consultation ${date_utils.DateUtils.formatShortDate(appointment.scheduledAt)}',
+                '${localizations.consultationHistory_consultationPrefix} ${date_utils.DateUtils.formatShortDate(appointment.scheduledAt)}',
             appointment: appointment,
             showOutcomeDetails: true,
             onTap: onOpenDetails == null
@@ -50,7 +52,7 @@ class ConsultationHistoryList extends StatelessWidget {
                 TextButton.icon(
                   onPressed: () => onViewMealPlan!(appointment),
                   icon: const Icon(Icons.restaurant_menu_rounded),
-                  label: const Text('View meal plan'),
+                  label: Text(localizations.consultationOverview_viewMealPlan),
                 ),
             ],
           ),

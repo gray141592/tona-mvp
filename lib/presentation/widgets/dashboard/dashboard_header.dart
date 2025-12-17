@@ -7,6 +7,7 @@ import '../../../core/theme/app_typography.dart';
 import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/utils/time_provider.dart';
 import '../../../data/models/daily_progress.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 class DashboardHeader extends StatelessWidget {
   final VoidCallback onMenuTap;
@@ -22,9 +23,10 @@ class DashboardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final isToday =
         date_utils.DateUtils.isSameDay(dailyProgress.date, TimeProvider.now());
-    final statusLabel = _statusLabel(dailyProgress);
+    final statusLabel = _statusLabel(dailyProgress, localizations);
 
     return Row(
       children: [
@@ -60,7 +62,7 @@ class DashboardHeader extends StatelessWidget {
                 children: [
                   Text(
                     isToday
-                        ? 'Today'
+                        ? localizations.dashboard_today
                         : date_utils.DateUtils.formatDate(dailyProgress.date),
                     style: AppTypography.titleLarge.copyWith(
                       fontWeight: FontWeight.w700,
@@ -90,7 +92,7 @@ class DashboardHeader extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(
-                _greetingMessage(dailyProgress),
+                _greetingMessage(dailyProgress, localizations),
                 style: AppTypography.bodyMedium.copyWith(
                   color: AppColors.textSecondary,
                 ),
@@ -102,33 +104,33 @@ class DashboardHeader extends StatelessWidget {
     );
   }
 
-  String _greetingMessage(DailyProgress progress) {
+  String _greetingMessage(DailyProgress progress, AppLocalizations localizations) {
     if (progress.unloggedDueMeals >= 3) {
-      return 'Let’s log a few meals while the details are fresh.';
+      return localizations.dashboard_greeting_unlogged_3;
     }
     if (progress.unloggedDueMeals == 2) {
-      return 'Two meals are waiting for a log — quick updates help a ton.';
+      return localizations.dashboard_greeting_unlogged_2;
     }
     if (progress.unloggedDueMeals == 1) {
-      return 'One meal needs a quick log to stay on track.';
+      return localizations.dashboard_greeting_unlogged_1;
     }
     if (progress.dueMeals == 0) {
-      return 'You’re all set until the next meal.';
+      return localizations.dashboard_greeting_all_set;
     }
-    return 'Nice work staying current — keep the momentum going.';
+    return localizations.dashboard_greeting_good_job;
   }
 
-  String? _statusLabel(DailyProgress progress) {
+  String? _statusLabel(DailyProgress progress, AppLocalizations localizations) {
     if (progress.unloggedDueMeals > 0) {
       final count = progress.unloggedDueMeals;
-      final mealLabel = count == 1 ? 'meal' : 'meals';
-      return '$count $mealLabel overdue';
+      final mealLabel = count == 1 ? localizations.mealLabel : localizations.mealsLabel;
+      return localizations.dashboard_status_overdue(count, mealLabel);
     }
 
     if (progress.mealsLogged > 0) {
       final count = progress.mealsLogged;
-      final mealLabel = count == 1 ? 'meal' : 'meals';
-      return '$count $mealLabel logged';
+      final mealLabel = count == 1 ? localizations.mealLabel : localizations.mealsLabel;
+      return localizations.dashboard_status_logged(count, mealLabel);
     }
 
     return null;

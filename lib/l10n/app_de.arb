@@ -225,5 +225,845 @@
     "mealPlanProcessing_cancel": "Abbrechen und eine andere Datei auswählen",
     "mealPlanReview_title": "Speiseplan überprüfen",
     "mealPlanReview_changeFile": "Datei ändern",
-    "mealPlanReview_confirmPlan": "Plan bestätigen"
+    "mealPlanReview_confirmPlan": "Plan bestätigen",
+    "menuProgress": "Fortschritt",
+    "dashboardMenu_closeMenu": "Menü schließen",
+    "glycemicInfo_lowTitle": "Niedriger GI (0-55)",
+    "glycemicInfo_lowDesc": "Stetige Energie, am besten für einen ausgeglichenen Blutzuckerspiegel.",
+    "glycemicInfo_lowExample1": "Blattgemüse, nicht stärkehaltiges Gemüse",
+    "glycemicInfo_lowExample2": "Bohnen, Linsen, Kichererbsen",
+    "glycemicInfo_lowExample3": "Vollkornprodukte wie Gerste oder Quinoa",
+    "glycemicInfo_mediumTitle": "Mittlerer GI (56-69)",
+    "glycemicInfo_mediumDesc": "Mäßiger Einfluss, Ausgleich mit Protein oder gesunden Fetten.",
+    "glycemicInfo_mediumExample1": "Vollkornbrot, Haferflocken",
+    "glycemicInfo_mediumExample2": "Zuckermais, Süßkartoffeln",
+    "glycemicInfo_mediumExample3": "Tropische Früchte wie Ananas oder Mango",
+    "glycemicInfo_highTitle": "Hoher GI (70+)",
+    "glycemicInfo_highDesc": "Lässt den Blutzucker schnell ansteigen; wenn möglich begrenzen.",
+    "glycemicInfo_highExample1": "Weißbrot, Bagels, Brezeln",
+    "glycemicInfo_highExample2": "Zuckerhaltiges Müsli, Süßigkeiten, Gebäck",
+    "glycemicInfo_highExample3": "Weißer Reis, Pommes frites, verarbeitete Snacks",
+    "swipeCoach_followedPlan": "Plan gefolgt",
+    "swipeCoach_skippedMeal": "Mahlzeit übersprungen",
+    "quickActions_groceriesTitle": "Lebensmittel",
+    "quickActions_groceriesSubtitle": "Liste erstellen",
+    "quickActions_addUnplannedTitle": "Ungeplante Mahlzeit",
+    "quickActions_addUnplannedSubtitle": "Mahlzeit protokollieren",
+    "alternativeMeal_addUnplannedTitle": "Ungeplante Mahlzeit hinzufügen",
+    "alternativeMeal_logAlternativeTitle": "Alternative protokollieren",
+    "alternativeMeal_whatDidYouEat": "Was hast du gegessen?",
+    "alternativeMeal_whatDidYouEatInstead": "Was hast du stattdessen gegessen?",
+    "alternativeMeal_describeMeal": "Beschreibe die Mahlzeit...",
+    "alternativeMeal_describeMealHad": "Beschreibe die Mahlzeit, die du hattest...",
+    "alternativeMeal_validationError": "Bitte gib eine kurze Beschreibung an",
+    "alternativeMeal_notesOptional": "Notizen (optional)",
+    "alternativeMeal_bloodSugarImpact": "Blutzucker-Auswirkung",
+    "alternativeMeal_containsSugar": "Enthält zugesetzten Zucker",
+    "alternativeMeal_containsSugarSubtitle": "Markiere, wenn die Mahlzeit raffinierten Zucker oder süße Sirupe enthält.",
+    "alternativeMeal_highGI": "Hoher glykämischer Index",
+    "alternativeMeal_highGISubtitle": "Wähle aus, wenn die Mahlzeit wahrscheinlich einen starken Blutzuckeranstieg verursacht.",
+    "alternativeMeal_saveMeal": "Mahlzeit speichern",
+    "alternativeMeal_saveAlternative": "Alternative speichern",
+    "alternativeMeal_saving": "Speichern...",
+    "consultationSchedule_title": "Beratung planen",
+    "consultationSchedule_nutritionistName": "Name des Ernährungsberaters",
+    "consultationSchedule_selectDate": "Datum auswählen",
+    "consultationSchedule_selectTime": "Zeit auswählen",
+    "consultationSchedule_videoCall": "Videoanruf",
+    "consultationSchedule_inPerson": "Persönlich",
+    "consultationSchedule_phone": "Telefon",
+    "consultationSchedule_format": "Format",
+    "consultationSchedule_location": "Ort",
+    "consultationSchedule_meetingLink": "Meeting-Link",
+    "consultationSchedule_prepNotes": "Vorbereitungsnotizen (durch Komma getrennt)",
+    "consultationSchedule_saveButton": "Termin speichern",
+    "consultationCard_mealPlanInEffect": "Speiseplan aktiv",
+    "consultationCard_focusAreas": "Fokusbereiche",
+    "consultationCard_preparation": "Vorbereitung",
+    "consultationCard_happeningNow": "Findet jetzt statt",
+    "consultationCard_inDays": "In {count} Tagen",
+    "@consultationCard_inDays": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inDay": "In 1 Tag",
+    "consultationCard_inHours": "In {count} Stunden",
+    "@consultationCard_inHours": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inHour": "In 1 Stunde",
+    "consultationCard_inMinutes": "In {count} Minuten",
+    "@consultationCard_inMinutes": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inMinute": "In 1 Minute",
+    "consultationCard_daysAgo": "Vor {count} Tagen",
+    "@consultationCard_daysAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_dayAgo": "Vor 1 Tag",
+    "consultationCard_hoursAgo": "Vor {count} Stunden",
+    "@consultationCard_hoursAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_hourAgo": "Vor 1 Stunde",
+    "consultationCard_minutesAgo": "Vor {count} Minuten",
+    "@consultationCard_minutesAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_minuteAgo": "Vor 1 Minute",
+    "consultationOverview_upcoming": "Bevorstehend",
+    "consultationOverview_nextAppointment": "Nächster Termin",
+    "consultationOverview_addedToSchedule": "Zum Zeitplan hinzugefügt",
+    "consultationOverview_addToSchedule": "Zum Zeitplan hinzufügen",
+    "consultationOverview_prepareReport": "Bericht vorbereiten",
+    "consultationOverview_mostRecent": "Letzter Besuch",
+    "consultationOverview_lastAppointment": "Letzter Termin",
+    "consultationOverview_linkMealPlan": "Aktuellen Speiseplan verknüpfen",
+    "consultationOverview_viewMealPlan": "Speiseplan ansehen",
+    "consultationHistory_title": "Verlauf",
+    "consultationHistory_consultationPrefix": "Beratung",
+    "consultationFollowup_title": "Wie ist es gelaufen?",
+    "consultationFollowup_subtitle": "Deine Beratung am {date} hat möglicherweise deinen Speiseplan aktualisiert.",
+    "@consultationFollowup_subtitle": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "consultationFollowup_body": "Wenn du einen neuen Speiseplan oder Änderungen erhalten hast, kannst du diese jetzt hochladen, damit wir deinen Zeitplan sofort anpassen können.",
+    "consultationFollowup_highlights": "Highlights",
+    "consultationFollowup_uploadNewPlan": "Neuen Plan hochladen",
+    "consultationFollowup_reviewNotes": "Notizen überprüfen",
+    "consultationReminder_title": "Beratung steht an",
+    "consultationReminder_body": "Bereite deine Notizen vor, damit {name} die neuesten Erkenntnisse hat. Wenn du jetzt einen Bericht erstellst, ist alles bereit für die gemeinsame Durchsicht.",
+    "@consultationReminder_body": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "consultationReminder_viewAgenda": "Agenda ansehen",
+    "consultationReminder_happeningSoon": "Findet bald statt",
+    "consultationReminder_tomorrow": "Morgen",
+    "openReport": "Bericht öffnen",
+    "report_followed": "Gefolgt",
+    "report_alternatives": "Alternativen",
+    "report_skipped": "Übersprungen",
+    "report_totalLogs": "Gesamtprotokolle",
+    "report_snapshotSummary": "Momentaufnahme",
+    "report_longestStreak": "Längste Serie",
+    "report_asOfDate": "Stand: {date}",
+    "@report_asOfDate": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "report_mealsWithSugar": "Mahlzeiten mit Zucker",
+    "report_highGIMeals": "Mahlzeiten mit hohem GI",
+    "progress_logToUnlock": "Protokolliere deine Mahlzeiten, um Fortschrittseinblicke freizuschalten",
+    "progress_logToStartStreak": "Protokolliere deine Mahlzeiten, um eine Serie zu starten",
+    "streak_fire": "Unglaublicher Lauf! Halte das Feuer am Brennen! 🔥",
+    "streak_stacking": "Erstaunliche Beständigkeit – stapele weiter Tage! 💪",
+    "streak_strongStart": "Starker Start – lass es uns weiter ausbauen! 🚀",
+    "streak_owningWeek": "Mahlzeit für Mahlzeit, du beherrschst diese Woche! 🍽️",
+    "streak_momentum": "Eine Mahlzeit nach der anderen – behalte den Schwung bei! 🙌",
+    "streak_freshDay": "Frischer Tag, frische Gelegenheit zu glänzen! 🌟",
+    "progress_dailyHistory": "Täglicher Verlauf",
+    "progress_allLogs": "Alle deine Protokolle",
+    "progress_noMealsLogged": "Noch keine Mahlzeiten protokolliert",
+    "progress_logFirstMeal": "Protokolliere deine erste Mahlzeit, um deine Fortschrittszeitleiste zu starten.",
+    "report_progressReportTitle": "Fortschrittsbericht",
+    "report_shareTooltip": "Bericht teilen",
+    "report_shareError": "Fehler beim Teilen des Berichts: {error}",
+    "@report_shareError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_title": "Fortschrittsbericht",
+    "reportText_client": "Klient: {name}",
+    "@reportText_client": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_email": "E-Mail: {email}",
+    "@reportText_email": {
+        "placeholders": {
+            "email": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_period": "Zeitraum: {start} - {end}",
+    "@reportText_period": {
+        "placeholders": {
+            "start": {
+                "type": "String"
+            },
+            "end": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_summary": "Zusammenfassung:",
+    "reportText_totalMeals": "Gesamtmahlzeiten: {count}",
+    "@reportText_totalMeals": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsFollowed": "Mahlzeiten gefolgt: {count}",
+    "@reportText_mealsFollowed": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsAlternatives": "Alternative Mahlzeiten: {count}",
+    "@reportText_mealsAlternatives": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsSkipped": "Mahlzeiten übersprungen: {count}",
+    "@reportText_mealsSkipped": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsDue": "Fällige Mahlzeiten bisher: {count}",
+    "@reportText_mealsDue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_unloggedDue": "Nicht protokollierte fällige Mahlzeiten: {count}",
+    "@reportText_unloggedDue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_longestStreak": "Längste Serie: {streak}",
+    "@reportText_longestStreak": {
+        "placeholders": {
+            "streak": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_mealsWithSugar": "Mahlzeiten mit Zucker: {count}",
+    "@reportText_mealsWithSugar": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsHighGI": "Mahlzeiten mit hohem glykämischen Index: {count}",
+    "@reportText_mealsHighGI": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_dailyBreakdown": "Tägliche Aufschlüsselung:",
+    "reportText_notes": "    Notizen: {notes}",
+    "@reportText_notes": {
+        "placeholders": {
+            "notes": {
+                "type": "String"
+            }
+        }
+    },
+    "reportGen_title": "Bericht generieren",
+    "reportGen_subtitle": "Zusammenfassungen zum Teilen bereit",
+    "reportGen_choosePeriod": "Wähle einen Zeitraum",
+    "reportGen_periodDesc": "Wir fassen alle Aktivitäten innerhalb des ausgewählten Bereichs zusammen.",
+    "reportGen_last7Days": "Letzte 7 Tage",
+    "reportGen_last30Days": "Letzte 30 Tage",
+    "reportGen_customRange": "Benutzerdefinierter Bereich",
+    "reportGen_from": "Von",
+    "reportGen_to": "Bis",
+    "reportGen_includeTitle": "Dein Bericht wird enthalten",
+    "reportGen_include1": "Vollständiger Mahlzeitenprotokollverlauf für den Zeitraum",
+    "reportGen_include2": "Einblicke in Einhaltung und Beständigkeit",
+    "reportGen_include3": "Klientennotizen und alternative Auswahlmöglichkeiten",
+    "reportGen_include4": "Wöchentliche Zusammenfassungen zum Teilen bereit",
+    "reportGen_button": "Bericht generieren",
+    "uploadPlan_title": "Laden Sie Ihren Speiseplan hoch",
+    "uploadPlan_subtitle": "Wählen Sie Ihre Speiseplandatei aus, um zu beginnen",
+    "uploadPlan_fileSelected": "Datei ausgewählt",
+    "uploadPlan_tapToSelect": "Tippen Sie, um eine Datei auszuwählen",
+    "uploadPlan_fileFormats": "PDF, DOC oder beliebiges Dateiformat",
+    "continueButton": "Weiter",
+    "mealDrawer_ingredients": "Zutaten",
+    "mealDrawer_noIngredients": "Keine Zutatenliste für diese Mahlzeit bereitgestellt.",
+    "mealDrawer_preparation": "Zubereitung",
+    "mealDrawer_noPrep": "Keine Zubereitungsanweisungen für diese Mahlzeit bereitgestellt.",
+    "appName": "IRresistible",
+    "settings_debug": "Debuggen",
+    "settings_skipOnboarding": "Onboarding überspringen",
+    "splashTitle": "IRresistible",
+    "splashSubtitle": "Deine persönliche Ernährungsreise",
+    "dashboard_today": "Heute",
+    "dashboard_greeting_unlogged_3": "Lass uns ein paar Mahlzeiten protokollieren, solange die Details noch frisch sind.",
+    "dashboard_greeting_unlogged_2": "Zwei Mahlzeiten warten auf ein Protokoll – schnelle Updates helfen sehr.",
+    "dashboard_greeting_unlogged_1": "Eine Mahlzeit benötigt ein schnelles Protokoll, um auf Kurs zu bleiben.",
+    "dashboard_greeting_all_set": "Du bist bereit bis zur nächsten Mahlzeit.",
+    "dashboard_greeting_good_job": "Gute Arbeit, aktuell zu bleiben – behalte den Schwung bei.",
+    "dashboard_status_overdue": "{count} {label} überfällig",
+    "@dashboard_status_overdue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_status_logged": "{count} {label} protokolliert",
+    "@dashboard_status_logged": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "mealLabel": "Mahlzeit",
+    "mealsLabel": "Mahlzeiten",
+    "mock_mealPlanName": "Woche 1 Speiseplan",
+    "mock_endurancePlanName": "Ausdauer-Support-Plan",
+    "mock_consultation_1_focusArea_0": "Nüchternblutzucker stabilisieren",
+    "mock_consultation_1_focusArea_1": "Krafttraining-Brennstoff wieder einführen",
+    "mock_consultation_1_preparationNote_0": "Neueste Blutzuckermessgerät-Exporte hochladen",
+    "mock_consultation_1_preparationNote_1": "Flüssigkeitszufuhr 3 Tage vorher verfolgen",
+    "mock_consultation_2_focusArea_0": "Vor-Lauf-Betankung optimieren",
+    "mock_consultation_2_focusArea_1": "Ballaststoffziele anpassen",
+    "mock_consultation_2_preparationNote_0": "Ernährungstagebuch der letzten 14 Tage mitbringen",
+    "mock_consultation_2_preparationNote_1": "Alle Hypoglykämie-Symptome notieren",
+    "mock_meal_1_breakfast_name": "Haferflocken mit Beeren",
+    "mock_meal_1_breakfast_desc": "1 Tasse gekochte Haferflocken, 1/2 Tasse gemischte Beeren, 1 EL Mandelbutter, Honig",
+    "mock_meal_1_snack1_name": "Apfel mit Mandelbutter",
+    "mock_meal_1_snack1_desc": "1 mittlerer Apfel, 1 EL Mandelbutter",
+    "mock_meal_1_lunch_name": "Gegrillter Hähnchensalat",
+    "mock_meal_1_lunch_desc": "120g gegrillte Hähnchenbrust, gemischter Salat, Kirschtomaten, Gurke, Olivenöl-Dressing",
+    "mock_meal_1_snack2_name": "Griechischer Joghurt mit Beeren",
+    "mock_meal_1_snack2_desc": "1 Becher griechischer Naturjoghurt, 1/4 Tasse gemischte Beeren",
+    "mock_meal_1_dinner_name": "Gebackener Lachs mit Gemüse",
+    "mock_meal_1_dinner_desc": "150g Lachsfilet, gerösteter Brokkoli und Süßkartoffel",
+    "mock_meal_2_breakfast_name": "Rührei mit Avocado-Toast",
+    "mock_meal_2_breakfast_desc": "2 Rühreier, 1 Scheibe Vollkornbrot, 1/2 Avocado, Kirschtomaten",
+    "mock_meal_2_snack1_name": "Protein-Smoothie",
+    "mock_meal_2_snack1_desc": "Banane, Proteinpulver, Mandelmilch, Spinat",
+    "mock_meal_2_lunch_name": "Truthahn-Wrap mit Hummus",
+    "mock_meal_2_lunch_desc": "Vollkorntortilla, 120g Putenbrust, Hummus, Salat, Paprika",
+    "mock_meal_2_snack2_name": "Karottensticks mit Hummus",
+    "mock_meal_2_snack2_desc": "1 Tasse Karottensticks, 1/4 Tasse Hummus",
+    "mock_meal_2_dinner_name": "Hähnchen-Pfanne",
+    "mock_meal_2_dinner_desc": "150g Hähnchenbrust, gemischtes Gemüse, brauner Reis, Teriyaki-Sauce",
+    "mock_meal_3_breakfast_name": "Griechisches Joghurt-Parfait",
+    "mock_meal_3_breakfast_desc": "Griechischer Joghurt geschichtet mit Müsli, Beeren und Honig",
+    "mock_meal_3_snack1_name": "Nussmischung",
+    "mock_meal_3_snack1_desc": "1/4 Tasse gemischte Mandeln, Cashewnüsse und Walnüsse",
+    "mock_meal_3_lunch_name": "Quinoa Buddha Bowl",
+    "mock_meal_3_lunch_desc": "Quinoa, geröstete Kichererbsen, Avocado, Gemüse, Tahini-Dressing",
+    "mock_meal_3_snack2_name": "Hüttenkäse mit Ananas",
+    "mock_meal_3_snack2_desc": "1 Becher fettarmer Hüttenkäse, 1/2 Tasse Ananasstücke",
+    "mock_meal_3_dinner_name": "Magere Rindfleisch-Tacos",
+    "mock_meal_3_dinner_desc": "Mageres Rinderhackfleisch, Maistortillas, Salat, Tomate, Salsa",
+    "mock_meal_3_breakfast_ingredient_0": "1 Tasse griechischer Joghurt",
+    "mock_meal_3_breakfast_ingredient_1": "1/2 Tasse Müsli",
+    "mock_meal_3_breakfast_ingredient_2": "1/2 Tasse gemischte Beeren",
+    "mock_meal_3_breakfast_ingredient_3": "1 TL Honig",
+    "mock_meal_3_breakfast_instruction_0": "Joghurt, Müsli und Beeren in einem Glas oder einer Schüssel schichten.",
+    "mock_meal_3_breakfast_instruction_1": "Vor dem Servieren mit Honig beträufeln.",
+    "mock_meal_3_snack1_ingredient_0": "1/4 Tasse gemischte Nüsse",
+    "mock_meal_3_snack1_instruction_0": "Die gemischten Nüsse in eine kleine Schüssel oder einen Behälter portionieren.",
+    "mock_meal_3_snack1_instruction_1": "Sofort genießen oder für später einpacken.",
+    "mock_meal_3_lunch_ingredient_0": "1 Tasse gekochter Quinoa",
+    "mock_meal_3_lunch_ingredient_1": "1/2 Tasse geröstete Kichererbsen",
+    "mock_meal_3_lunch_ingredient_2": "1/2 Avocado",
+    "mock_meal_3_lunch_ingredient_3": "1 Tasse gemischtes Gemüse",
+    "mock_meal_3_lunch_ingredient_4": "2 EL Tahini-Dressing",
+    "mock_meal_3_lunch_instruction_0": "Den Quinoa erwärmen und in einer Schüssel anrichten.",
+    "mock_meal_3_lunch_instruction_1": "Mit Kichererbsen, Gemüse, Avocado belegen und mit Tahini-Dressing beträufeln.",
+    "mock_meal_3_snack2_ingredient_0": "1 Tasse fettarmer Hüttenkäse",
+    "mock_meal_3_snack2_ingredient_1": "1/2 Tasse Ananasstücke",
+    "mock_meal_3_snack2_instruction_0": "Den Hüttenkäse in eine Servierschüssel geben.",
+    "mock_meal_3_snack2_instruction_1": "Mit Ananasstücken belegen und genießen.",
+    "mock_meal_3_dinner_ingredient_0": "150g mageres Rinderhackfleisch",
+    "mock_meal_3_dinner_ingredient_1": "2 Mais-Tortillas",
+    "mock_meal_3_dinner_ingredient_2": "1 Tasse geriebener Salat",
+    "mock_meal_3_dinner_ingredient_3": "1 gewürfelte Tomate",
+    "mock_meal_3_dinner_ingredient_4": "2 EL Salsa",
+    "mock_meal_3_dinner_instruction_0": "Das Hackfleisch mit Gewürzen braten, bis es braun ist.",
+    "mock_meal_3_dinner_instruction_1": "Die Tortillas erwärmen, dann mit Salat, Tomate und Salsa belegen.",
+    "mock_meal_4_breakfast_name": "Vollkornpfannkuchen",
+    "mock_meal_4_breakfast_desc": "2 Vollkornpfannkuchen, frische Beeren, Ahornsirup",
+    "mock_meal_4_snack1_name": "Birne mit Käse",
+    "mock_meal_4_snack1_desc": "1 mittlere Birne, 1 Käsestick",
+    "mock_meal_4_lunch_name": "Thunfischsalat",
+    "mock_meal_4_lunch_desc": "Thunfisch, gemischter Salat, hartgekochtes Ei, Oliven, Olivenöl",
+    "mock_meal_4_snack2_name": "Proteinriegel",
+    "mock_meal_4_snack2_desc": "1 Proteinriegel (mind. 10g Protein)",
+    "mock_meal_4_dinner_name": "Gebackenes Hähnchen mit Quinoa",
+    "mock_meal_4_dinner_desc": "Hähnchenbrust mit Kräuterkruste, Quinoa, gerösteter Spargel",
+    "mock_meal_5_breakfast_name": "Gemüse-Omelett",
+    "mock_meal_5_breakfast_desc": "Omelett aus 3 Eiern mit Spinat, Pilzen und Feta-Käse",
+    "mock_meal_5_snack1_name": "Banane mit Erdnussbutter",
+    "mock_meal_5_snack1_desc": "1 mittlere Banane, 1 EL Erdnussbutter",
+    "mock_meal_5_lunch_name": "Mediterrane Hähnchen-Bowl",
+    "mock_meal_5_lunch_desc": "Gegrilltes Hähnchen, brauner Reis, Hummus, Gurke, Tomaten, Oliven",
+    "mock_meal_5_snack2_name": "Reiswaffeln mit Avocado",
+    "mock_meal_5_snack2_desc": "2 Reiswaffeln belegt mit zerdrückter Avocado",
+    "mock_meal_5_dinner_name": "Garnelen-Pasta Primavera",
+    "mock_meal_5_dinner_desc": "Vollkornnudeln, Garnelen, gemischtes Gemüse, Knoblauch-Olivenöl",
+    "mock_meal_6_breakfast_name": "Frühstücks-Burrito",
+    "mock_meal_6_breakfast_desc": "Rührei, schwarze Bohnen, Käse, Salsa in Vollkorntortilla",
+    "mock_meal_6_snack1_name": "Studentenfutter",
+    "mock_meal_6_snack1_desc": "Nüsse, getrocknete Cranberries, dunkle Schokostückchen",
+    "mock_meal_6_lunch_name": "Gegrilltes Gemüse-Sandwich",
+    "mock_meal_6_lunch_desc": "Gegrillte Zucchini, Paprika, Mozzarella auf Vollkornbrot",
+    "mock_meal_6_snack2_name": "Edamame",
+    "mock_meal_6_snack2_desc": "1 Tasse gedämpfte Edamame mit Meersalz",
+    "mock_meal_6_dinner_name": "Gegrilltes Steak mit Gemüse",
+    "mock_meal_6_dinner_desc": "Mageres Lendensteak, gerösteter Rosenkohl und Karotten",
+    "mock_meal_7_breakfast_name": "Armer Ritter mit Obst",
+    "mock_meal_7_breakfast_desc": "Vollkorn-French-Toast, frische Beeren, Joghurt",
+    "mock_meal_7_snack1_name": "Sellerie mit Erdnussbutter",
+    "mock_meal_7_snack1_desc": "4 Selleriestangen mit 2 EL Erdnussbutter",
+    "mock_meal_7_lunch_name": "Chicken Caesar Salad",
+    "mock_meal_7_lunch_desc": "Gegrilltes Hähnchen, Römersalat, Parmesan, leichtes Caesar-Dressing",
+    "mock_meal_7_snack2_name": "Smoothie Bowl",
+    "mock_meal_7_snack2_desc": "Pürierte Beeren, Banane, belegt mit Müsli und Chiasamen",
+    "mock_meal_7_dinner_name": "Gebackener Kabeljau mit Süßkartoffel",
+    "mock_meal_7_dinner_desc": "Kabeljau mit Kräutern, Süßkartoffelpüree, gedämpfte grüne Bohnen",
+    "mock_meal_1_breakfast_name": "Haferflocken mit Beeren",
+    "mock_meal_1_breakfast_desc": "1 Tasse gekochte Haferflocken, 1/2 Tasse gemischte Beeren, 1 EL Mandelbutter, Honig",
+    "mock_meal_1_snack1_name": "Apfel mit Mandelbutter",
+    "mock_meal_1_snack1_desc": "1 mittlerer Apfel, 1 EL Mandelbutter",
+    "mock_meal_1_lunch_name": "Gegrillter Hähnchensalat",
+    "mock_meal_1_lunch_desc": "120g gegrillte Hähnchenbrust, gemischter Salat, Kirschtomaten, Gurke, Olivenöl-Dressing",
+    "mock_meal_1_snack2_name": "Griechischer Joghurt mit Beeren",
+    "mock_meal_1_snack2_desc": "1 Becher griechischer Naturjoghurt, 1/4 Tasse gemischte Beeren",
+    "mock_meal_1_dinner_name": "Gebackener Lachs mit Gemüse",
+    "mock_meal_1_dinner_desc": "150g Lachsfilet, gerösteter Brokkoli und Süßkartoffel",
+    "mock_meal_1_breakfast_ingredient_0": "1 Tasse gekochter Haferbrei",
+    "mock_meal_1_breakfast_ingredient_1": "1/2 Tasse gemischte Beeren",
+    "mock_meal_1_breakfast_ingredient_2": "1 EL Mandelbutter",
+    "mock_meal_1_breakfast_ingredient_3": "1 TL Honig",
+    "mock_meal_1_breakfast_instruction_0": "Den Haferbrei mit Wasser oder Milch kochen, bis er cremig ist.",
+    "mock_meal_1_breakfast_instruction_1": "Mit gemischten Beeren, Mandelbutter und einem Spritzer Honig belegen.",
+    "mock_meal_1_snack1_ingredient_0": "1 mittelgroßer Apfel",
+    "mock_meal_1_snack1_ingredient_1": "1 EL Mandelbutter",
+    "mock_meal_1_snack1_instruction_0": "Den Apfel in Spalten oder Scheiben schneiden.",
+    "mock_meal_1_snack1_instruction_1": "Mit Mandelbutter zum Dippen oder Streichen servieren.",
+    "mock_meal_1_lunch_ingredient_0": "120g gegrillte Hähnchenbrust",
+    "mock_meal_1_lunch_ingredient_1": "2 Tassen gemischter Salat",
+    "mock_meal_1_lunch_ingredient_2": "1/2 Tasse Kirschtomaten",
+    "mock_meal_1_lunch_ingredient_3": "1/2 Gurke",
+    "mock_meal_1_lunch_ingredient_4": "2 EL Olivenöl-Dressing",
+    "mock_meal_1_lunch_instruction_0": "Das gegrillte Hähnchen und das Gemüse in Scheiben schneiden.",
+    "mock_meal_1_lunch_instruction_1": "Alles in einer Schüssel vermengen und mit Olivenöl-Dressing beträufeln.",
+    "mock_meal_1_snack2_ingredient_0": "1 Tasse Naturjoghurt griechischer Art",
+    "mock_meal_1_snack2_ingredient_1": "1/4 Tasse gemischte Beeren",
+    "mock_meal_1_snack2_instruction_0": "Den Joghurt in eine Schüssel geben.",
+    "mock_meal_1_snack2_instruction_1": "Kurz vor dem Servieren mit gemischten Beeren belegen.",
+    "mock_meal_1_dinner_ingredient_0": "150g Lachsfilet",
+    "mock_meal_1_dinner_ingredient_1": "1 Tasse gerösteter Brokkoli",
+    "mock_meal_1_dinner_ingredient_2": "1 mittelgroße Süßkartoffel",
+    "mock_meal_1_dinner_ingredient_3": "1 Zitronenspalte",
+    "mock_meal_1_dinner_instruction_0": "Den gewürzten Lachs und das Gemüse backen, bis sie zart sind.",
+    "mock_meal_1_dinner_instruction_1": "Mit einem Spritzer Zitrone darüber servieren.",
+    
+    "mock_meal_2_breakfast_name": "Rührei mit Avocado-Toast",
+    "mock_meal_2_breakfast_desc": "2 Rühreier, 1 Scheibe Vollkornbrot, 1/2 Avocado, Kirschtomaten",
+    "mock_meal_2_snack1_name": "Protein-Smoothie",
+    "mock_meal_2_snack1_desc": "Banane, Proteinpulver, Mandelmilch, Spinat",
+    "mock_meal_2_lunch_name": "Truthahn-Wrap mit Hummus",
+    "mock_meal_2_lunch_desc": "Vollkorntortilla, 120g Putenbrust, Hummus, Salat, Paprika",
+    "mock_meal_2_snack2_name": "Karottensticks mit Hummus",
+    "mock_meal_2_snack2_desc": "1 Tasse Karottensticks, 1/4 Tasse Hummus",
+    "mock_meal_2_dinner_name": "Hähnchen-Pfanne",
+    "mock_meal_2_dinner_desc": "150g Hähnchenbrust, gemischtes Gemüse, brauner Reis, Teriyaki-Sauce",
+    "mock_meal_2_breakfast_ingredient_0": "2 große Eier",
+    "mock_meal_2_breakfast_ingredient_1": "1 Scheibe Vollkornbrot",
+    "mock_meal_2_breakfast_ingredient_2": "1/2 Avocado",
+    "mock_meal_2_breakfast_ingredient_3": "4 Kirschtomaten",
+    "mock_meal_2_breakfast_instruction_0": "Die Eier in einer beschichteten Pfanne weich rühren.",
+    "mock_meal_2_breakfast_instruction_1": "Das Brot toasten, mit zerdrückter Avocado belegen und mit Tomaten servieren.",
+    "mock_meal_2_snack1_ingredient_0": "1 Banane",
+    "mock_meal_2_snack1_ingredient_1": "1 Portion Proteinpulver",
+    "mock_meal_2_snack1_ingredient_2": "1 Tasse Mandelmilch",
+    "mock_meal_2_snack1_ingredient_3": "1 Tasse Spinat",
+    "mock_meal_2_snack1_instruction_0": "Alle Zutaten in einen Mixer geben.",
+    "mock_meal_2_snack1_instruction_1": "Mixen, bis es glatt und cremig ist, dann sofort servieren.",
+    "mock_meal_2_lunch_ingredient_0": "1 Vollweizen-Tortilla",
+    "mock_meal_2_lunch_ingredient_1": "120g geschnittene Truthahnbrust",
+    "mock_meal_2_lunch_ingredient_2": "2 EL Hummus",
+    "mock_meal_2_lunch_ingredient_3": "1 Tasse Salat",
+    "mock_meal_2_lunch_ingredient_4": "1/4 Tasse geschnittene Paprika",
+    "mock_meal_2_lunch_instruction_0": "Hummus auf die Tortilla streichen.",
+    "mock_meal_2_lunch_instruction_1": "Truthahn, Salat und Paprika schichten, dann fest einrollen und in Scheiben schneiden.",
+    "mock_meal_2_snack2_ingredient_0": "1 Tasse Karottensticks",
+    "mock_meal_2_snack2_ingredient_1": "1/4 Tasse Hummus",
+    "mock_meal_2_snack2_instruction_0": "Die Karotten bei Bedarf schälen und in Stifte schneiden.",
+    "mock_meal_2_snack2_instruction_1": "Mit Hummus zum Dippen servieren.",
+    "mock_meal_2_dinner_ingredient_0": "150g Hähnchenbrust",
+    "mock_meal_2_dinner_ingredient_1": "2 Tassen gemischtes Gemüse",
+    "mock_meal_2_dinner_ingredient_2": "1 Tasse brauner Reis",
+    "mock_meal_2_dinner_ingredient_3": "2 EL Teriyaki-Sauce",
+    "mock_meal_2_dinner_instruction_0": "Das Hähnchen anbraten, bis es fast durchgegart ist.",
+    "mock_meal_2_dinner_instruction_1": "Gemüse und Sauce hinzufügen, bissfest garen und über Reis servieren.",
+    
+    "mock_meal_3_breakfast_name": "Griechisches Joghurt-Parfait",
+    "mock_meal_3_breakfast_desc": "Griechischer Joghurt geschichtet mit Müsli, Beeren und Honig",
+    "mock_meal_3_snack1_name": "Nussmischung",
+    "mock_meal_3_snack1_desc": "1/4 Tasse gemischte Mandeln, Cashewnüsse und Walnüsse",
+    "mock_meal_3_lunch_name": "Quinoa Buddha Bowl",
+    "mock_meal_3_lunch_desc": "Quinoa, geröstete Kichererbsen, Avocado, Gemüse, Tahini-Dressing",
+    "mock_meal_3_snack2_name": "Hüttenkäse mit Ananas",
+    "mock_meal_3_snack2_desc": "1 Becher fettarmer Hüttenkäse, 1/2 Tasse Ananasstücke",
+    "mock_meal_3_dinner_name": "Magere Rindfleisch-Tacos",
+    "mock_meal_3_dinner_desc": "Mageres Rinderhackfleisch, Maistortillas, Salat, Tomate, Salsa",
+
+    "mock_meal_4_breakfast_name": "Vollkornpfannkuchen",
+    "mock_meal_4_breakfast_desc": "2 Vollkornpfannkuchen, frische Beeren, Ahornsirup",
+    "mock_meal_4_snack1_name": "Birne mit Käse",
+    "mock_meal_4_snack1_desc": "1 mittlere Birne, 1 Käsestick",
+    "mock_meal_4_lunch_name": "Thunfischsalat",
+    "mock_meal_4_lunch_desc": "Thunfisch, gemischter Salat, hartgekochtes Ei, Oliven, Olivenöl",
+    "mock_meal_4_snack2_name": "Proteinriegel",
+    "mock_meal_4_snack2_desc": "1 Proteinriegel (mind. 10g Protein)",
+    "mock_meal_4_dinner_name": "Gebackenes Hähnchen mit Quinoa",
+    "mock_meal_4_dinner_desc": "Hähnchenbrust mit Kräuterkruste, Quinoa, gerösteter Spargel",
+    "mock_meal_4_breakfast_ingredient_0": "2 Vollkornpfannkuchen",
+    "mock_meal_4_breakfast_ingredient_1": "1/2 Tasse frische Beeren",
+    "mock_meal_4_breakfast_ingredient_2": "1 EL Ahornsirup",
+    "mock_meal_4_breakfast_instruction_0": "Die Pfannkuchen bei Bedarf in einer Pfanne oder im Toaster erwärmen.",
+    "mock_meal_4_breakfast_instruction_1": "Mit Beeren belegen und mit Ahornsirup beträufeln.",
+    "mock_meal_4_snack1_ingredient_0": "1 mittlere Birne",
+    "mock_meal_4_snack1_ingredient_1": "1 Käsestick",
+    "mock_meal_4_snack1_instruction_0": "Die Birne waschen und bei Bedarf in Scheiben schneiden.",
+    "mock_meal_4_snack1_instruction_1": "Mit Käsestick als schnellen Snack kombinieren.",
+    "mock_meal_4_lunch_ingredient_0": "1 Dose Thunfisch in Wasser",
+    "mock_meal_4_lunch_ingredient_1": "2 Tassen gemischter Salat",
+    "mock_meal_4_lunch_ingredient_2": "1 hartgekochtes Ei",
+    "mock_meal_4_lunch_ingredient_3": "5 Oliven",
+    "mock_meal_4_lunch_ingredient_4": "2 EL Olivenöl",
+    "mock_meal_4_lunch_instruction_0": "Den Thunfisch abtropfen lassen und das Ei und die Oliven in Scheiben schneiden.",
+    "mock_meal_4_lunch_instruction_1": "Zutaten mit Salat vermengen und mit Olivenöl beträufeln.",
+    "mock_meal_4_snack2_ingredient_0": "1 Proteinriegel",
+    "mock_meal_4_snack2_instruction_0": "Den Proteinriegel auspacken und als schnellen Snack genießen.",
+    "mock_meal_4_dinner_ingredient_0": "150g Hähnchenbrust",
+    "mock_meal_4_dinner_ingredient_1": "1 Tasse gekochter Quinoa",
+    "mock_meal_4_dinner_ingredient_2": "1 Tasse gerösteter Spargel",
+    "mock_meal_4_dinner_ingredient_3": "nach Geschmack Kräuter und Gewürze",
+    "mock_meal_4_dinner_instruction_0": "Das gewürzte Hähnchen backen, bis es durchgegart ist.",
+    "mock_meal_4_dinner_instruction_1": "Neben Quinoa und geröstetem Spargel servieren.",
+    
+    "mock_meal_5_breakfast_name": "Gemüse-Omelett",
+    "mock_meal_5_breakfast_desc": "Omelett aus 3 Eiern mit Spinat, Pilzen und Feta-Käse",
+    "mock_meal_5_snack1_name": "Banane mit Erdnussbutter",
+    "mock_meal_5_snack1_desc": "1 mittlere Banane, 1 EL Erdnussbutter",
+    "mock_meal_5_lunch_name": "Mediterrane Hähnchen-Bowl",
+    "mock_meal_5_lunch_desc": "Gegrilltes Hähnchen, brauner Reis, Hummus, Gurke, Tomaten, Oliven",
+    "mock_meal_5_snack2_name": "Reiswaffeln mit Avocado",
+    "mock_meal_5_snack2_desc": "2 Reiswaffeln belegt mit zerdrückter Avocado",
+    "mock_meal_5_dinner_name": "Garnelen-Pasta Primavera",
+    "mock_meal_5_dinner_desc": "Vollkornnudeln, Garnelen, gemischtes Gemüse, Knoblauch-Olivenöl",
+    "mock_meal_5_breakfast_ingredient_0": "3 große Eier",
+    "mock_meal_5_breakfast_ingredient_1": "1 Tasse Spinat",
+    "mock_meal_5_breakfast_ingredient_2": "1/2 Tasse Pilze",
+    "mock_meal_5_breakfast_ingredient_3": "2 EL Feta-Käse",
+    "mock_meal_5_breakfast_instruction_0": "Pilze und Spinat anbraten, bis sie zart sind.",
+    "mock_meal_5_breakfast_instruction_1": "Verrührte Eier hinzufügen, garen bis sie fest sind, und vor dem Falten mit Feta bestreuen.",
+    "mock_meal_5_snack1_ingredient_0": "1 mittlere Banane",
+    "mock_meal_5_snack1_ingredient_1": "1 EL Erdnussbutter",
+    "mock_meal_5_snack1_instruction_0": "Die Banane schälen und bei Bedarf in Scheiben schneiden.",
+    "mock_meal_5_snack1_instruction_1": "Mit Erdnussbutter zum Dippen oder Streichen servieren.",
+    "mock_meal_5_lunch_ingredient_0": "120g gegrilltes Hähnchen",
+    "mock_meal_5_lunch_ingredient_1": "1 Tasse brauner Reis",
+    "mock_meal_5_lunch_ingredient_2": "2 EL Hummus",
+    "mock_meal_5_lunch_ingredient_3": "1/2 Gurke",
+    "mock_meal_5_lunch_ingredient_4": "1/2 Tasse Tomaten",
+    "mock_meal_5_lunch_ingredient_5": "5 Oliven",
+    "mock_meal_5_lunch_instruction_0": "Reis in einer Schüssel schichten und mit geschnittenem Hähnchen belegen.",
+    "mock_meal_5_lunch_instruction_1": "Vor dem Servieren Hummus, Gurke, Tomaten und Oliven hinzufügen.",
+    "mock_meal_5_snack2_ingredient_0": "2 Reiswaffeln",
+    "mock_meal_5_snack2_ingredient_1": "1/2 Avocado",
+    "mock_meal_5_snack2_instruction_0": "Die Avocado mit einer Gabel zerdrücken und bei Bedarf würzen.",
+    "mock_meal_5_snack2_instruction_1": "Auf Reiswaffeln streichen und sofort servieren.",
+    "mock_meal_5_dinner_ingredient_0": "60g Vollkornnudeln",
+    "mock_meal_5_dinner_ingredient_1": "150g Garnelen",
+    "mock_meal_5_dinner_ingredient_2": "2 Tassen gemischtes Gemüse",
+    "mock_meal_5_dinner_ingredient_3": "2 EL Knoblauch-Olivenöl",
+    "mock_meal_5_dinner_instruction_0": "Die Nudeln bissfest kochen und etwas Kochwasser zurückbehalten.",
+    "mock_meal_5_dinner_instruction_1": "Garnelen und Gemüse in Knoblauchöl anbraten, dann mit Nudeln vermengen.",
+    
+    "mock_meal_6_breakfast_name": "Frühstücks-Burrito",
+    "mock_meal_6_breakfast_desc": "Rührei, schwarze Bohnen, Käse, Salsa in Vollkorntortilla",
+    "mock_meal_6_snack1_name": "Studentenfutter",
+    "mock_meal_6_snack1_desc": "Nüsse, getrocknete Cranberries, dunkle Schokostückchen",
+    "mock_meal_6_lunch_name": "Gegrilltes Gemüse-Sandwich",
+    "mock_meal_6_lunch_desc": "Gegrillte Zucchini, Paprika, Mozzarella auf Vollkornbrot",
+    "mock_meal_6_snack2_name": "Edamame",
+    "mock_meal_6_snack2_desc": "1 Tasse gedämpfte Edamame mit Meersalz",
+    "mock_meal_6_dinner_name": "Gegrilltes Steak mit Gemüse",
+    "mock_meal_6_dinner_desc": "Mageres Lendensteak, gerösteter Rosenkohl und Karotten",
+    "mock_meal_6_breakfast_ingredient_0": "2 Rühreier",
+    "mock_meal_6_breakfast_ingredient_1": "1/4 Tasse schwarze Bohnen",
+    "mock_meal_6_breakfast_ingredient_2": "2 EL geriebener Käse",
+    "mock_meal_6_breakfast_ingredient_3": "2 EL Salsa",
+    "mock_meal_6_breakfast_ingredient_4": "1 Vollweizen-Tortilla",
+    "mock_meal_6_breakfast_instruction_0": "Die Tortilla erwärmen und die Eier mit Bohnen verrühren.",
+    "mock_meal_6_breakfast_instruction_1": "Die Tortilla füllen, mit Käse und Salsa belegen, dann fest einrollen.",
+    "mock_meal_6_snack1_ingredient_0": "1/4 Tasse gemischte Nüsse",
+    "mock_meal_6_snack1_ingredient_1": "2 EL getrocknete Cranberries",
+    "mock_meal_6_snack1_ingredient_2": "1 EL dunkle Schokoladenstückchen",
+    "mock_meal_6_snack1_instruction_0": "Nüsse, Cranberries und Schokoladenstückchen in einer kleinen Schüssel vermengen.",
+    "mock_meal_6_snack1_instruction_1": "Bei Bedarf in einen To-go-Behälter portionieren.",
+    "mock_meal_6_lunch_ingredient_0": "2 Scheiben Vollkornbrot",
+    "mock_meal_6_lunch_ingredient_1": "1/2 gegrillte Zucchini",
+    "mock_meal_6_lunch_ingredient_2": "1/4 Tasse gegrillte Paprika",
+    "mock_meal_6_lunch_ingredient_3": "2 Scheiben frischer Mozzarella",
+    "mock_meal_6_lunch_ingredient_4": "1 EL Balsamico-Glasur",
+    "mock_meal_6_lunch_instruction_0": "Gegrilltes Gemüse und Mozzarella auf das Brot schichten.",
+    "mock_meal_6_lunch_instruction_1": "Mit Balsamico-Glasur beträufeln und bei Bedarf toasten, bis der Käse schmilzt.",
+    "mock_meal_6_snack2_ingredient_0": "1 Tasse Edamame",
+    "mock_meal_6_snack2_ingredient_1": "nach Geschmack Meersalz",
+    "mock_meal_6_snack2_instruction_0": "Die Edamame dämpfen oder in der Mikrowelle erhitzen, bis sie durchgewärmt sind.",
+    "mock_meal_6_snack2_instruction_1": "Vor dem Servieren mit Meersalz bestreuen.",
+    "mock_meal_6_dinner_ingredient_0": "150g mageres Rindersteak",
+    "mock_meal_6_dinner_ingredient_1": "1 Tasse gerösteter Rosenkohl",
+    "mock_meal_6_dinner_ingredient_2": "1 Tasse geröstete Karotten",
+    "mock_meal_6_dinner_instruction_0": "Das Steak grillen oder anbraten, bis es den gewünschten Gargrad erreicht hat.",
+    "mock_meal_6_dinner_instruction_1": "Mit geröstetem Rosenkohl und Karotten servieren.",
+    
+    "mock_meal_7_breakfast_name": "Armer Ritter mit Obst",
+    "mock_meal_7_breakfast_desc": "Vollkorn-French-Toast, frische Beeren, Joghurt",
+    "mock_meal_7_snack1_name": "Sellerie mit Erdnussbutter",
+    "mock_meal_7_snack1_desc": "4 Selleriestangen mit 2 EL Erdnussbutter",
+    "mock_meal_7_lunch_name": "Chicken Caesar Salad",
+    "mock_meal_7_lunch_desc": "Gegrilltes Hähnchen, Römersalat, Parmesan, leichtes Caesar-Dressing",
+    "mock_meal_7_snack2_name": "Smoothie Bowl",
+    "mock_meal_7_snack2_desc": "Pürierte Beeren, Banane, belegt mit Müsli und Chiasamen",
+    "mock_meal_7_dinner_name": "Gebackener Kabeljau mit Süßkartoffel",
+    "mock_meal_7_dinner_desc": "Kabeljau mit Kräutern, Süßkartoffelpüree, gedämpfte grüne Bohnen",
+    "mock_meal_7_breakfast_ingredient_0": "2 Scheiben Vollkornbrot",
+    "mock_meal_7_breakfast_ingredient_1": "1 Ei",
+    "mock_meal_7_breakfast_ingredient_2": "1/2 Tasse gemischte Beeren",
+    "mock_meal_7_breakfast_ingredient_3": "2 EL griechischer Joghurt",
+    "mock_meal_7_breakfast_ingredient_4": "1 TL Zimt",
+    "mock_meal_7_breakfast_instruction_0": "Das Ei mit Zimt verquirlen und die Brotscheiben darin einweichen.",
+    "mock_meal_7_breakfast_instruction_1": "Auf einer Pfanne goldbraun braten, dann mit Beeren und Joghurt belegen.",
+    "mock_meal_7_snack1_ingredient_0": "4 Selleriestangen",
+    "mock_meal_7_snack1_ingredient_1": "2 EL Erdnussbutter",
+    "mock_meal_7_snack1_instruction_0": "Die Selleriestangen waschen und zurechtschneiden.",
+    "mock_meal_7_snack1_instruction_1": "Die Sellerierillen mit Erdnussbutter füllen.",
+    "mock_meal_7_lunch_ingredient_0": "120g gegrillte Hähnchenbrust",
+    "mock_meal_7_lunch_ingredient_1": "2 Tassen Römersalat",
+    "mock_meal_7_lunch_ingredient_2": "2 EL Parmesan",
+    "mock_meal_7_lunch_ingredient_3": "2 EL leichtes Caesar-Dressing",
+    "mock_meal_7_lunch_ingredient_4": "1/2 Tasse Vollkorn-Croutons",
+    "mock_meal_7_lunch_instruction_0": "Den Salat hacken und das gegrillte Hähnchen in Scheiben schneiden.",
+    "mock_meal_7_lunch_instruction_1": "Mit Dressing, Parmesan und Croutons vermengen, bevor serviert wird.",
+    "mock_meal_7_snack2_ingredient_0": "1 Tasse gemischte Beeren",
+    "mock_meal_7_snack2_ingredient_1": "1/2 Banane",
+    "mock_meal_7_snack2_ingredient_2": "1/4 Tasse Müsli",
+    "mock_meal_7_snack2_ingredient_3": "1 EL Chiasamen",
+    "mock_meal_7_snack2_instruction_0": "Die Beeren und Banane mixen, bis sie glatt sind.",
+    "mock_meal_7_snack2_instruction_1": "In eine Schüssel gießen und mit Müsli und Chiasamen belegen.",
+    "mock_meal_7_dinner_ingredient_0": "150g Kabeljaufilet",
+    "mock_meal_7_dinner_ingredient_1": "1 mittelgroße Süßkartoffel",
+    "mock_meal_7_dinner_ingredient_2": "1 Tasse grüne Bohnen",
+    "mock_meal_7_dinner_ingredient_3": "nach Geschmack Kräuter und Zitrone",
+    "mock_meal_7_dinner_instruction_0": "Den Kabeljau mit Kräutern und Zitrone würzen, dann backen, bis er flockig ist.",
+    "mock_meal_7_dinner_instruction_1": "Mit Süßkartoffelpüree und gedämpften grünen Bohnen servieren.",
+    "dashboard_catchUp": "Aufholen",
+    "dashboard_logNow": "Jetzt protokollieren",
+    "dashboard_needsAttention": "Benötigt Aufmerksamkeit",
+    "dashboard_pendingMealsSwipeHint": "Wischen Sie über überfällige und fällige Mahlzeiten, um Ihr Protokoll aktuell zu halten.",
+    "dashboard_pendingMealsSeveritySeveral": "Mehrere Mahlzeiten warten — das Erfassen jetzt hält Ihre Daten genau.",
+    "dashboard_pendingMealsSeverityTwo": "Zwei Mahlzeiten benötigen Aufmerksamkeit — ein paar schnelle Protokolle schließen die Lücke.",
+    "dashboard_pendingMealsSeverityOne": "Eine Mahlzeit ist bereit zum Protokollieren — nehmen Sie sich einen Moment Zeit, um sie zu erfassen.",
+    "dashboard_comingUp": "Demnächst",
+    "dashboard_nextMeal": "Nächste Mahlzeit",
+    "dashboard_logged": "Protokolliert",
+    "dashboard_scheduled": "Geplant {time} • {relativeTime}",
+    "@dashboard_scheduled": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_scheduled_full": "{time} • {mealType} • {relativeTime}",
+    "@dashboard_scheduled_full": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "mealType": {
+                "type": "String"
+            },
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_logged_full": "{time} • {mealType}",
+    "@dashboard_logged_full": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "mealType": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_logSomethingElse": "Etwas anderes protokollieren",
+    "dashboard_greatJob": "Gut gemacht!",
+    "dashboard_noted": "Notiert",
+    "dashboard_logSuccess": "Protokoll erfolgreich gespeichert",
+    "dashboard_followedRecipe": "Rezept gefolgt",
+    "dashboard_followedMeal": "Mahlzeit gefolgt",
+    "dashboard_skippedMeal": "Mahlzeit übersprungen",
+    "dashboard_thanksTrack": "Danke, dass du dranbleibst!",
+    "dashboard_notedAdjust": "Notiert, wir passen deinen Plan an.",
+    "dashboard_followingRecipe": "Rezept folgen",
+    "dashboard_skippingMeal": "Mahlzeit überspringen",
+    "dashboard_loggingMeal": "Mahlzeit wird protokolliert...",
+    "dashboard_markingSkipped": "Wird als übersprungen markiert...",
+    "dashboard_loggedExactly": "Genau wie geplant protokolliert",
+    "dashboard_markedSkipped": "Für heute als übersprungen markiert",
+    "time_underMinuteFuture": "in weniger als einer Minute",
+    "time_underMinutePast": "vor weniger als einer Minute",
+    "time_minutesFuture": "in {minutes} Min",
+    "@time_minutesFuture": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_minutesPast": "vor {minutes} Min",
+    "@time_minutesPast": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursFuture": "in {hours} Std",
+    "@time_hoursFuture": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursPast": "vor {hours} Std",
+    "@time_hoursPast": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursMinutesFuture": "in {hours}Std {minutes}Min",
+    "@time_hoursMinutesFuture": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            },
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursMinutesPast": "vor {hours}Std {minutes}Min",
+    "@time_hoursMinutesPast": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            },
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "dashboard_allMealsLogged": "Alle Mahlzeiten protokolliert!",
+    "dashboard_allMealsLoggedBody": "Tolle Arbeit, heute auf Kurs zu bleiben. Du kannst deine Einträge überprüfen oder in den Zeitplan für die kommenden Tage springen.",
+    "dashboard_mealsLogged": "Mahlzeiten protokolliert",
+    "dashboard_mealsLoggedCount": "{current} von {total} protokolliert",
+    "@dashboard_mealsLoggedCount": {
+        "placeholders": {
+            "current": {
+                "type": "int"
+            },
+            "total": {
+                "type": "int"
+            }
+        }
+    },
+    "dashboard_nothingLogged": "Noch nichts protokolliert. Deine Updates erscheinen hier.",
+    "dashboard_containsSugar": "Enthält Zucker",
+    "dashboard_highGI": "Hoher GI",
+    "status_followed": "Plan gefolgt",
+    "status_alternative": "Alternative Mahlzeit",
+    "status_skipped": "Mahlzeit übersprungen"
 }

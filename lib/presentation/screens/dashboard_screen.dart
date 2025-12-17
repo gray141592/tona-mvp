@@ -67,12 +67,58 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     _now = TimeProvider.now();
     _startClockTicker();
+    TimeProvider.overrideNotifier.addListener(_handleTimeOverrideChange);
+  }
+
+  String? _lastLocaleName;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final localizations = AppLocalizations.of(context);
+    final currentLocale = localizations?.localeName;
+    
+    final consultationProvider = context.read<ConsultationProvider>();
+    
+    // Initial load if empty
+    if (consultationProvider.appointments.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        consultationProvider.loadAppointments(
+          MockData.getMockConsultations(localizations: localizations),
+        );
+      });
+      _lastLocaleName = currentLocale;
+    }
+    // Reload if locale changed
+    else if (_lastLocaleName != currentLocale) {
+      _lastLocaleName = currentLocale;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Reload consultations with new locale
+        consultationProvider.loadAppointments(
+          MockData.getMockConsultations(localizations: localizations),
+        );
+
+        // Reload MealPlan if it's the mock one
+        final mealPlanProvider = context.read<MealPlanProvider>();
+        if (mealPlanProvider.currentMealPlan?.id ==
+            AppConstants.mockMealPlanId) {
+          mealPlanProvider.loadMealPlan(
+              MockData.getMockMealPlan(localizations: localizations));
+        }
+      });
+    }
   }
 
   @override
   void dispose() {
     _clockTicker?.cancel();
+    TimeProvider.overrideNotifier.removeListener(_handleTimeOverrideChange);
     super.dispose();
+  }
+
+  void _handleTimeOverrideChange() {
+    _startClockTicker();
   }
 
   void _startClockTicker() {
@@ -721,7 +767,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: GestureDetector(
                   onTap: _toggleMenu,
                   child: Container(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Colors.black.withValues(alpha: 0.2),
                   ),
                 ),
               ),
@@ -737,8 +783,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 onWeeklyProgress: _navigateToProgress,
                 onConsultations: _navigateToConsultations,
                 onMealPlanOverview: _navigateToMealPlanOverview,
-_onGroceries: _navigateToGroceriesFlow,
-                onSettings: _navigateToSettings, // Added this line
+                onGroceries: _navigateToGroceriesFlow,
+                onSettings: _navigateToSettings,
                 width: sidebarWidth,
               ),
             ),

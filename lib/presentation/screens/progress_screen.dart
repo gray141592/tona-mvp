@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
@@ -19,6 +20,7 @@ class ProgressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final progressProvider = context.watch<ProgressProvider>();
     final history = progressProvider.getProgressHistory();
     final metrics = _buildProgressMetrics(history);
@@ -42,10 +44,10 @@ class ProgressScreen extends StatelessWidget {
 
     final subtitle = hasHistory
         ? '${date_utils.DateUtils.formatDate(earliestDate!)} → ${date_utils.DateUtils.formatDate(latestDate!)}'
-        : 'Log your meals to unlock progress insights';
+        : localizations.progress_logToUnlock;
 
     return DashboardPageShell(
-      title: 'Progress',
+      title: localizations.menuProgress,
       subtitle: subtitle,
       bodyPadding: const EdgeInsets.all(AppSpacing.md),
       child: ListView(
@@ -53,9 +55,11 @@ class ProgressScreen extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           _LongestStreakCard(
             headline: longestStreakHeadline,
-            detailLabel:
-                hasStreak ? longestStreakLabel : 'Log your meals to start a streak',
+            detailLabel: hasStreak
+                ? longestStreakLabel
+                : localizations.progress_logToStartStreak,
             message: _streakMessage(
+              localizations,
               metrics.longestAdherentDayStreak,
               metrics.longestFollowedMealStreak,
             ),
@@ -73,10 +77,10 @@ class ProgressScreen extends StatelessWidget {
             showLongestStreak: false,
           ),
           const SizedBox(height: AppSpacing.lg),
-          const _SectionHeader(
+          _SectionHeader(
             icon: Icons.calendar_view_week,
-            title: 'Daily history',
-            subtitle: 'All of your logs',
+            title: localizations.progress_dailyHistory,
+            subtitle: localizations.progress_allLogs,
           ),
           const SizedBox(height: AppSpacing.md),
           if (hasHistory)
@@ -191,13 +195,14 @@ class ProgressScreen extends StatelessWidget {
     return daily.mealsFollowed >= daily.dueMeals;
   }
 
-  String _streakMessage(int dayStreak, int mealStreak) {
-    if (dayStreak >= 7) return 'Incredible run! Keep the fire going! 🔥';
-    if (dayStreak >= 3) return 'Amazing consistency — keep stacking days! 💪';
-    if (dayStreak >= 1) return 'Strong start — let\'s stretch it further! 🚀';
-    if (mealStreak >= 5) return 'Meal-by-meal, you\'re owning this week! 🍽️';
-    if (mealStreak >= 1) return 'One meal at a time — keep that momentum! 🙌';
-    return 'Fresh day, fresh opportunity to shine! 🌟';
+  String _streakMessage(
+      AppLocalizations localizations, int dayStreak, int mealStreak) {
+    if (dayStreak >= 7) return localizations.streak_fire;
+    if (dayStreak >= 3) return localizations.streak_stacking;
+    if (dayStreak >= 1) return localizations.streak_strongStart;
+    if (mealStreak >= 5) return localizations.streak_owningWeek;
+    if (mealStreak >= 1) return localizations.streak_momentum;
+    return localizations.streak_freshDay;
   }
 }
 
@@ -216,6 +221,7 @@ class _LongestStreakCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppSpacing.xl),
       decoration: BoxDecoration(
@@ -245,7 +251,7 @@ class _LongestStreakCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Longest streak',
+                  localizations.report_longestStreak,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: AppColors.textSecondary,
@@ -400,6 +406,7 @@ class _HistoryEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -410,14 +417,14 @@ class _HistoryEmptyState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'No meals logged yet',
+            localizations.progress_noMealsLogged,
             style: AppTypography.titleMedium.copyWith(
               fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            'Log your first meal to start building your progress timeline.',
+            localizations.progress_logFirstMeal,
             style: AppTypography.bodyMedium.copyWith(
               color: AppColors.textSecondary,
             ),
@@ -427,4 +434,3 @@ class _HistoryEmptyState extends StatelessWidget {
     );
   }
 }
-

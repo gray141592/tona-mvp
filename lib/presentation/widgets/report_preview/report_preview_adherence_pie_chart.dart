@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -20,6 +21,7 @@ class ReportPreviewAdherencePieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final total = followed + alternatives + skipped;
 
     if (total == 0) {
@@ -30,19 +32,19 @@ class ReportPreviewAdherencePieChart extends StatelessWidget {
       _PieSegment(
         value: followed.toDouble(),
         color: AppColors.success,
-        label: 'Followed',
+        label: localizations.report_followed,
         count: followed,
       ),
       _PieSegment(
         value: alternatives.toDouble(),
         color: AppColors.warning,
-        label: 'Alternatives',
+        label: localizations.report_alternatives,
         count: alternatives,
       ),
       _PieSegment(
         value: skipped.toDouble(),
         color: AppColors.error,
-        label: 'Skipped',
+        label: localizations.report_skipped,
         count: skipped,
       ),
     ];
@@ -80,7 +82,7 @@ class ReportPreviewAdherencePieChart extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      'Total logs',
+                      localizations.report_totalLogs,
                       style: AppTypography.bodySmall.copyWith(
                         color: AppColors.textSecondary,
                       ),
@@ -192,4 +194,3 @@ class _PieSegment {
     required this.count,
   });
 }
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -15,6 +16,7 @@ class MealDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -98,7 +100,7 @@ class MealDrawer extends StatelessWidget {
                 const SizedBox(height: AppSpacing.lg),
               ],
               Text(
-                'Ingredients',
+                localizations.mealDrawer_ingredients,
                 style: AppTypography.titleMedium.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -106,7 +108,7 @@ class MealDrawer extends StatelessWidget {
               const SizedBox(height: AppSpacing.sm),
               if (meal.ingredients.isEmpty)
                 Text(
-                  'No ingredient list provided for this meal.',
+                  localizations.mealDrawer_noIngredients,
                   style: AppTypography.bodySmall.copyWith(
                     color: AppColors.textSecondary,
                   ),
@@ -145,7 +147,7 @@ class MealDrawer extends StatelessWidget {
                 ),
               const SizedBox(height: AppSpacing.lg),
               Text(
-                'Preparation',
+                localizations.mealDrawer_preparation,
                 style: AppTypography.titleMedium.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -153,7 +155,7 @@ class MealDrawer extends StatelessWidget {
               const SizedBox(height: AppSpacing.sm),
               if (meal.preparationInstructions.isEmpty)
                 Text(
-                  'No preparation instructions provided for this meal.',
+                  localizations.mealDrawer_noPrep,
                   style: AppTypography.bodySmall.copyWith(
                     color: AppColors.textSecondary,
                   ),
@@ -193,4 +195,3 @@ class MealDrawer extends StatelessWidget {
     );
   }
 }
-

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -133,6 +134,7 @@ class _DashboardSwipeCoachOverlayState extends State<DashboardSwipeCoachOverlay>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Positioned.fill(
       child: IgnorePointer(
         child: FadeTransition(
@@ -246,7 +248,7 @@ class _DashboardSwipeCoachOverlayState extends State<DashboardSwipeCoachOverlay>
                                   alignment: Alignment.centerLeft,
                                   child: DashboardSwipeCoachHintChip(
                                     icon: Icons.check_circle_outline,
-                                    label: 'Followed plan',
+                                    label: localizations.swipeCoach_followedPlan,
                                     emphasis: leftEmphasis,
                                     maxWidth: chipMaxWidth,
                                     textAlign: TextAlign.left,
@@ -260,7 +262,7 @@ class _DashboardSwipeCoachOverlayState extends State<DashboardSwipeCoachOverlay>
                                   alignment: Alignment.centerRight,
                                   child: DashboardSwipeCoachHintChip(
                                     icon: Icons.remove_circle_outline,
-                                    label: 'Skipped meal',
+                                    label: localizations.swipeCoach_skippedMeal,
                                     emphasis: rightEmphasis,
                                     maxWidth: chipMaxWidth,
                                     textAlign: TextAlign.right,

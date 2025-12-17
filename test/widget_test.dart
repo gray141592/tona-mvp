@@ -12,7 +12,7 @@ import 'package:tona_mvp/main.dart';
 
 void main() {
   testWidgets('Tona app smoke test', (WidgetTester tester) async {
-    await tester.pumpWidget(const TonaApp());
+    await tester.pumpWidget(const MyApp());
     await tester.pump();
 
     expect(find.byType(MaterialApp), findsOneWidget);

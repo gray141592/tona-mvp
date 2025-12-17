@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -23,6 +24,7 @@ class DashboardConsultationFollowupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final date = appointment.scheduledAt;
 
     return Container(
@@ -57,7 +59,7 @@ class DashboardConsultationFollowupCard extends StatelessWidget {
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Text(
-                  'How did it go?',
+                  localizations.consultationFollowup_title,
                   style: AppTypography.titleLarge.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -67,14 +69,14 @@ class DashboardConsultationFollowupCard extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'Your consultation on ${date_utils.DateUtils.formatDate(date)} may have updated your meal plan.',
+            localizations.consultationFollowup_subtitle(date_utils.DateUtils.formatDate(date)),
             style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
-            'If you received a new meal plan or changes, you can upload them now so we can adjust your schedule immediately.',
+            localizations.consultationFollowup_body,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: AppColors.textSecondary,
               height: 1.4,
@@ -110,7 +112,7 @@ class DashboardConsultationFollowupCard extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   Text(
-                    'Highlights',
+                    localizations.consultationFollowup_highlights,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: AppColors.textSecondary,
                       fontWeight: FontWeight.w600,
@@ -155,14 +157,14 @@ class DashboardConsultationFollowupCard extends StatelessWidget {
                   child: OutlinedButton.icon(
                     onPressed: onUploadMealPlan,
                     icon: const Icon(Icons.upload_file_rounded),
-                    label: const Text('Upload new plan'),
+                    label: Text(localizations.consultationFollowup_uploadNewPlan),
                   ),
                 ),
                 const SizedBox(width: AppSpacing.sm),
               ],
               TextButton(
                 onPressed: onViewDetails,
-                child: const Text('Review notes'),
+                child: Text(localizations.consultationFollowup_reviewNotes),
               ),
             ],
           ),

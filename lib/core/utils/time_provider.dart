@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+
 class TimeProvider {
   static DateTime? _overrideNow;
+  static final ValueNotifier<DateTime?> _overrideNotifier =
+      ValueNotifier<DateTime?>(null);
 
   TimeProvider._();
 
@@ -11,8 +15,12 @@ class TimeProvider {
   /// Sets an override for the current time. Pass `null` to clear the override.
   static void setOverride(DateTime? dateTime) {
     _overrideNow = dateTime;
+    _overrideNotifier.value = dateTime;
   }
 
   /// Whether the current time is currently being overridden.
   static bool get isOverridden => _overrideNow != null;
+
+  /// Listen to changes in the time override.
+  static ValueListenable<DateTime?> get overrideNotifier => _overrideNotifier;
 }

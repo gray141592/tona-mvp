@@ -226,5 +226,845 @@
     "mealPlanProcessing_cancel": "Otkaži i izaberi drugu datoteku",
     "mealPlanReview_title": "Pregledaj plan obroka",
     "mealPlanReview_changeFile": "Promeni datoteku",
-    "mealPlanReview_confirmPlan": "Potvrdi plan"
+    "mealPlanReview_confirmPlan": "Potvrdi plan",
+    "menuProgress": "Napredak",
+    "dashboardMenu_closeMenu": "Zatvori meni",
+    "glycemicInfo_lowTitle": "Nizak GI (0-55)",
+    "glycemicInfo_lowDesc": "Stabilna energija, najbolje za održavanje uravnoteženog šećera u krvi.",
+    "glycemicInfo_lowExample1": "Lisnato povrće, povrće bez skroba",
+    "glycemicInfo_lowExample2": "Pasulj, sočivo, leblebije",
+    "glycemicInfo_lowExample3": "Integral žitarice poput ječma ili kinoe",
+    "glycemicInfo_mediumTitle": "Srednji GI (56-69)",
+    "glycemicInfo_mediumDesc": "Umeren uticaj, uravnotežite proteinima ili zdravim mastima.",
+    "glycemicInfo_mediumExample1": "Hleb od celog zrna, ovas",
+    "glycemicInfo_mediumExample2": "Kukuruz šećerac, slatki krompir",
+    "glycemicInfo_mediumExample3": "Tropsko voće poput ananasa ili manga",
+    "glycemicInfo_highTitle": "Visok GI (70+)",
+    "glycemicInfo_highDesc": "Brzo povećava šećer u krvi; ograničite kada je moguće.",
+    "glycemicInfo_highExample1": "Beli hleb, đevreci, perece",
+    "glycemicInfo_highExample2": "Zasećerene žitarice, slatkiši, peciva",
+    "glycemicInfo_highExample3": "Beli pirinač, pomfrit, prerađene grickalice",
+    "swipeCoach_followedPlan": "Pratio plan",
+    "swipeCoach_skippedMeal": "Preskočio obrok",
+    "quickActions_groceriesTitle": "Namirnice",
+    "quickActions_groceriesSubtitle": "Napravi listu",
+    "quickActions_addUnplannedTitle": "Dodaj neplanirano",
+    "quickActions_addUnplannedSubtitle": "Zapiši obrok",
+    "alternativeMeal_addUnplannedTitle": "Dodaj neplanirani obrok",
+    "alternativeMeal_logAlternativeTitle": "Zapiši alternativu",
+    "alternativeMeal_whatDidYouEat": "Šta ste jeli?",
+    "alternativeMeal_whatDidYouEatInstead": "Šta ste jeli umesto toga?",
+    "alternativeMeal_describeMeal": "Opišite obrok...",
+    "alternativeMeal_describeMealHad": "Opišite obrok koji ste imali...",
+    "alternativeMeal_validationError": "Molimo vas dajte kratak opis",
+    "alternativeMeal_notesOptional": "Beleške (opciono)",
+    "alternativeMeal_bloodSugarImpact": "Uticaj na šećer u krvi",
+    "alternativeMeal_containsSugar": "Sadrži dodatni šećer",
+    "alternativeMeal_containsSugarSubtitle": "Označite ako alternativni obrok uključuje rafinisani šećer ili slatke sirupe.",
+    "alternativeMeal_highGI": "Visok glikemijski indeks",
+    "alternativeMeal_highGISubtitle": "Izaberite kada je verovatno da će obrok izazvati nagli skok šećera u krvi.",
+    "alternativeMeal_saveMeal": "Sačuvaj obrok",
+    "alternativeMeal_saveAlternative": "Sačuvaj alternativu",
+    "alternativeMeal_saving": "Čuvanje...",
+    "consultationSchedule_title": "Zakažite konsultacije",
+    "consultationSchedule_nutritionistName": "Ime nutricioniste",
+    "consultationSchedule_selectDate": "Izaberite datum",
+    "consultationSchedule_selectTime": "Izaberite vreme",
+    "consultationSchedule_videoCall": "Video poziv",
+    "consultationSchedule_inPerson": "Lično",
+    "consultationSchedule_phone": "Telefon",
+    "consultationSchedule_format": "Format",
+    "consultationSchedule_location": "Lokacija",
+    "consultationSchedule_meetingLink": "Link sastanka",
+    "consultationSchedule_prepNotes": "Beleške za pripremu (odvojene zarezom)",
+    "consultationSchedule_saveButton": "Sačuvaj termin",
+    "consultationCard_mealPlanInEffect": "Plan obroka na snazi",
+    "consultationCard_focusAreas": "Oblasti fokusa",
+    "consultationCard_preparation": "Priprema",
+    "consultationCard_happeningNow": "Dešava se sada",
+    "consultationCard_inDays": "Za {count} dana",
+    "@consultationCard_inDays": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inDay": "Za 1 dan",
+    "consultationCard_inHours": "Za {count} sati",
+    "@consultationCard_inHours": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inHour": "Za 1 sat",
+    "consultationCard_inMinutes": "Za {count} minuta",
+    "@consultationCard_inMinutes": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_inMinute": "Za 1 minut",
+    "consultationCard_daysAgo": "Pre {count} dana",
+    "@consultationCard_daysAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_dayAgo": "Pre 1 dan",
+    "consultationCard_hoursAgo": "Pre {count} sati",
+    "@consultationCard_hoursAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_hourAgo": "Pre 1 sat",
+    "consultationCard_minutesAgo": "Pre {count} minuta",
+    "@consultationCard_minutesAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "consultationCard_minuteAgo": "Pre 1 minut",
+    "consultationOverview_upcoming": "Predstojeće",
+    "consultationOverview_nextAppointment": "Sledeći termin",
+    "consultationOverview_addedToSchedule": "Dodato u raspored",
+    "consultationOverview_addToSchedule": "Dodaj u raspored",
+    "consultationOverview_prepareReport": "Pripremi izveštaj",
+    "consultationOverview_mostRecent": "Najnovija poseta",
+    "consultationOverview_lastAppointment": "Poslednji termin",
+    "consultationOverview_linkMealPlan": "Poveži trenutni plan obroka",
+    "consultationOverview_viewMealPlan": "Pogledaj plan obroka",
+    "consultationHistory_title": "Istorija",
+    "consultationHistory_consultationPrefix": "Konsultacija",
+    "consultationFollowup_title": "Kako je prošlo?",
+    "consultationFollowup_subtitle": "Vaša konsultacija {date} je možda ažurirala vaš plan obroka.",
+    "@consultationFollowup_subtitle": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "consultationFollowup_body": "Ako ste primili novi plan obroka ili promene, možete ih sada otpremiti kako bismo odmah prilagodili vaš raspored.",
+    "consultationFollowup_highlights": "Izdvajamo",
+    "consultationFollowup_uploadNewPlan": "Otpremi novi plan",
+    "consultationFollowup_reviewNotes": "Pregledaj beleške",
+    "consultationReminder_title": "Konsultacije uskoro",
+    "consultationReminder_body": "Pripremite svoje beleške tako da {name} ima najnovije uvide. Generisanje izveštaja sada drži sve spremnim za zajednički pregled.",
+    "@consultationReminder_body": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "consultationReminder_viewAgenda": "Pogledaj dnevni red",
+    "consultationReminder_happeningSoon": "Uskoro",
+    "consultationReminder_tomorrow": "Sutra",
+    "openReport": "Otvori izveštaj",
+    "report_followed": "Praćeno",
+    "report_alternatives": "Alternative",
+    "report_skipped": "Preskočeno",
+    "report_totalLogs": "Ukupno zapisa",
+    "report_snapshotSummary": "Rezime snimka",
+    "report_longestStreak": "Najduži niz",
+    "report_asOfDate": "Na dan {date}",
+    "@report_asOfDate": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "report_mealsWithSugar": "Obroci sa šećerom",
+    "report_highGIMeals": "Obroci sa visokim GI",
+    "progress_logToUnlock": "Zapišite svoje obroke da otključate uvide u napredak",
+    "progress_logToStartStreak": "Zapišite svoje obroke da započnete niz",
+    "streak_fire": "Neverovatan niz! Održavajte vatru! 🔥",
+    "streak_stacking": "Neverovatna doslednost — nastavite da slažete dane! 💪",
+    "streak_strongStart": "Snažan početak — hajde da ga produžimo! 🚀",
+    "streak_owningWeek": "Obrok po obrok, vladate ovom nedeljom! 🍽️",
+    "streak_momentum": "Jedan po jedan obrok — zadržite taj momentum! 🙌",
+    "streak_freshDay": "Svež dan, nova prilika da zablistate! 🌟",
+    "progress_dailyHistory": "Dnevna istorija",
+    "progress_allLogs": "Svi vaši zapisi",
+    "progress_noMealsLogged": "Još uvek nema zabeleženih obroka",
+    "progress_logFirstMeal": "Zapišite svoj prvi obrok da započnete vremensku liniju napretka.",
+    "report_progressReportTitle": "Izveštaj o napretku",
+    "report_shareTooltip": "Podeli izveštaj",
+    "report_shareError": "Greška pri deljenju izveštaja: {error}",
+    "@report_shareError": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_title": "Izveštaj o napretku",
+    "reportText_client": "Klijent: {name}",
+    "@reportText_client": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_email": "E-pošta: {email}",
+    "@reportText_email": {
+        "placeholders": {
+            "email": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_period": "Period: {start} - {end}",
+    "@reportText_period": {
+        "placeholders": {
+            "start": {
+                "type": "String"
+            },
+            "end": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_summary": "Rezime:",
+    "reportText_totalMeals": "Ukupno obroka: {count}",
+    "@reportText_totalMeals": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsFollowed": "Praćeni obroci: {count}",
+    "@reportText_mealsFollowed": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsAlternatives": "Alternativni obroci: {count}",
+    "@reportText_mealsAlternatives": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsSkipped": "Preskočeni obroci: {count}",
+    "@reportText_mealsSkipped": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsDue": "Dospeli obroci do sada: {count}",
+    "@reportText_mealsDue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_unloggedDue": "Nezabeleženi dospeli obroci: {count}",
+    "@reportText_unloggedDue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_longestStreak": "Najduži niz: {streak}",
+    "@reportText_longestStreak": {
+        "placeholders": {
+            "streak": {
+                "type": "String"
+            }
+        }
+    },
+    "reportText_mealsWithSugar": "Obroci sa šećerom: {count}",
+    "@reportText_mealsWithSugar": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_mealsHighGI": "Obroci sa visokim glikemijskim indeksom: {count}",
+    "@reportText_mealsHighGI": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "reportText_dailyBreakdown": "Dnevni pregled:",
+    "reportText_notes": "    Beleške: {notes}",
+    "@reportText_notes": {
+        "placeholders": {
+            "notes": {
+                "type": "String"
+            }
+        }
+    },
+    "reportGen_title": "Generiši izveštaj",
+    "reportGen_subtitle": "Rezimei spremni za deljenje",
+    "reportGen_choosePeriod": "Izaberite period",
+    "reportGen_periodDesc": "Sumiraćemo sve aktivnosti u okviru izabranog opsega.",
+    "reportGen_last7Days": "Poslednjih 7 dana",
+    "reportGen_last30Days": "Poslednjih 30 dana",
+    "reportGen_customRange": "Prilagođeni opseg",
+    "reportGen_from": "Od",
+    "reportGen_to": "Do",
+    "reportGen_includeTitle": "Vaš izveštaj će uključivati",
+    "reportGen_include1": "Kompletna istorija zapisa obroka za period",
+    "reportGen_include2": "Uvidi u pridržavanje i doslednost",
+    "reportGen_include3": "Beleške klijenta i alternativni izbori",
+    "reportGen_include4": "Nedeljni rezimei spremni za deljenje",
+    "reportGen_button": "Generiši izveštaj",
+    "uploadPlan_title": "Otpremite svoj plan obroka",
+    "uploadPlan_subtitle": "Izaberite datoteku plana obroka da biste započeli",
+    "uploadPlan_fileSelected": "Datoteka izabrana",
+    "uploadPlan_tapToSelect": "Dodirnite da izaberete datoteku",
+    "uploadPlan_fileFormats": "PDF, DOC ili bilo koji format datoteke",
+    "continueButton": "Nastavi",
+    "mealDrawer_ingredients": "Sastojci",
+    "mealDrawer_noIngredients": "Nema liste sastojaka za ovaj obrok.",
+    "mealDrawer_preparation": "Priprema",
+    "mealDrawer_noPrep": "Nema uputstava za pripremu za ovaj obrok.",
+    "appName": "IRresistible",
+    "settings_debug": "Otklanjanje grešaka",
+    "settings_skipOnboarding": "Preskoči uvod",
+    "splashTitle": "IRresistible",
+    "splashSubtitle": "Vaše personalizovano putovanje u ishrani",
+    "dashboard_today": "Danas",
+    "dashboard_greeting_unlogged_3": "Hajde da zabeležimo nekoliko obroka dok su detalji sveži.",
+    "dashboard_greeting_unlogged_2": "Dva obroka čekaju zapis – brza ažuriranja puno pomažu.",
+    "dashboard_greeting_unlogged_1": "Jednom obroku je potreban brz zapis da bi ostao na pravom putu.",
+    "dashboard_greeting_all_set": "Sve je spremno do sledećeg obroka.",
+    "dashboard_greeting_good_job": "Dobar posao, ostajete u toku – zadržite taj momentum.",
+    "dashboard_status_overdue": "{count} {label} kasni",
+    "@dashboard_status_overdue": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_status_logged": "{count} {label} zabeleženo",
+    "@dashboard_status_logged": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            },
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "mealLabel": "obrok",
+    "mealsLabel": "obroka",
+    "mock_mealPlanName": "Plan ishrane za 1. nedelju",
+    "mock_endurancePlanName": "Plan podrške izdržljivosti",
+    "mock_consultation_1_focusArea_0": "Stabilizovati natašte glukozu",
+    "mock_consultation_1_focusArea_1": "Ponovo uvesti gorivo za trening snage",
+    "mock_consultation_1_preparationNote_0": "Otpremiti najnovije izveštaje glukometra",
+    "mock_consultation_1_preparationNote_1": "Pratiti hidrataciju 3 dana unapred",
+    "mock_consultation_2_focusArea_0": "Optimizovati punjenje gorivom pre trčanja",
+    "mock_consultation_2_focusArea_1": "Prilagoditi ciljeve za vlakna",
+    "mock_consultation_2_preparationNote_0": "Doneti dnevnik ishrane za prethodnih 14 dana",
+    "mock_consultation_2_preparationNote_1": "Zabeležiti sve simptome hipoglikemije",
+    "mock_meal_1_breakfast_name": "Ovsena kaša sa bobičastim voćem",
+    "mock_meal_1_breakfast_desc": "1 šolja kuvane ovsene kaše, 1/2 šolje mešanog bobičastog voća, 1 kašika putera od badema, med",
+    "mock_meal_1_snack1_name": "Jabuka sa puterom od badema",
+    "mock_meal_1_snack1_desc": "1 srednja jabuka, 1 kašika putera od badema",
+    "mock_meal_1_lunch_name": "Salata sa grilovanom piletinom",
+    "mock_meal_1_lunch_desc": "120g grilovane pilećih prsa, mešana zelena salata, čeri paradajz, krastavac, preliv od maslinovog ulja",
+    "mock_meal_1_snack2_name": "Grčki jogurt sa bobičastim voćem",
+    "mock_meal_1_snack2_desc": "1 šolja običnog grčkog jogurta, 1/4 šolje mešanog bobičastog voća",
+    "mock_meal_1_dinner_name": "Pečeni losos sa povrćem",
+    "mock_meal_1_dinner_desc": "150g fileta lososa, pečeni brokoli i slatki krompir",
+    "mock_meal_2_breakfast_name": "Kajgana sa tostom od avokada",
+    "mock_meal_2_breakfast_desc": "2 umućena jaja, 1 kriška integralnog tosta, 1/2 avokada, čeri paradajz",
+    "mock_meal_2_snack1_name": "Proteinski smuti",
+    "mock_meal_2_snack1_desc": "Banana, proteinski prah, bademovo mleko, spanać",
+    "mock_meal_2_lunch_name": "Vrap sa ćuretinom i humusom",
+    "mock_meal_2_lunch_desc": "Integralna tortilja, 120g ćurećih prsa, humus, zelena salata, paprika",
+    "mock_meal_2_snack2_name": "Štapići šargarepe sa humusom",
+    "mock_meal_2_snack2_desc": "1 šolja štapića šargarepe, 1/4 šolje humusa",
+    "mock_meal_2_dinner_name": "Piletina u voku",
+    "mock_meal_2_dinner_desc": "150g pilećih prsa, mešano povrće, smeđi pirinač, terijaki sos",
+    "mock_meal_3_breakfast_name": "Parfe od grčkog jogurta",
+    "mock_meal_3_breakfast_desc": "Grčki jogurt sa granolom, bobičastim voćem i medom",
+    "mock_meal_3_snack1_name": "Mešani orašasti plodovi",
+    "mock_meal_3_snack1_desc": "1/4 šolje mešanih badema, indijskih oraha i oraha",
+    "mock_meal_3_lunch_name": "Kinoa Buda činija",
+    "mock_meal_3_lunch_desc": "Kinoa, pečene leblebije, avokado, povrće, tahini preliv",
+    "mock_meal_3_snack2_name": "Sveži sir sa ananasom",
+    "mock_meal_3_snack2_desc": "1 šolja nemasnog svežeg sira, 1/2 šolje komadića ananasa",
+    "mock_meal_3_dinner_name": "Takosi sa nemasnom govedinom",
+    "mock_meal_3_dinner_desc": "Nemasna mlevena govedina, kukuruzne tortilje, zelena salata, paradajz, salsa",
+    "mock_meal_4_breakfast_name": "Palačinke od integralnog brašna",
+    "mock_meal_4_breakfast_desc": "2 integralne palačinke, sveže bobičasto voće, javorov sirup",
+    "mock_meal_4_snack1_name": "Kruška sa sirom",
+    "mock_meal_4_snack1_desc": "1 srednja kruška, 1 komad sira",
+    "mock_meal_4_lunch_name": "Salata od tunjevine",
+    "mock_meal_4_lunch_desc": "Tunjevina, mešana zelena salata, tvrdo kuvano jaje, masline, maslinovo ulje",
+    "mock_meal_4_snack2_name": "Proteinska pločica",
+    "mock_meal_4_snack2_desc": "1 proteinska pločica (ciljajte 10g+ proteina)",
+    "mock_meal_4_dinner_name": "Pečena piletina sa kinoom",
+    "mock_meal_4_dinner_desc": "Pileća prsa u korici od bilja, kinoa, pečena špargla",
+    "mock_meal_5_breakfast_name": "Omlet sa povrćem",
+    "mock_meal_5_breakfast_desc": "Omlet od 3 jaja sa spanaćem, pečurkama i feta sirom",
+    "mock_meal_5_snack1_name": "Banana sa puterom od kikirikija",
+    "mock_meal_5_snack1_desc": "1 srednja banana, 1 kašika putera od kikirikija",
+    "mock_meal_5_lunch_name": "Mediteranska piletina činija",
+    "mock_meal_5_lunch_desc": "Grilovana piletina, smeđi pirinač, humus, krastavac, paradajz, masline",
+    "mock_meal_5_snack2_name": "Pirinčane galete sa avokadom",
+    "mock_meal_5_snack2_desc": "2 pirinčane galete prelivene izgnječenim avokadom",
+    "mock_meal_5_dinner_name": "Testenina sa škampima Primavera",
+    "mock_meal_5_dinner_desc": "Integralna testenina, škampi, mešano povrće, beli luk i maslinovo ulje",
+    "mock_meal_6_breakfast_name": "Burito za doručak",
+    "mock_meal_6_breakfast_desc": "Kajgana, crni pasulj, sir, salsa u integralnoj tortilji",
+    "mock_meal_6_snack1_name": "Mešavina za stazu",
+    "mock_meal_6_snack1_desc": "Orašasti plodovi, sušene brusnice, komadići tamne čokolade",
+    "mock_meal_6_lunch_name": "Sendvič sa grilovanim povrćem",
+    "mock_meal_6_lunch_desc": "Grilovane tikvice, paprike, mocarela na integralnom hlebu",
+    "mock_meal_6_snack2_name": "Edamame",
+    "mock_meal_6_snack2_desc": "1 šolja parenih edamame zrna sa morskom solju",
+    "mock_meal_6_dinner_name": "Grilovani biftek sa povrćem",
+    "mock_meal_6_dinner_desc": "Nemasni biftek, pečeni prokelj i šargarepa",
+    "mock_meal_7_breakfast_name": "Prženice sa voćem",
+    "mock_meal_7_breakfast_desc": "Integralni hleb, sveže bobičasto voće, preliv od jogurta",
+    "mock_meal_7_snack1_name": "Celer sa puterom od kikirikija",
+    "mock_meal_7_snack1_desc": "4 štapića celera sa 2 kašike putera od kikirikija",
+    "mock_meal_7_lunch_name": "Cezar salata sa piletinom",
+    "mock_meal_7_lunch_desc": "Grilovana piletina, rimska salata, parmezan, lagani Cezar preliv",
+    "mock_meal_7_snack2_name": "Smuti činija",
+    "mock_meal_7_snack2_desc": "Blendirano bobičasto voće, banana, preliv od granole i čia semenki",
+    "mock_meal_7_dinner_name": "Pečeni bakalar sa slatkim krompirom",
+    "mock_meal_7_dinner_desc": "Bakalar pečen sa biljem, pire od slatkog krompira, parena boranija",
+    "mock_meal_1_breakfast_name": "Ovsena kaša sa bobičastim voćem",
+    "mock_meal_1_breakfast_desc": "1 šolja kuvane ovsene kaše, 1/2 šolje mešanog bobičastog voća, 1 kašika putera od badema, med",
+    "mock_meal_1_snack1_name": "Jabuka sa puterom od badema",
+    "mock_meal_1_snack1_desc": "1 srednja jabuka, 1 kašika putera od badema",
+    "mock_meal_1_lunch_name": "Salata sa grilovanom piletinom",
+    "mock_meal_1_lunch_desc": "120g grilovane pilećih prsa, mešana zelena salata, čeri paradajz, krastavac, preliv od maslinovog ulja",
+    "mock_meal_1_snack2_name": "Grčki jogurt sa bobičastim voćem",
+    "mock_meal_1_snack2_desc": "1 šolja običnog grčkog jogurta, 1/4 šolje mešanog bobičastog voća",
+    "mock_meal_1_dinner_name": "Pečeni losos sa povrćem",
+    "mock_meal_1_dinner_desc": "150g fileta lososa, pečeni brokoli i slatki krompir",
+    "mock_meal_1_breakfast_ingredient_0": "1 šolja kuvanih zobenih pahuljica",
+    "mock_meal_1_breakfast_ingredient_1": "1/2 šolje mešanih bobica",
+    "mock_meal_1_breakfast_ingredient_2": "1 kašika bademovog putera",
+    "mock_meal_1_breakfast_ingredient_3": "1 kašičica meda",
+    "mock_meal_1_breakfast_instruction_0": "Kuvati zobene pahuljice sa vodom ili mlekom dok ne postanu kremaste.",
+    "mock_meal_1_breakfast_instruction_1": "Posuti mešanim bobama, bademovim puterom i kapljicom meda.",
+    "mock_meal_1_snack1_ingredient_0": "1 srednja jabuka",
+    "mock_meal_1_snack1_ingredient_1": "1 kašika bademovog putera",
+    "mock_meal_1_snack1_instruction_0": "Iseći jabuku na kriške ili kolutove.",
+    "mock_meal_1_snack1_instruction_1": "Servirati sa bademovim puterom za umakanje ili mazanje.",
+    "mock_meal_1_lunch_ingredient_0": "120g pečenog pilećeg filea",
+    "mock_meal_1_lunch_ingredient_1": "2 šolje mešanog zelenog salata",
+    "mock_meal_1_lunch_ingredient_2": "1/2 šolje čeri paradajza",
+    "mock_meal_1_lunch_ingredient_3": "1/2 krastavac",
+    "mock_meal_1_lunch_ingredient_4": "2 kašike preliva od maslinovog ulja",
+    "mock_meal_1_lunch_instruction_0": "Iseći pečeno pile i povrće.",
+    "mock_meal_1_lunch_instruction_1": "Sve kombinovati u činiji i preliti prelivom od maslinovog ulja.",
+    "mock_meal_1_snack2_ingredient_0": "1 šolja običnog grčkog jogurta",
+    "mock_meal_1_snack2_ingredient_1": "1/4 šolje mešanih bobica",
+    "mock_meal_1_snack2_instruction_0": "Staviti jogurt u činiju.",
+    "mock_meal_1_snack2_instruction_1": "Posuti mešanim bobama neposredno pre serviranja.",
+    "mock_meal_1_dinner_ingredient_0": "150g fileta lososa",
+    "mock_meal_1_dinner_ingredient_1": "1 šolja pečenog brokolija",
+    "mock_meal_1_dinner_ingredient_2": "1 srednji slatki krompir",
+    "mock_meal_1_dinner_ingredient_3": "1 kriška limuna",
+    "mock_meal_1_dinner_instruction_0": "Peći začinjeni losos i povrće dok ne postanu mekani.",
+    "mock_meal_1_dinner_instruction_1": "Servirati sa prstom limuna preko.",
+    
+    "mock_meal_2_breakfast_name": "Kajgana sa tostom od avokada",
+    "mock_meal_2_breakfast_desc": "2 umućena jaja, 1 kriška integralnog tosta, 1/2 avokada, čeri paradajz",
+    "mock_meal_2_snack1_name": "Proteinski smuti",
+    "mock_meal_2_snack1_desc": "Banana, proteinski prah, bademovo mleko, spanać",
+    "mock_meal_2_lunch_name": "Vrap sa ćuretinom i humusom",
+    "mock_meal_2_lunch_desc": "Integralna tortilja, 120g ćurećih prsa, humus, zelena salata, paprika",
+    "mock_meal_2_snack2_name": "Štapići šargarepe sa humusom",
+    "mock_meal_2_snack2_desc": "1 šolja štapića šargarepe, 1/4 šolje humusa",
+    "mock_meal_2_dinner_name": "Piletina u voku",
+    "mock_meal_2_dinner_desc": "150g pilećih prsa, mešano povrće, smeđi pirinač, terijaki sos",
+    "mock_meal_2_breakfast_ingredient_0": "2 velika jaja",
+    "mock_meal_2_breakfast_ingredient_1": "1 kriška integralnog hleba",
+    "mock_meal_2_breakfast_ingredient_2": "1/2 avokada",
+    "mock_meal_2_breakfast_ingredient_3": "4 čeri paradajza",
+    "mock_meal_2_breakfast_instruction_0": "Umućiti jaja u nelepljivoj tavi dok ne postanu mekana.",
+    "mock_meal_2_breakfast_instruction_1": "Ispeći hleb, staviti zgnječen avokado i servirati sa paradajzom.",
+    "mock_meal_2_snack1_ingredient_0": "1 banana",
+    "mock_meal_2_snack1_ingredient_1": "1 merica proteinskog praha",
+    "mock_meal_2_snack1_ingredient_2": "1 šolja bademovog mleka",
+    "mock_meal_2_snack1_ingredient_3": "1 šolja spanaća",
+    "mock_meal_2_snack1_instruction_0": "Dodati sve sastojke u blender.",
+    "mock_meal_2_snack1_instruction_1": "Blendovati dok ne postane glatko i kremasto, zatim odmah servirati.",
+    "mock_meal_2_lunch_ingredient_0": "1 integralna tortilja",
+    "mock_meal_2_lunch_ingredient_1": "120g isečene ćureće prsa",
+    "mock_meal_2_lunch_ingredient_2": "2 kašike humusa",
+    "mock_meal_2_lunch_ingredient_3": "1 šolja salate",
+    "mock_meal_2_lunch_ingredient_4": "1/4 šolje isečene paprike",
+    "mock_meal_2_lunch_instruction_0": "Namazati humus preko tortilje.",
+    "mock_meal_2_lunch_instruction_1": "Složiti ćureće meso, salatu i papriku, zatim čvrsto zamotati i iseći.",
+    "mock_meal_2_snack2_ingredient_0": "1 šolja štapića mrkve",
+    "mock_meal_2_snack2_ingredient_1": "1/4 šolje humusa",
+    "mock_meal_2_snack2_instruction_0": "Oguliti i iseći mrkvu u štapiće ako je potrebno.",
+    "mock_meal_2_snack2_instruction_1": "Servirati sa humusom za umakanje.",
+    "mock_meal_2_dinner_ingredient_0": "150g pilećih prsa",
+    "mock_meal_2_dinner_ingredient_1": "2 šolje mešanog povrća",
+    "mock_meal_2_dinner_ingredient_2": "1 šolja braon pirinča",
+    "mock_meal_2_dinner_ingredient_3": "2 kašike terijaki sosa",
+    "mock_meal_2_dinner_instruction_0": "Pržiti pile dok ne bude skoro gotovo.",
+    "mock_meal_2_dinner_instruction_1": "Dodati povrće i sos, kuvati dok ne postane hrskavo-mekano, i servirati preko pirinča.",
+    
+    "mock_meal_3_breakfast_name": "Parfe od grčkog jogurta",
+    "mock_meal_3_breakfast_desc": "Grčki jogurt sa granolom, bobičastim voćem i medom",
+    "mock_meal_3_snack1_name": "Mešani orašasti plodovi",
+    "mock_meal_3_snack1_desc": "1/4 šolje mešanih badema, indijskih oraha i oraha",
+    "mock_meal_3_lunch_name": "Kinoa Buda činija",
+    "mock_meal_3_lunch_desc": "Kinoa, pečene leblebije, avokado, povrće, tahini preliv",
+    "mock_meal_3_snack2_name": "Sveži sir sa ananasom",
+    "mock_meal_3_snack2_desc": "1 šolja nemasnog svežeg sira, 1/2 šolje komadića ananasa",
+    "mock_meal_3_dinner_name": "Takosi sa nemasnom govedinom",
+    "mock_meal_3_dinner_desc": "Nemasna mlevena govedina, kukuruzne tortilje, zelena salata, paradajz, salsa",
+    "mock_meal_3_breakfast_ingredient_0": "1 šolja grčkog jogurta",
+    "mock_meal_3_breakfast_ingredient_1": "1/2 šolje granole",
+    "mock_meal_3_breakfast_ingredient_2": "1/2 šolje mešanih bobica",
+    "mock_meal_3_breakfast_ingredient_3": "1 kašičica meda",
+    "mock_meal_3_breakfast_instruction_0": "Složiti jogurt, granolu i bobice u čašu ili činiju.",
+    "mock_meal_3_breakfast_instruction_1": "Preliti medom preko pre serviranja.",
+    "mock_meal_3_snack1_ingredient_0": "1/4 šolje mešanih orašastih plodova",
+    "mock_meal_3_snack1_instruction_0": "Podeliti mešane orašaste plodove u malu činiju ili kontejner.",
+    "mock_meal_3_snack1_instruction_1": "Uživati odmah ili spakovati za kasnije.",
+    "mock_meal_3_lunch_ingredient_0": "1 šolja kuvanog kvinoe",
+    "mock_meal_3_lunch_ingredient_1": "1/2 šolje pečenog leblebija",
+    "mock_meal_3_lunch_ingredient_2": "1/2 avokada",
+    "mock_meal_3_lunch_ingredient_3": "1 šolja mešanog povrća",
+    "mock_meal_3_lunch_ingredient_4": "2 kašike tahini preliva",
+    "mock_meal_3_lunch_instruction_0": "Zagrejati kvinoju i rasporediti u činiju.",
+    "mock_meal_3_lunch_instruction_1": "Posuti leblebijem, povrćem, avokadom i preliti tahini prelivom.",
+    "mock_meal_3_snack2_ingredient_0": "1 šolja nemasnog sira",
+    "mock_meal_3_snack2_ingredient_1": "1/2 šolje komada ananasa",
+    "mock_meal_3_snack2_instruction_0": "Staviti sir u činiju za serviranje.",
+    "mock_meal_3_snack2_instruction_1": "Posuti komadima ananasa i uživati.",
+    "mock_meal_3_dinner_ingredient_0": "150g mlevenog goveđeg mesa",
+    "mock_meal_3_dinner_ingredient_1": "2 kukuruzne tortilje",
+    "mock_meal_3_dinner_ingredient_2": "1 šolja iseckane salate",
+    "mock_meal_3_dinner_ingredient_3": "1 isečen paradajz",
+    "mock_meal_3_dinner_ingredient_4": "2 kašike salse",
+    "mock_meal_3_dinner_instruction_0": "Kuvati mleveno meso sa začinima dok ne porumeni.",
+    "mock_meal_3_dinner_instruction_1": "Zagrejati tortilje, zatim sastaviti sa salatom, paradajzom i salsom.",
+    
+    "mock_meal_4_breakfast_name": "Palačinke od integralnog brašna",
+    "mock_meal_4_breakfast_desc": "2 integralne palačinke, sveže bobičasto voće, javorov sirup",
+    "mock_meal_4_snack1_name": "Kruška sa sirom",
+    "mock_meal_4_snack1_desc": "1 srednja kruška, 1 komad sira",
+    "mock_meal_4_lunch_name": "Salata od tunjevine",
+    "mock_meal_4_lunch_desc": "Tunjevina, mešana zelena salata, tvrdo kuvano jaje, masline, maslinovo ulje",
+    "mock_meal_4_snack2_name": "Proteinska pločica",
+    "mock_meal_4_snack2_desc": "1 proteinska pločica (ciljajte 10g+ proteina)",
+    "mock_meal_4_dinner_name": "Pečena piletina sa kinoom",
+    "mock_meal_4_dinner_desc": "Pileća prsa u korici od bilja, kinoa, pečena špargla",
+    "mock_meal_4_breakfast_ingredient_0": "2 integralne palačinke",
+    "mock_meal_4_breakfast_ingredient_1": "1/2 šolje svežeg bobičastog voća",
+    "mock_meal_4_breakfast_ingredient_2": "1 kašika javorovog sirupa",
+    "mock_meal_4_breakfast_instruction_0": "Zagrejati palačinke u tavi ili tosteru ako je potrebno.",
+    "mock_meal_4_breakfast_instruction_1": "Servirati sa bobičastim voćem preko i preliti javorovim sirupom.",
+    "mock_meal_4_snack1_ingredient_0": "1 srednja kruška",
+    "mock_meal_4_snack1_ingredient_1": "1 štapić sira",
+    "mock_meal_4_snack1_instruction_0": "Oprati krušku i iseći ako želite.",
+    "mock_meal_4_snack1_instruction_1": "Kombinovati sa štapićem sira za brzi međuobrok.",
+    "mock_meal_4_lunch_ingredient_0": "1 konzerva tunjevine u vodi",
+    "mock_meal_4_lunch_ingredient_1": "2 šolje mešanog zelenog salata",
+    "mock_meal_4_lunch_ingredient_2": "1 tvrdo kuvano jaje",
+    "mock_meal_4_lunch_ingredient_3": "5 maslina",
+    "mock_meal_4_lunch_ingredient_4": "2 kašike maslinovog ulja",
+    "mock_meal_4_lunch_instruction_0": "Ocediti tunjevinu i iseći jaje i masline.",
+    "mock_meal_4_lunch_instruction_1": "Kombinovati sastojke sa zelenim salatom i preliti maslinovim uljem.",
+    "mock_meal_4_snack2_ingredient_0": "1 proteinski bar",
+    "mock_meal_4_snack2_instruction_0": "Raspakovati proteinski bar i uživati kao brzi međuobrok.",
+    "mock_meal_4_dinner_ingredient_0": "150g pilećih prsa",
+    "mock_meal_4_dinner_ingredient_1": "1 šolja kuvanog kvinoe",
+    "mock_meal_4_dinner_ingredient_2": "1 šolja pečenog špargle",
+    "mock_meal_4_dinner_ingredient_3": "po ukusu začini i začinska zrna",
+    "mock_meal_4_dinner_instruction_0": "Peći začinjena pileća prsa dok ne budu gotova.",
+    "mock_meal_4_dinner_instruction_1": "Servirati uz kvinoju i pečeni špargla.",
+    
+    "mock_meal_5_breakfast_name": "Omlet sa povrćem",
+    "mock_meal_5_breakfast_desc": "Omlet od 3 jaja sa spanaćem, pečurkama i feta sirom",
+    "mock_meal_5_snack1_name": "Banana sa puterom od kikirikija",
+    "mock_meal_5_snack1_desc": "1 srednja banana, 1 kašika putera od kikirikija",
+    "mock_meal_5_lunch_name": "Mediteranska piletina činija",
+    "mock_meal_5_lunch_desc": "Grilovana piletina, smeđi pirinač, humus, krastavac, paradajz, masline",
+    "mock_meal_5_snack2_name": "Pirinčane galete sa avokadom",
+    "mock_meal_5_snack2_desc": "2 pirinčane galete prelivene izgnječenim avokadom",
+    "mock_meal_5_dinner_name": "Testenina sa škampima Primavera",
+    "mock_meal_5_dinner_desc": "Integralna testenina, škampi, mešano povrće, beli luk i maslinovo ulje",
+    "mock_meal_5_breakfast_ingredient_0": "3 velika jaja",
+    "mock_meal_5_breakfast_ingredient_1": "1 šolja spanaća",
+    "mock_meal_5_breakfast_ingredient_2": "1/2 šolje pečuraka",
+    "mock_meal_5_breakfast_ingredient_3": "2 kašike feta sira",
+    "mock_meal_5_breakfast_instruction_0": "Dinstati pečurke i spanać dok ne postanu mekani.",
+    "mock_meal_5_breakfast_instruction_1": "Dodati umućena jaja, kuvati dok ne postanu čvrsta, i posuti fetom pre savijanja.",
+    "mock_meal_5_snack1_ingredient_0": "1 srednja banana",
+    "mock_meal_5_snack1_ingredient_1": "1 kašika kikiriki putera",
+    "mock_meal_5_snack1_instruction_0": "Oguliti bananu i iseći ako želite.",
+    "mock_meal_5_snack1_instruction_1": "Servirati sa kikiriki puterom za umakanje ili mazanje.",
+    "mock_meal_5_lunch_ingredient_0": "120g pečene piletine",
+    "mock_meal_5_lunch_ingredient_1": "1 šolja braon pirinča",
+    "mock_meal_5_lunch_ingredient_2": "2 kašike humusa",
+    "mock_meal_5_lunch_ingredient_3": "1/2 krastavac",
+    "mock_meal_5_lunch_ingredient_4": "1/2 šolje paradajza",
+    "mock_meal_5_lunch_ingredient_5": "5 maslina",
+    "mock_meal_5_lunch_instruction_0": "Složiti pirinač u činiju i posuti isečenom piletinom.",
+    "mock_meal_5_lunch_instruction_1": "Dodati humus, krastavac, paradajz i masline pre serviranja.",
+    "mock_meal_5_snack2_ingredient_0": "2 pirinčane pločice",
+    "mock_meal_5_snack2_ingredient_1": "1/2 avokada",
+    "mock_meal_5_snack2_instruction_0": "Zgnječiti avokado viljuškom i začiniti ako želite.",
+    "mock_meal_5_snack2_instruction_1": "Namazati preko pirinčanih pločica i odmah servirati.",
+    "mock_meal_5_dinner_ingredient_0": "60g integralnih testenina",
+    "mock_meal_5_dinner_ingredient_1": "150g škampi",
+    "mock_meal_5_dinner_ingredient_2": "2 šolje mešanog povrća",
+    "mock_meal_5_dinner_ingredient_3": "2 kašike belog luka i maslinovog ulja",
+    "mock_meal_5_dinner_instruction_0": "Kuvati testenine dok ne budu al dente i zadržati malo vode za kuvanje.",
+    "mock_meal_5_dinner_instruction_1": "Pržiti škampe i povrće u belom luku i ulju, zatim pomešati sa testeninama.",
+    
+    "mock_meal_6_breakfast_name": "Burito za doručak",
+    "mock_meal_6_breakfast_desc": "Kajgana, crni pasulj, sir, salsa u integralnoj tortilji",
+    "mock_meal_6_snack1_name": "Mešavina za stazu",
+    "mock_meal_6_snack1_desc": "Orašasti plodovi, sušene brusnice, komadići tamne čokolade",
+    "mock_meal_6_lunch_name": "Sendvič sa grilovanim povrćem",
+    "mock_meal_6_lunch_desc": "Grilovane tikvice, paprike, mocarela na integralnom hlebu",
+    "mock_meal_6_snack2_name": "Edamame",
+    "mock_meal_6_snack2_desc": "1 šolja parenih edamame zrna sa morskom solju",
+    "mock_meal_6_dinner_name": "Grilovani biftek sa povrćem",
+    "mock_meal_6_dinner_desc": "Nemasni biftek, pečeni prokelj i šargarepa",
+    "mock_meal_6_breakfast_ingredient_0": "2 umućena jaja",
+    "mock_meal_6_breakfast_ingredient_1": "1/4 šolje crnih pasulja",
+    "mock_meal_6_breakfast_ingredient_2": "2 kašike rendanog sira",
+    "mock_meal_6_breakfast_ingredient_3": "2 kašike salse",
+    "mock_meal_6_breakfast_ingredient_4": "1 integralna tortilja",
+    "mock_meal_6_breakfast_instruction_0": "Zagrejati tortilju i umućiti jaja sa pasuljem.",
+    "mock_meal_6_breakfast_instruction_1": "Napuniti tortilju, posuti sirom i salsom, zatim čvrsto zamotati.",
+    "mock_meal_6_snack1_ingredient_0": "1/4 šolje mešanih orašastih plodova",
+    "mock_meal_6_snack1_ingredient_1": "2 kašike suvih brusnica",
+    "mock_meal_6_snack1_ingredient_2": "1 kašika tamnih čokoladnih komadića",
+    "mock_meal_6_snack1_instruction_0": "Kombinovati orašaste plodove, brusnice i čokoladne komadiće u maloj činiji.",
+    "mock_meal_6_snack1_instruction_1": "Podeliti u kontejner za poneti ako je potrebno.",
+    "mock_meal_6_lunch_ingredient_0": "2 kriške integralnog hleba",
+    "mock_meal_6_lunch_ingredient_1": "1/2 pečena tikvica",
+    "mock_meal_6_lunch_ingredient_2": "1/4 šolje pečene paprike",
+    "mock_meal_6_lunch_ingredient_3": "2 kriške svežeg mocarela sira",
+    "mock_meal_6_lunch_ingredient_4": "1 kašika balzamičnog preliva",
+    "mock_meal_6_lunch_instruction_0": "Složiti pečeno povrće i mocarela na hleb.",
+    "mock_meal_6_lunch_instruction_1": "Preliti balzamičnim prelivom i ispeći dok se sir ne istopi ako želite.",
+    "mock_meal_6_snack2_ingredient_0": "1 šolja edamame",
+    "mock_meal_6_snack2_ingredient_1": "po ukusu morska sol",
+    "mock_meal_6_snack2_instruction_0": "Kuvati ili zagrejati edamame u mikrotalasnoj dok ne budu zagrejani.",
+    "mock_meal_6_snack2_instruction_1": "Posuti morskom solju pre serviranja.",
+    "mock_meal_6_dinner_ingredient_0": "150g mlevenog goveđeg mesa",
+    "mock_meal_6_dinner_ingredient_1": "1 šolja pečene prokulice",
+    "mock_meal_6_dinner_ingredient_2": "1 šolja pečene šargarepe",
+    "mock_meal_6_dinner_instruction_0": "Peći ili pržiti meso dok ne postigne željeni stepen pečenja.",
+    "mock_meal_6_dinner_instruction_1": "Servirati sa pečenom prokulicom i šargarepom.",
+    
+    "mock_meal_7_breakfast_name": "Prženice sa voćem",
+    "mock_meal_7_breakfast_desc": "Integralni hleb, sveže bobičasto voće, preliv od jogurta",
+    "mock_meal_7_snack1_name": "Celer sa puterom od kikirikija",
+    "mock_meal_7_snack1_desc": "4 štapića celera sa 2 kašike putera od kikirikija",
+    "mock_meal_7_lunch_name": "Cezar salata sa piletinom",
+    "mock_meal_7_lunch_desc": "Grilovana piletina, rimska salata, parmezan, lagani Cezar preliv",
+    "mock_meal_7_snack2_name": "Smuti činija",
+    "mock_meal_7_snack2_desc": "Blendirano bobičasto voće, banana, preliv od granole i čia semenki",
+    "mock_meal_7_dinner_name": "Pečeni bakalar sa slatkim krompirom",
+    "mock_meal_7_dinner_desc": "Bakalar pečen sa biljem, pire od slatkog krompira, parena boranija",
+    "mock_meal_7_breakfast_ingredient_0": "2 kriške integralnog hleba",
+    "mock_meal_7_breakfast_ingredient_1": "1 jaje",
+    "mock_meal_7_breakfast_ingredient_2": "1/2 šolje mešanih bobica",
+    "mock_meal_7_breakfast_ingredient_3": "2 kašike grčkog jogurta",
+    "mock_meal_7_breakfast_ingredient_4": "1 kašičica cimeta",
+    "mock_meal_7_breakfast_instruction_0": "Umućiti jaje sa cimetom i natopiti kriške hleba.",
+    "mock_meal_7_breakfast_instruction_1": "Peći na tavi dok ne porumeni, zatim posuti bobama i jogurtom.",
+    "mock_meal_7_snack1_ingredient_0": "4 štapića celera",
+    "mock_meal_7_snack1_ingredient_1": "2 kašike kikiriki putera",
+    "mock_meal_7_snack1_instruction_0": "Oprati i očistiti štapiće celera.",
+    "mock_meal_7_snack1_instruction_1": "Napuniti udubljenja celera kikiriki puterom.",
+    "mock_meal_7_lunch_ingredient_0": "120g pečenog pilećeg filea",
+    "mock_meal_7_lunch_ingredient_1": "2 šolje romen salate",
+    "mock_meal_7_lunch_ingredient_2": "2 kašike parmezana",
+    "mock_meal_7_lunch_ingredient_3": "2 kašike lakog cezar preliva",
+    "mock_meal_7_lunch_ingredient_4": "1/2 šolje integralnih krutona",
+    "mock_meal_7_lunch_instruction_0": "Iseći salatu i pečeno pile.",
+    "mock_meal_7_lunch_instruction_1": "Pomešati sa prelivom, parmezanom i krutonima pre serviranja.",
+    "mock_meal_7_snack2_ingredient_0": "1 šolja mešanih bobica",
+    "mock_meal_7_snack2_ingredient_1": "1/2 banana",
+    "mock_meal_7_snack2_ingredient_2": "1/4 šolje granole",
+    "mock_meal_7_snack2_ingredient_3": "1 kašika čija semena",
+    "mock_meal_7_snack2_instruction_0": "Blendovati bobice i bananu dok ne postanu glatke.",
+    "mock_meal_7_snack2_instruction_1": "Sipati u činiju i posuti granolom i čija semenima.",
+    "mock_meal_7_dinner_ingredient_0": "150g fileta bakalara",
+    "mock_meal_7_dinner_ingredient_1": "1 srednji slatki krompir",
+    "mock_meal_7_dinner_ingredient_2": "1 šolja boranije",
+    "mock_meal_7_dinner_ingredient_3": "po ukusu bilje i limun",
+    "mock_meal_7_dinner_instruction_0": "Začiniti bakalara biljem i limunom, zatim peći dok ne postane ljuskav.",
+    "mock_meal_7_dinner_instruction_1": "Servirati sa pireom od slatkog krompira i parnom boranijom.",
+    "dashboard_catchUp": "Nadoknadi",
+    "dashboard_logNow": "Zapiši sada",
+    "dashboard_needsAttention": "Zahteva pažnju",
+    "dashboard_pendingMealsSwipeHint": "Prevucite zakašnjele i zakazane obroke da biste zadržali svoj dnevnik ažurnim.",
+    "dashboard_pendingMealsSeveritySeveral": "Nekoliko obroka čeka — zabeležavanje sada održava vaše podatke tačnim.",
+    "dashboard_pendingMealsSeverityTwo": "Dva obroka zahtevaju pažnju — nekoliko brzih unosa će zatvoriti jaz.",
+    "dashboard_pendingMealsSeverityOne": "Jedan obrok je spreman za zabeležavanje — odvojite trenutak da ga zabeležite.",
+    "dashboard_comingUp": "Uskoro",
+    "dashboard_nextMeal": "Sledeći obrok",
+    "dashboard_logged": "Zabeleženo",
+    "dashboard_scheduled": "Zakazano {time} • {relativeTime}",
+    "@dashboard_scheduled": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_scheduled_full": "{time} • {mealType} • {relativeTime}",
+    "@dashboard_scheduled_full": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "mealType": {
+                "type": "String"
+            },
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_logged_full": "{time} • {mealType}",
+    "@dashboard_logged_full": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "mealType": {
+                "type": "String"
+            }
+        }
+    },
+    "dashboard_logSomethingElse": "Zapiši nešto drugo",
+    "dashboard_greatJob": "Odličan posao!",
+    "dashboard_noted": "Zabeleženo",
+    "dashboard_logSuccess": "Zapis je uspešno sačuvan",
+    "dashboard_followedRecipe": "Recept praćen",
+    "dashboard_followedMeal": "Obrok praćen",
+    "dashboard_skippedMeal": "Obrok preskočen",
+    "dashboard_thanksTrack": "Hvala što ostajete na pravom putu!",
+    "dashboard_notedAdjust": "Zabeleženo, prilagodićemo vaš plan.",
+    "dashboard_followingRecipe": "Praćenje recepta",
+    "dashboard_skippingMeal": "Preskakanje obroka",
+    "dashboard_loggingMeal": "Zapisivanje obroka...",
+    "dashboard_markingSkipped": "Označavanje kao preskočeno...",
+    "dashboard_loggedExactly": "Zabeleženo tačno po planu",
+    "dashboard_markedSkipped": "Označeno kao preskočeno za danas",
+    "time_underMinuteFuture": "za manje od minuta",
+    "time_underMinutePast": "pre manje od minuta",
+    "time_minutesFuture": "za {minutes} min",
+    "@time_minutesFuture": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_minutesPast": "pre {minutes} min",
+    "@time_minutesPast": {
+        "placeholders": {
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursFuture": "za {hours} h",
+    "@time_hoursFuture": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursPast": "pre {hours} h",
+    "@time_hoursPast": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursMinutesFuture": "za {hours}h {minutes}m",
+    "@time_hoursMinutesFuture": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            },
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "time_hoursMinutesPast": "pre {hours}h {minutes}m",
+    "@time_hoursMinutesPast": {
+        "placeholders": {
+            "hours": {
+                "type": "int"
+            },
+            "minutes": {
+                "type": "int"
+            }
+        }
+    },
+    "dashboard_allMealsLogged": "Svi obroci zabeleženi!",
+    "dashboard_allMealsLoggedBody": "Odličan posao, ostajete na pravom putu danas. Možete pregledati svoje unose ili preći na raspored za naredne dane.",
+    "dashboard_mealsLogged": "Zabeleženi obroci",
+    "dashboard_mealsLoggedCount": "{current} od {total} zabeleženo",
+    "@dashboard_mealsLoggedCount": {
+        "placeholders": {
+            "current": {
+                "type": "int"
+            },
+            "total": {
+                "type": "int"
+            }
+        }
+    },
+    "dashboard_nothingLogged": "Još uvek ništa nije zabeleženo. Vaša ažuriranja će se pojaviti ovde.",
+    "dashboard_containsSugar": "Sadrži šećer",
+    "dashboard_highGI": "Visok GI",
+    "status_followed": "Praćen plan",
+    "status_alternative": "Alternativni obrok",
+    "status_skipped": "Preskočen obrok"
 }

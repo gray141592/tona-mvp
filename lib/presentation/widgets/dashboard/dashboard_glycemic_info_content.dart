@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -9,11 +10,14 @@ class DashboardGlycemicInfoContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final sections = _getSections(localizations);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.only(bottom: AppSpacing.xxl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: _sections
+        children: sections
             .map(
               (section) => Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.lg),
@@ -23,6 +27,44 @@ class DashboardGlycemicInfoContent extends StatelessWidget {
             .toList(),
       ),
     );
+  }
+
+  List<_GlycemicInfoSection> _getSections(AppLocalizations localizations) {
+    return [
+      _GlycemicInfoSection(
+        title: localizations.glycemicInfo_lowTitle,
+        description: localizations.glycemicInfo_lowDesc,
+        examples: [
+          localizations.glycemicInfo_lowExample1,
+          localizations.glycemicInfo_lowExample2,
+          localizations.glycemicInfo_lowExample3,
+        ],
+        backgroundColor: AppColors.success,
+        icon: Icons.eco_outlined,
+      ),
+      _GlycemicInfoSection(
+        title: localizations.glycemicInfo_mediumTitle,
+        description: localizations.glycemicInfo_mediumDesc,
+        examples: [
+          localizations.glycemicInfo_mediumExample1,
+          localizations.glycemicInfo_mediumExample2,
+          localizations.glycemicInfo_mediumExample3,
+        ],
+        backgroundColor: AppColors.warning,
+        icon: Icons.waves_outlined,
+      ),
+      _GlycemicInfoSection(
+        title: localizations.glycemicInfo_highTitle,
+        description: localizations.glycemicInfo_highDesc,
+        examples: [
+          localizations.glycemicInfo_highExample1,
+          localizations.glycemicInfo_highExample2,
+          localizations.glycemicInfo_highExample3,
+        ],
+        backgroundColor: AppColors.error,
+        icon: Icons.local_fire_department_outlined,
+      ),
+    ];
   }
 }
 
@@ -111,39 +153,3 @@ class _GlycemicInfoSection {
     required this.icon,
   });
 }
-
-const List<_GlycemicInfoSection> _sections = [
-  _GlycemicInfoSection(
-    title: 'Low GI (0-55)',
-    description: 'Steady energy, best for maintaining balanced blood sugar.',
-    examples: [
-      'Leafy greens, non-starchy vegetables',
-      'Beans, lentils, chickpeas',
-      'Whole grains like barley or quinoa',
-    ],
-    backgroundColor: AppColors.success,
-    icon: Icons.eco_outlined,
-  ),
-  _GlycemicInfoSection(
-    title: 'Medium GI (56-69)',
-    description: 'Moderate impact, balance with protein or healthy fats.',
-    examples: [
-      'Whole grain bread, oats',
-      'Sweet corn, sweet potatoes',
-      'Tropical fruits like pineapple or mango',
-    ],
-    backgroundColor: AppColors.warning,
-    icon: Icons.waves_outlined,
-  ),
-  _GlycemicInfoSection(
-    title: 'High GI (70+)',
-    description: 'Spikes blood sugar quickly; limit when possible.',
-    examples: [
-      'White bread, bagels, pretzels',
-      'Sugary cereals, candy, pastries',
-      'White rice, fries, processed snacks',
-    ],
-    backgroundColor: AppColors.error,
-    icon: Icons.local_fire_department_outlined,
-  ),
-];

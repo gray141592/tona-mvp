@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
+
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/date_utils.dart' as date_utils;
@@ -126,9 +128,10 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return DashboardPageShell(
-      title: 'Generate report',
-      subtitle: 'Summaries ready to share',
+      title: localizations.reportGen_title,
+      subtitle: localizations.reportGen_subtitle,
       bodyPadding: EdgeInsets.zero,
       child: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
@@ -162,14 +165,14 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
             const SizedBox(height: AppSpacing.lg),
           ],
           Text(
-            'Choose a period',
+            localizations.reportGen_choosePeriod,
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
-            'We’ll summarise all activity within the selected range.',
+            localizations.reportGen_periodDesc,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: AppSpacing.lg),
@@ -178,7 +181,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
             runSpacing: AppSpacing.sm,
             children: [
               _RangeChip(
-                label: 'Last 7 days',
+                label: localizations.reportGen_last7Days,
                 icon: Icons.calendar_view_day,
                 selected: _selectedRange == DateRange.lastWeek,
                 onSelected: () {
@@ -188,7 +191,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                 },
               ),
               _RangeChip(
-                label: 'Last 30 days',
+                label: localizations.reportGen_last30Days,
                 icon: Icons.calendar_month,
                 selected: _selectedRange == DateRange.lastMonth,
                 onSelected: () {
@@ -198,7 +201,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                 },
               ),
               _RangeChip(
-                label: 'Custom range',
+                label: localizations.reportGen_customRange,
                 icon: Icons.edit_calendar_rounded,
                 selected: _selectedRange == DateRange.custom,
                 onSelected: () {
@@ -219,24 +222,24 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                       children: [
                         Expanded(
                           child: _DateCard(
-                            title: 'From',
+                            title: localizations.reportGen_from,
                             value: _customStartDate != null
                                 ? date_utils.DateUtils.formatDate(
                                     _customStartDate!,
                                   )
-                                : 'Select date',
+                                : localizations.consultationSchedule_selectDate,
                             onTap: _selectStartDate,
                           ),
                         ),
                         const SizedBox(width: AppSpacing.md),
                         Expanded(
                           child: _DateCard(
-                            title: 'To',
+                            title: localizations.reportGen_to,
                             value: _customEndDate != null
                                 ? date_utils.DateUtils.formatDate(
                                     _customEndDate!,
                                   )
-                                : 'Select date',
+                                : localizations.consultationSchedule_selectDate,
                             onTap: _selectEndDate,
                           ),
                         ),
@@ -278,7 +281,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                     const SizedBox(width: AppSpacing.md),
                     Expanded(
                       child: Text(
-                        'Your report will include',
+                        localizations.reportGen_includeTitle,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
@@ -287,10 +290,10 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
                   ],
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                _buildCheckItem('Full meal log history for the period'),
-                _buildCheckItem('Adherence and consistency insights'),
-                _buildCheckItem('Client notes and alternative selections'),
-                _buildCheckItem('Weekly summaries ready to share'),
+                _buildCheckItem(context, localizations.reportGen_include1),
+                _buildCheckItem(context, localizations.reportGen_include2),
+                _buildCheckItem(context, localizations.reportGen_include3),
+                _buildCheckItem(context, localizations.reportGen_include4),
               ],
             ),
           ),
@@ -298,7 +301,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
           ElevatedButton.icon(
             onPressed: _generateReport,
             icon: const Icon(Icons.play_arrow_rounded),
-            label: const Text('Generate report'),
+            label: Text(localizations.reportGen_button),
           ),
           const SizedBox(height: AppSpacing.lg),
         ],
@@ -306,7 +309,7 @@ class _ReportGenerationScreenState extends State<ReportGenerationScreen> {
     );
   }
 
-  Widget _buildCheckItem(String text) {
+  Widget _buildCheckItem(BuildContext context, String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
       child: Row(
@@ -391,7 +394,12 @@ class _DateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isPlaceholder = value == 'Select date';
+    // Note: We can't rely on exact string match for localized 'Select date' 
+    // to determine if it is placeholder easily if we don't pass the localization or key.
+    // But styling might be fine either way, or we pass a boolean isPlaceholder.
+    // For now I'll check if it matches the localized string in build.
+    final localizations = AppLocalizations.of(context)!;
+    final isPlaceholder = value == localizations.consultationSchedule_selectDate;
 
     return InkWell(
       onTap: onTap,

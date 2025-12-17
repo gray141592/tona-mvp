@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
-import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
 import '../../../data/models/consultation_appointment.dart';
 import 'consultation_appointment_card.dart';
 
@@ -33,6 +34,7 @@ class ConsultationOverviewSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final last = lastAppointment;
     final hasLinkedPlan = last != null &&
         (last.linkedMealPlan != null || last.outcome?.mealPlan?.plan != null);
@@ -42,14 +44,14 @@ class ConsultationOverviewSection extends StatelessWidget {
       children: [
         if (nextAppointment != null) ...[
           Text(
-            'Upcoming',
+            localizations.consultationOverview_upcoming,
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
           ),
           const SizedBox(height: AppSpacing.md),
           ConsultationAppointmentCard(
-            label: 'Next appointment',
+            label: localizations.consultationOverview_nextAppointment,
             appointment: nextAppointment!,
             isEmphasised: true,
             showOutcomeDetails: false,
@@ -64,8 +66,8 @@ class ConsultationOverviewSection extends StatelessWidget {
                 icon: const Icon(Icons.event_available_rounded),
                 label: Text(
                   isNextAddedToSchedule
-                      ? 'Added to schedule'
-                      : 'Add to schedule',
+                      ? localizations.consultationOverview_addedToSchedule
+                      : localizations.consultationOverview_addToSchedule,
                 ),
               ),
               hasPreparedReport
@@ -74,7 +76,7 @@ class ConsultationOverviewSection extends StatelessWidget {
                           ? null
                           : () => onOpenReport!(nextAppointment!),
                       icon: const Icon(Icons.description_rounded),
-                      label: const Text('Open report'),
+                      label: Text(localizations.openPreparedReport),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryDark,
                       ),
@@ -84,7 +86,7 @@ class ConsultationOverviewSection extends StatelessWidget {
                           ? null
                           : () => onPrepareReport!(nextAppointment!),
                       icon: const Icon(Icons.description_rounded),
-                      label: const Text('Prepare report'),
+                      label: Text(localizations.consultationOverview_prepareReport),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryDark,
                       ),
@@ -95,14 +97,14 @@ class ConsultationOverviewSection extends StatelessWidget {
         ],
         if (last != null) ...[
           Text(
-            'Most recent visit',
+            localizations.consultationOverview_mostRecent,
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
           ),
           const SizedBox(height: AppSpacing.md),
           ConsultationAppointmentCard(
-            label: 'Last appointment',
+            label: localizations.consultationOverview_lastAppointment,
             appointment: last,
             isEmphasised: false,
             showOutcomeDetails: true,
@@ -112,13 +114,13 @@ class ConsultationOverviewSection extends StatelessWidget {
                 OutlinedButton.icon(
                   onPressed: () => onAttachMealPlan!(last),
                   icon: const Icon(Icons.link_rounded),
-                  label: const Text('Link current meal plan'),
+                  label: Text(localizations.consultationOverview_linkMealPlan),
                 ),
               if (hasLinkedPlan && onViewMealPlan != null)
                 TextButton.icon(
                   onPressed: () => onViewMealPlan!(last),
                   icon: const Icon(Icons.restaurant_menu_rounded),
-                  label: const Text('View meal plan'),
+                  label: Text(localizations.consultationOverview_viewMealPlan),
                 ),
             ],
           ),

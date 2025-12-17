@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -380,7 +381,7 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
     return progress.clamp(0.0, 1.0).toDouble();
   }
 
-  Widget _buildActionIndicator(double swipeProgress) {
+  Widget _buildActionIndicator(double swipeProgress, AppLocalizations localizations) {
     if (_swipeDirection == SwipeDirection.none || _isCompleting) {
       return const SizedBox.shrink();
     }
@@ -441,7 +442,9 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          isLeft ? 'Followed meal' : 'Skipped meal',
+                          isLeft
+                              ? localizations.dashboard_followedMeal
+                              : localizations.dashboard_skippedMeal,
                           style: AppTypography.titleLarge.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
@@ -450,8 +453,8 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
                         const SizedBox(height: AppSpacing.xs),
                         Text(
                           isLeft
-                              ? 'Logged exactly as planned'
-                              : 'Marked as skipped for today',
+                              ? localizations.dashboard_loggedExactly
+                              : localizations.dashboard_markedSkipped,
                           style: AppTypography.bodySmall.copyWith(
                             color: Colors.white.withValues(alpha: 0.9),
                           ),
@@ -481,7 +484,7 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
     );
   }
 
-  Widget _buildThankYouOverlay() {
+  Widget _buildThankYouOverlay(AppLocalizations localizations) {
     if (!_showThankYou) return const SizedBox.shrink();
 
     return AnimatedBuilder(
@@ -489,10 +492,12 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
       builder: (context, child) {
         final isFollowed = _lastCompletedDirection == SwipeDirection.left;
         final icon = isFollowed ? Icons.check_circle : Icons.remove_circle;
-        final title = isFollowed ? 'Followed meal' : 'Skipped meal';
+        final title = isFollowed
+            ? localizations.dashboard_followedMeal
+            : localizations.dashboard_skippedMeal;
         final subtitle = isFollowed
-            ? 'Thanks for staying on track!'
-            : 'Noted, we\'ll adjust your plan.';
+            ? localizations.dashboard_thanksTrack
+            : localizations.dashboard_notedAdjust;
         final gradientColors = isFollowed
             ? [
                 AppColors.success.withValues(alpha: 0.96),
@@ -564,7 +569,7 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
     );
   }
 
-  Widget _buildLoggingPreview() {
+  Widget _buildLoggingPreview(AppLocalizations localizations) {
     if (!_isCompleting || _showThankYou) return const SizedBox.shrink();
 
     final meal = widget.entry.meal;
@@ -578,8 +583,12 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
             AppColors.error.withValues(alpha: 0.95),
             AppColors.warning.withValues(alpha: 0.9),
           ];
-    final title = isLeft ? 'Following recipe' : 'Skipping meal';
-    final subtitle = isLeft ? 'Logging your meal...' : 'Marking as skipped...';
+    final title = isLeft
+        ? localizations.dashboard_followingRecipe
+        : localizations.dashboard_skippingMeal;
+    final subtitle = isLeft
+        ? localizations.dashboard_loggingMeal
+        : localizations.dashboard_markingSkipped;
 
     return Positioned.fill(
       child: IgnorePointer(
@@ -690,7 +699,7 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
     );
   }
 
-  Widget _buildLogAlternativeButton(Meal meal) {
+  Widget _buildLogAlternativeButton(Meal meal, AppLocalizations localizations) {
     final isDisabled = widget.isLogging || _isCompleting;
 
     return AnimatedOpacity(
@@ -702,7 +711,7 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
         child: TextButton.icon(
           onPressed: isDisabled ? null : () => _handleAlternativePressed(meal),
           icon: const Icon(Icons.restaurant_menu_outlined, size: 24),
-          label: const Text('Log something else'),
+          label: Text(localizations.dashboard_logSomethingElse),
         ),
       ),
     );
@@ -717,16 +726,17 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final meal = widget.entry.meal;
     final isOverdue = widget.entry.state == MealTimelineState.overdue;
     final isDue = widget.entry.state == MealTimelineState.dueNow;
 
     final statusLabel = switch (widget.entry.state) {
-      MealTimelineState.overdue => 'Catch up',
-      MealTimelineState.dueNow => 'Log now',
-      MealTimelineState.upcomingSoon => 'Coming up',
-      MealTimelineState.upcomingFar => 'Next meal',
-      MealTimelineState.logged => 'Logged',
+      MealTimelineState.overdue => localizations.dashboard_catchUp,
+      MealTimelineState.dueNow => localizations.dashboard_logNow,
+      MealTimelineState.upcomingSoon => localizations.dashboard_comingUp,
+      MealTimelineState.upcomingFar => localizations.dashboard_nextMeal,
+      MealTimelineState.logged => localizations.dashboard_logged,
     };
 
     final statusColor = switch (widget.entry.state) {
@@ -755,19 +765,29 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
     final scheduleLine = switch (widget.entry.state) {
       MealTimelineState.overdue ||
       MealTimelineState.dueNow =>
-        'Scheduled ${meal.timeScheduled} • ${relativeTimeLabel(widget.entry.timeDifference)}',
+        localizations.dashboard_scheduled(
+          meal.timeScheduled,
+          relativeTimeLabel(widget.entry.timeDifference, localizations),
+        ),
       MealTimelineState.upcomingSoon ||
       MealTimelineState.upcomingFar =>
-        '${meal.timeScheduled} • ${meal.mealType.displayName} • ${relativeTimeLabel(widget.entry.timeDifference)}',
-      MealTimelineState.logged =>
-        '${meal.timeScheduled} • ${meal.mealType.displayName}',
+        localizations.dashboard_scheduled_full(
+          meal.timeScheduled,
+          meal.mealType.displayName,
+          relativeTimeLabel(widget.entry.timeDifference, localizations),
+        ),
+      MealTimelineState.logged => localizations.dashboard_logged_full(
+          meal.timeScheduled,
+          meal.mealType.displayName,
+        ),
     };
 
     return SizedBox(
       child: Stack(
         children: [
-          if (_isCompleting && !_showThankYou) _buildLoggingPreview(),
-          if (_showThankYou) _buildThankYouOverlay(),
+          if (_isCompleting && !_showThankYou)
+            _buildLoggingPreview(localizations),
+          if (_showThankYou) _buildThankYouOverlay(localizations),
           AnimatedBuilder(
             animation: Listenable.merge([
               _rotationController,
@@ -980,7 +1000,8 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
                                   child: AnimatedOpacity(
                                     duration: const Duration(milliseconds: 160),
                                     opacity: hintOpacity,
-                                    child: _buildLogAlternativeButton(meal),
+                                    child: _buildLogAlternativeButton(
+                                        meal, localizations),
                                   ),
                                 ),
                                 if (_showSwipeHint &&
@@ -992,7 +1013,8 @@ class _DashboardMealFocusCardState extends State<DashboardMealFocusCard>
                                       unawaited(_handleSwipeHintCompleted());
                                     },
                                   ),
-                                _buildActionIndicator(swipeProgress),
+                                _buildActionIndicator(
+                                    swipeProgress, localizations),
                               ],
                             ),
                           ),

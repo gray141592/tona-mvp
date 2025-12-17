@@ -51,7 +51,7 @@ class DashboardMenu extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.16),
+                    color: Colors.black.withValues(alpha: 0.16),
                     blurRadius: 28,
                     offset: const Offset(6, 0),
                   ),
@@ -73,7 +73,7 @@ class DashboardMenu extends StatelessWidget {
                     const SizedBox(height: AppSpacing.lg),
                     _buildTile(
                       icon: Icons.show_chart_outlined,
-                      label: 'Progress',
+                      label: localizations.menuProgress,
                       onTap: () {
                         onClose();
                         onWeeklyProgress();
@@ -81,7 +81,7 @@ class DashboardMenu extends StatelessWidget {
                     ),
                     _buildTile(
                       icon: Icons.calendar_today_outlined,
-                      label: 'Consultations',
+                      label: localizations.consultations,
                       onTap: () {
                         onClose();
                         onConsultations();
@@ -89,7 +89,7 @@ class DashboardMenu extends StatelessWidget {
                     ),
                     _buildTile(
                       icon: Icons.shopping_cart_outlined,
-                      label: 'Groceries list',
+                      label: localizations.groceriesList,
                       onTap: () {
                         onClose();
                         onGroceries();
@@ -97,7 +97,7 @@ class DashboardMenu extends StatelessWidget {
                     ),
                     _buildTile(
                       icon: Icons.restaurant_menu,
-                      label: 'Meal plan overview',
+                      label: localizations.mealPlanOverviewTitle,
                       onTap: () {
                         onClose();
                         onMealPlanOverview();
@@ -115,7 +115,7 @@ class DashboardMenu extends StatelessWidget {
                     TextButton.icon(
                       onPressed: onClose,
                       icon: const Icon(Icons.close_rounded),
-                      label: const Text('Close menu'),
+                      label: Text(localizations.dashboardMenu_closeMenu),
                     ),
                   ],
                 ),
@@ -137,7 +137,7 @@ class DashboardMenu extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(AppSpacing.sm),
         decoration: BoxDecoration(
-          color: AppColors.primary.withOpacity(0.1),
+          color: AppColors.primary.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Icon(icon, color: AppColors.primary),

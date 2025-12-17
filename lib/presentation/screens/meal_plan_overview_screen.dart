@@ -140,7 +140,7 @@ class _MealPlanOverviewScreenState extends State<MealPlanOverviewScreen>
               const SizedBox(height: AppSpacing.md),
               Expanded(
                 child: mealsForSelectedDay.isEmpty
-                    ? _EmptyMealsView()
+                    ? const _EmptyMealsView()
                     : ListView.builder(
                         padding: const EdgeInsets.symmetric(
                           horizontal: AppSpacing.md,

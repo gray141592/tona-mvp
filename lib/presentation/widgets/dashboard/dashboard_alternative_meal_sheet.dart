@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
@@ -88,6 +89,7 @@ class _DashboardAlternativeMealSheetState
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final viewInsets = MediaQuery.of(context).viewInsets.bottom;
 
     return Padding(
@@ -122,7 +124,9 @@ class _DashboardAlternativeMealSheetState
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 Text(
-                  widget.isUnplanned ? 'Add unplanned meal' : 'Log alternative',
+                  widget.isUnplanned
+                      ? localizations.alternativeMeal_addUnplannedTitle
+                      : localizations.alternativeMeal_logAlternativeTitle,
                   style: AppTypography.titleLarge.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -141,16 +145,16 @@ class _DashboardAlternativeMealSheetState
                   controller: _alternativeController,
                   decoration: InputDecoration(
                     labelText: widget.isUnplanned
-                        ? 'What did you eat?'
-                        : 'What did you eat instead?',
+                        ? localizations.alternativeMeal_whatDidYouEat
+                        : localizations.alternativeMeal_whatDidYouEatInstead,
                     hintText: widget.isUnplanned
-                        ? 'Describe the meal...'
-                        : 'Describe the meal you had...',
+                        ? localizations.alternativeMeal_describeMeal
+                        : localizations.alternativeMeal_describeMealHad,
                   ),
                   maxLines: 3,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please provide a short description';
+                      return localizations.alternativeMeal_validationError;
                     }
                     return null;
                   },
@@ -158,14 +162,14 @@ class _DashboardAlternativeMealSheetState
                 const SizedBox(height: AppSpacing.lg),
                 TextFormField(
                   controller: _notesController,
-                  decoration: const InputDecoration(
-                    labelText: 'Notes (optional)',
+                  decoration: InputDecoration(
+                    labelText: localizations.alternativeMeal_notesOptional,
                   ),
                   maxLines: 3,
                 ),
                 const SizedBox(height: AppSpacing.lg),
                 Text(
-                  'Blood sugar impact',
+                  localizations.alternativeMeal_bloodSugarImpact,
                   style: AppTypography.titleMedium.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -176,9 +180,9 @@ class _DashboardAlternativeMealSheetState
                   onChanged: (value) => setState(() {
                     _containsSugar = value;
                   }),
-                  title: const Text('Contains added sugar'),
-                  subtitle: const Text(
-                    'Mark if the alternative meal includes refined sugar or sweet syrups.',
+                  title: Text(localizations.alternativeMeal_containsSugar),
+                  subtitle: Text(
+                    localizations.alternativeMeal_containsSugarSubtitle,
                   ),
                 ),
                 SwitchListTile.adaptive(
@@ -189,18 +193,18 @@ class _DashboardAlternativeMealSheetState
                   }),
                   title: Row(
                     children: [
-                      const Expanded(
-                        child: Text('High glycemic index'),
+                      Expanded(
+                        child: Text(localizations.alternativeMeal_highGI),
                       ),
                       IconButton(
                         onPressed: _openGlycemicInfoScreen,
                         icon: const Icon(Icons.info_outline),
-                        tooltip: 'Glycemic index guide',
+                        tooltip: localizations.glycemicIndexQuickGuide,
                       ),
                     ],
                   ),
-                  subtitle: const Text(
-                    'Select when the meal is likely to cause a sharp blood sugar spike.',
+                  subtitle: Text(
+                    localizations.alternativeMeal_highGISubtitle,
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
@@ -215,15 +219,15 @@ class _DashboardAlternativeMealSheetState
                       : const Icon(Icons.save_outlined),
                   label: Text(
                     _isSaving
-                        ? 'Saving...'
+                        ? localizations.alternativeMeal_saving
                         : widget.isUnplanned
-                            ? 'Save meal'
-                            : 'Save alternative',
+                            ? localizations.alternativeMeal_saveMeal
+                            : localizations.alternativeMeal_saveAlternative,
                   ),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
+                  child: Text(localizations.cancel),
                 ),
               ],
             ),

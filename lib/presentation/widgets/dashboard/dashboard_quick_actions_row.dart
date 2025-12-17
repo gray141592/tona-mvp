@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -16,14 +17,15 @@ class DashboardQuickActionsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return IntrinsicHeight(
       child: Row(
         children: [
           Expanded(
             child: _buildCard(
               icon: Icons.shopping_cart_outlined,
-              title: 'Groceries',
-              subtitle: 'Generate your list',
+              title: localizations.quickActions_groceriesTitle,
+              subtitle: localizations.quickActions_groceriesSubtitle,
               onTap: onOpenGroceries,
             ),
           ),
@@ -31,8 +33,8 @@ class DashboardQuickActionsRow extends StatelessWidget {
           Expanded(
             child: _buildCard(
               icon: Icons.add_circle_outline,
-              title: 'Add unplanned meal',
-              subtitle: 'Log a meal not in plan',
+              title: localizations.quickActions_addUnplannedTitle,
+              subtitle: localizations.quickActions_addUnplannedSubtitle,
               onTap: onAddUnplannedMeal,
             ),
           ),

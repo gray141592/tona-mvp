@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
@@ -20,6 +21,7 @@ class DashboardUpcomingMealsPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (entries.isEmpty) return const SizedBox.shrink();
+    final localizations = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
@@ -49,7 +51,7 @@ class DashboardUpcomingMealsPreview extends StatelessWidget {
               ),
               const SizedBox(width: AppSpacing.md),
               Text(
-                'Coming up',
+                localizations.dashboard_comingUp,
                 style: AppTypography.titleLarge.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -60,7 +62,7 @@ class DashboardUpcomingMealsPreview extends StatelessWidget {
           ...entries.take(3).map(
                 (entry) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                  child: _buildTile(entry),
+                  child: _buildTile(entry, localizations),
                 ),
               ),
         ],
@@ -68,7 +70,8 @@ class DashboardUpcomingMealsPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildTile(MealTimelineEntry entry) {
+  Widget _buildTile(
+      MealTimelineEntry entry, AppLocalizations localizations) {
     final meal = entry.meal;
     final isSoon = entry.state == MealTimelineState.upcomingSoon;
     final accentColor = isSoon ? AppColors.primary : AppColors.textSecondary;
@@ -96,7 +99,10 @@ class DashboardUpcomingMealsPreview extends StatelessWidget {
                 ),
               ),
               Text(
-                '${meal.timeScheduled} • ${relativeTimeLabel(entry.timeDifference)}',
+                localizations.dashboard_scheduled(
+                  meal.timeScheduled,
+                  relativeTimeLabel(entry.timeDifference, localizations),
+                ),
                 style: AppTypography.bodySmall.copyWith(
                   color: accentColor,
                 ),

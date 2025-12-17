@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import 'package:tona_mvp/presentation/widgets/waiting_screen_shell.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
@@ -29,16 +30,6 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
   late AnimationController _controller;
   int _selectedDayIndex = 0; // 0 = Monday, 6 = Sunday
 
-  final List<String> _dayNames = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -64,6 +55,18 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
       ..sort((a, b) => a.timeScheduled.compareTo(b.timeScheduled));
   }
 
+  List<String> _getDayNames(AppLocalizations localizations) {
+    return [
+      localizations.day_monday,
+      localizations.day_tuesday,
+      localizations.day_wednesday,
+      localizations.day_thursday,
+      localizations.day_friday,
+      localizations.day_saturday,
+      localizations.day_sunday,
+    ];
+  }
+
   void _openMealDrawer(Meal meal) {
     showModalBottomSheet<void>(
       context: context,
@@ -75,6 +78,9 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final dayNames = _getDayNames(localizations);
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) {
@@ -84,9 +90,9 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
         widget.onCancel();
       },
       child: WaitingScreenShell(
-        title: 'Review Meal Plan',
+        title: localizations.mealPlanReview_title,
         subtitle: _DaySelectorSection(
-          dayNames: _dayNames,
+          dayNames: dayNames,
           selectedDayIndex: _selectedDayIndex,
           onDaySelected: (index) {
             setState(() {
@@ -122,7 +128,7 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
                     vertical: AppSpacing.md,
                   ),
                 ),
-                child: const Text('Change File'),
+                child: Text(localizations.mealPlanReview_changeFile),
               ),
             ),
             const SizedBox(width: AppSpacing.md),
@@ -135,7 +141,7 @@ class _MealPlanReviewScreenState extends State<MealPlanReviewScreen>
                     vertical: AppSpacing.md,
                   ),
                 ),
-                child: const Text('Confirm Plan'),
+                child: Text(localizations.mealPlanReview_confirmPlan),
               ),
             ),
           ],
@@ -211,6 +217,7 @@ class _EmptyMealsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -222,7 +229,7 @@ class _EmptyMealsView extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'No meals scheduled',
+            localizations.noMealsScheduled,
             style: AppTypography.bodyLarge.copyWith(
               color: AppColors.textSecondary,
             ),

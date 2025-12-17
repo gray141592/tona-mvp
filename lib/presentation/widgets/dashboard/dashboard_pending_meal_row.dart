@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -214,6 +215,7 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     final meal = widget.entry.meal;
     final isOverdue = widget.entry.state == MealTimelineState.overdue;
     final isDueNow = widget.entry.state == MealTimelineState.dueNow;
@@ -243,13 +245,15 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
         .toList(growable: false);
 
     final statusLabel = isOverdue
-        ? 'Catch up'
+        ? localizations.dashboard_catchUp
         : isDueNow
-            ? 'Log now'
-            : 'Needs attention';
+            ? localizations.dashboard_logNow
+            : localizations.dashboard_needsAttention;
 
-    final scheduleLine =
-        'Scheduled ${meal.timeScheduled} • ${relativeTimeLabel(widget.entry.timeDifference)}';
+    final scheduleLine = localizations.dashboard_scheduled(
+      meal.timeScheduled,
+      relativeTimeLabel(widget.entry.timeDifference, localizations),
+    );
 
     final bool dimForGlobalLogging =
         widget.isLogging && _completionPhase == _CompletionPhase.idle;
@@ -366,7 +370,7 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
                               ? null
                               : _handleAlternativePressed,
                           icon: const Icon(Icons.edit_note_outlined, size: 20),
-                          label: const Text('Log something else'),
+                          label: Text(localizations.dashboard_logSomethingElse),
                         ),
                       ),
                     ],
@@ -383,7 +387,7 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
                     onCompleted: _handleSwipeCoachCompleted,
                   ),
                 if (_completionPhase != _CompletionPhase.idle)
-                  Positioned.fill(child: _buildCompletionOverlay()),
+                  Positioned.fill(child: _buildCompletionOverlay(localizations)),
               ],
             ),
           ),
@@ -392,7 +396,7 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
     );
   }
 
-  Widget _buildCompletionOverlay() {
+  Widget _buildCompletionOverlay(AppLocalizations localizations) {
     final isLoading = _completionPhase == _CompletionPhase.loading;
     final direction = _swipeDirection;
     final Color accentColor = direction == _SwipeDirection.left
@@ -433,8 +437,8 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
                     const SizedBox(height: AppSpacing.sm),
                     Text(
                       direction == _SwipeDirection.left
-                          ? 'Great job!'
-                          : 'Noted',
+                          ? localizations.dashboard_greatJob
+                          : localizations.dashboard_noted,
                       style: AppTypography.titleMedium.copyWith(
                         color: AppColors.textPrimary,
                         fontWeight: FontWeight.w700,
@@ -442,7 +446,7 @@ class _DashboardPendingMealRowState extends State<DashboardPendingMealRow> {
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
-                      'Log was successfully saved',
+                      localizations.dashboard_logSuccess,
                       style: AppTypography.bodySmall.copyWith(
                         color: AppColors.textSecondary,
                         fontWeight: FontWeight.w600,

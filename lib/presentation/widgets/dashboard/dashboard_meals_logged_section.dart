@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
@@ -18,6 +19,7 @@ class DashboardMealsLoggedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -45,15 +47,19 @@ class DashboardMealsLoggedSection extends StatelessWidget {
                 child: const Icon(Icons.verified, color: AppColors.success),
               ),
               const SizedBox(width: AppSpacing.md),
-              Text(
-                'Meals logged',
-                style: AppTypography.titleLarge.copyWith(
-                  fontWeight: FontWeight.w700,
+              Flexible(
+                child: Text(
+                  localizations.dashboard_mealsLogged,
+                  style: AppTypography.titleLarge.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const Spacer(),
               Text(
-                '${entries.length} of $totalMealsForDay logged',
+                localizations.dashboard_mealsLoggedCount(
+                    entries.length, totalMealsForDay),
                 style: AppTypography.bodySmall.copyWith(
                   color: AppColors.textSecondary,
                 ),
@@ -70,20 +76,21 @@ class DashboardMealsLoggedSection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Text(
-                'Nothing logged yet. Your updates will appear here.',
+                localizations.dashboard_nothingLogged,
                 style: AppTypography.bodyMedium.copyWith(
                   color: AppColors.textSecondary,
                 ),
               ),
             )
           else
-            ...entries.map((entry) => _buildRow(entry)),
+            ...entries.map((entry) => _buildRow(entry, localizations)),
         ],
       ),
     );
   }
 
-  Widget _buildRow(DashboardMealLogEntry entry) {
+  Widget _buildRow(
+      DashboardMealLogEntry entry, AppLocalizations localizations) {
     final statusInfo = _statusVisuals(entry.log.status);
 
     return Container(
@@ -117,7 +124,7 @@ class DashboardMealsLoggedSection extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
-                  entry.log.status.displayName,
+                  _getStatusLabel(entry.log.status, localizations),
                   style: AppTypography.bodySmall.copyWith(
                     color: statusInfo.color,
                     fontWeight: FontWeight.w600,
@@ -138,15 +145,15 @@ class DashboardMealsLoggedSection extends StatelessWidget {
                     runSpacing: AppSpacing.xs,
                     children: [
                       if (entry.log.containsSugar == true)
-                        const _ImpactPill(
+                        _ImpactPill(
                           icon: Icons.cake_outlined,
-                          label: 'Contains sugar',
+                          label: localizations.dashboard_containsSugar,
                           color: AppColors.error,
                         ),
                       if (entry.log.hasHighGlycemicIndex == true)
-                        const _ImpactPill(
+                        _ImpactPill(
                           icon: Icons.trending_up_outlined,
-                          label: 'High GI',
+                          label: localizations.dashboard_highGI,
                           color: AppColors.warning,
                         ),
                     ],
@@ -173,6 +180,17 @@ class DashboardMealsLoggedSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _getStatusLabel(MealLogStatus status, AppLocalizations localizations) {
+    switch (status) {
+      case MealLogStatus.followed:
+        return localizations.status_followed;
+      case MealLogStatus.alternative:
+        return localizations.status_alternative;
+      case MealLogStatus.skipped:
+        return localizations.status_skipped;
+    }
   }
 
   _StatusVisuals _statusVisuals(MealLogStatus status) => switch (status) {

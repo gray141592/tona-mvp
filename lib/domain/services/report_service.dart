@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../data/models/client.dart';
 import '../../data/models/meal_log.dart';
+import '../../data/models/meal_log_status.dart';
 import '../../data/repositories/meal_log_repository.dart';
 import '../../data/repositories/meal_plan_repository.dart';
 import '../../core/utils/adherence_utils.dart';
@@ -22,6 +24,7 @@ class ReportService {
     required DateTime startDate,
     required DateTime endDate,
     required Client client,
+    required AppLocalizations localizations,
   }) async {
     final pdf = pw.Document();
     final logs = mealLogRepository.getLogsForDateRange(startDate, endDate);
@@ -72,46 +75,50 @@ class ReportService {
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Text(
-                'Progress Report',
+                localizations.reportText_title,
                 style: pw.TextStyle(
                   fontSize: 24,
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: 20),
-              pw.Text('Client: ${client.name}'),
-              pw.Text('Email: ${client.email}'),
+              pw.Text(localizations.reportText_client(client.name)),
+              pw.Text(localizations.reportText_email(client.email)),
               pw.Text(
-                'Period: ${DateUtils.formatDate(startDate)} - ${DateUtils.formatDate(endDate)}',
+                localizations.reportText_period(
+                  DateUtils.formatDate(startDate),
+                  DateUtils.formatDate(endDate),
+                ),
               ),
               pw.Divider(),
               pw.SizedBox(height: 20),
               pw.Text(
-                'Summary',
+                localizations.reportText_summary,
                 style: pw.TextStyle(
                   fontSize: 18,
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: 10),
-              pw.Text('Total Meals: $totalMeals'),
+              pw.Text(localizations.reportText_totalMeals(totalMeals)),
               pw.Text(
-                'Meals Followed: $mealsFollowed (${adherencePercentage.toStringAsFixed(1)}%)',
+                '${localizations.reportText_mealsFollowed(mealsFollowed)} (${adherencePercentage.toStringAsFixed(1)}%)',
               ),
-              pw.Text('Alternative Meals: $mealsWithAlternatives'),
-              pw.Text('Skipped Meals: $mealsSkipped'),
-              pw.Text('Meals due so far: $dueMeals'),
-              pw.Text('Unlogged meals due: $unloggedDueMeals'),
+              pw.Text(localizations
+                  .reportText_mealsAlternatives(mealsWithAlternatives)),
+              pw.Text(localizations.reportText_mealsSkipped(mealsSkipped)),
+              pw.Text(localizations.reportText_mealsDue(dueMeals)),
+              pw.Text(localizations.reportText_unloggedDue(unloggedDueMeals)),
               pw.SizedBox(height: 20),
               pw.Text(
-                'Daily Breakdown',
+                localizations.reportText_dailyBreakdown,
                 style: pw.TextStyle(
                   fontSize: 18,
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: 10),
-              ..._buildDailyBreakdown(logs, startDate, endDate),
+              ..._buildDailyBreakdown(logs, startDate, endDate, localizations),
             ],
           );
         },
@@ -121,10 +128,23 @@ class ReportService {
     return pdf.save();
   }
 
+  String _getLocalizedStatus(
+      AppLocalizations localizations, MealLogStatus status) {
+    switch (status) {
+      case MealLogStatus.followed:
+        return localizations.report_followed;
+      case MealLogStatus.alternative:
+        return localizations.report_alternatives;
+      case MealLogStatus.skipped:
+        return localizations.report_skipped;
+    }
+  }
+
   List<pw.Widget> _buildDailyBreakdown(
     List<MealLog> logs,
     DateTime startDate,
     DateTime endDate,
+    AppLocalizations localizations,
   ) {
     final widgets = <pw.Widget>[];
 
@@ -153,7 +173,7 @@ class ReportService {
               (log) => pw.Padding(
                 padding: const pw.EdgeInsets.only(left: 20, bottom: 5),
                 child: pw.Text(
-                  '${DateUtils.formatTime(log.loggedTime)} - ${log.status.displayName}${log.notes != null ? ": ${log.notes}" : ""}',
+                  '${DateUtils.formatTime(log.loggedTime)} - ${_getLocalizedStatus(localizations, log.status)}${log.notes != null ? ": ${log.notes}" : ""}',
                   style: const pw.TextStyle(fontSize: 12),
                 ),
               ),

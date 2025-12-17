@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:tona_mvp/l10n/app_localizations.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
@@ -9,6 +10,7 @@ class DashboardAllMealsLoggedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -37,7 +39,7 @@ class DashboardAllMealsLoggedCard extends StatelessWidget {
               ),
               const SizedBox(width: AppSpacing.md),
               Text(
-                'All meals logged!',
+                localizations.dashboard_allMealsLogged,
                 style: AppTypography.titleLarge.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -46,7 +48,7 @@ class DashboardAllMealsLoggedCard extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
-            'Great job staying on track today. You can review your entries or jump into the schedule for upcoming days.',
+            localizations.dashboard_allMealsLoggedBody,
             style: AppTypography.bodyMedium.copyWith(
               color: AppColors.textSecondary,
             ),

@@ -15,6 +15,11 @@ class MealPlanProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearMealPlan() {
+    _repository.clearMealPlan();
+    notifyListeners();
+  }
+
   List<Meal> getMealsForDate(DateTime date) {
     return _repository.getMealsForDate(date);
   }
